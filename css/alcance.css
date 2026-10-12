@@ -274,6 +274,47 @@
   color: var(--tinta-suave);
 }
 
+/* Tablas de modelos y validación */
+.alcance-tabla {
+  margin: 1.75rem 0;
+  overflow-x: auto;
+  border: 1px solid var(--linea);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--panel) 55%, transparent);
+}
+.alcance-tabla table { width: 100%; border-collapse: collapse; font-size: 0.9rem; line-height: 1.5; }
+.alcance-tabla th {
+  padding: 0.8rem 1rem;
+  text-align: left;
+  font-size: 0.74rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: normal;
+  color: var(--acento);
+  border-bottom: 1px solid var(--linea);
+  white-space: nowrap;
+}
+.alcance-tabla td { padding: 0.75rem 1rem; color: var(--tinta-suave); border-top: 1px solid var(--linea); vertical-align: top; }
+.alcance-tabla tbody tr:first-child td { border-top: 0; }
+.alcance-tabla td:first-child { color: var(--texto); min-width: 9rem; }
+ 
+/* Cifra de precisión dentro de cada tarjeta de fenómeno */
+.alcance-fenomeno .fenomeno-cifra {
+  margin: 0 0 1.25rem;
+  padding: 0.6rem 0.8rem;
+  border-left: 2px solid var(--acento);
+  font-size: 0.9rem;
+  color: var(--texto);
+  flex-grow: 0;
+}
+ 
+/* Lista de limitaciones */
+.alcance-lista { margin: 1.25rem 0 0; padding-left: 1.2rem; max-width: 74ch; color: var(--tinta-suave); font-size: 0.98rem; line-height: 1.7; }
+.alcance-lista li + li { margin-top: 0.4rem; }
+ 
+/* La nota normal es cursiva; la de "no validado" lleva texto corrido */
+#validacion .alcance-nota p { font-style: normal; font-size: 0.98rem; }
+
 /* ───────── RESPONSIVE ───────── */
 @media (max-width: 768px) {
   .alcance-conceptos,

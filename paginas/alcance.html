@@ -143,19 +143,40 @@
             <h2>Modelos de cálculo</h2>
 
             <p>
-              Los fenómenos astronómicos pueden requerir métodos de cálculo
-              diferentes según el objetivo y el nivel de precisión necesario.
-              En este apartado se documentarán los modelos utilizados por
-              AD ASTRA y su aplicación dentro del proyecto.
+              AD ASTRA usa dos niveles de cálculo. Los de <strong>baja precisión</strong>
+              son fórmulas compactas, suficientes para dibujar el reloj y mostrar
+              lecturas generales. Los de <strong>alta precisión</strong> se emplean
+              donde un error de minutos o grados sería visible: fases, eventos y
+              eclipses. Ninguno de los dos pretende sustituir a una efeméride oficial.
             </p>
 
-            <div class="alcance-placeholder">
-              <h3>Modelos utilizados</h3>
-              <p>
-                Documentación pendiente: modelo, fuente, aplicación,
-                intervalo de validez y precisión documentada.
-              </p>
+            <div class="alcance-tabla">
+              <table>
+                <thead>
+                  <tr><th>Elemento</th><th>Método</th><th>Fuente</th><th>Uso en el proyecto</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Sol (baja precisión)</td><td>Longitud media y ecuación del centro</td><td>Fórmulas de almanaque</td><td>Dibujo, altura, hora solar, ecuación del tiempo, salida y puesta</td></tr>
+                  <tr><td>Sol (alta precisión)</td><td>Serie con perturbaciones planetarias y aberración</td><td>Meeus, cap. 25</td><td>Eclipses, fases y eventos</td></tr>
+                  <tr><td>Luna (baja precisión)</td><td>Un término principal en longitud y uno en latitud</td><td>Fórmulas de almanaque</td><td>Orientación en el dibujo y altura sobre el horizonte</td></tr>
+                  <tr><td>Luna (alta precisión)</td><td>Series periódicas de 60 + 60 términos</td><td>Meeus, cap. 47</td><td>Fase, distancia, eclipses y eventos lunares</td></tr>
+                  <tr><td>Fases y lunas nuevas</td><td>Instantes de luna nueva por serie, fases por búsqueda de la elongación exacta</td><td>Meeus, cap. 49 y 48</td><td>Carrusel de eventos, lunario y calendario chino</td></tr>
+                  <tr><td>Eclipses</td><td>Eje de la sombra frente al centro de la Tierra (elementos de Bessel simplificados)</td><td>Geometría propia sobre Meeus</td><td>Detección, clase y instante del máximo</td></tr>
+                  <tr><td>Tiempo terrestre (ΔT)</td><td>Polinomios por tramos</td><td>Espenak y Meeus</td><td>Conversión UTC → TT en los cálculos de alta precisión</td></tr>
+                  <tr><td>Planetas</td><td>Elementos keplerianos y ecuación de Kepler</td><td>JPL (Standish), Tabla 1</td><td>Vista del Sistema Solar (posiciones heliocéntricas)</td></tr>
+                  <tr><td>Calendario chino</td><td>Lunas nuevas, solsticio y términos solares; hora de Pekín</td><td>Reglas del calendario oficial</td><td>Año Nuevo lunar y fracción del año</td></tr>
+                  <tr><td>Cometas</td><td>Elementos orbitales aproximados</td><td>Datos tabulados</td><td>Vista cualitativa de órbitas</td></tr>
+                  <tr><td>Cinturón de asteroides</td><td>Distribución decorativa (170 rocas)</td><td>—</td><td>Solo ilustración, no representa asteroides reales</td></tr>
+                  <tr><td>Contornos terrestres</td><td>Máscara de tierra de 110 m</td><td>Natural Earth</td><td>Mapas y selección de ubicación</td></tr>
+                  <tr><td>Nombre del lugar</td><td>Geocodificación inversa</td><td>OpenStreetMap / Nominatim</td><td>Etiqueta de la ubicación elegida</td></tr>
+                </tbody>
+              </table>
             </div>
+
+            <p class="alcance-aclaracion">
+              Los contornos del Lunario son simplificados: sirven para reconocer
+              la región, no para cartografía lunar.
+            </p>
           </section>
 
           <!-- 03. Precisión por fenómeno -->
@@ -164,9 +185,10 @@
             <h2>Precisión por fenómeno</h2>
 
             <p>
-              Cada cálculo tiene características y fuentes de incertidumbre
-              propias. Por ello, la precisión debe documentarse por separado
-              y no atribuirse de forma general a todo el proyecto.
+              Cada cálculo tiene fuentes de incertidumbre propias, por eso la precisión
+              se documenta por separado. Las cifras siguientes son diferencias medidas
+              frente a una referencia independiente (ver sección 05), no garantías
+              sobre el mundo real.
             </p>
 
             <div class="alcance-fenomenos">
@@ -174,49 +196,70 @@
               <article class="alcance-fenomeno">
                 <h3>El Sol</h3>
                 <p>
-                  Posición solar, declinación, altura y eventos solares.
+                  Declinación y ascensión recta de baja precisión.
                 </p>
-                <a href="#referencias">Consultar modelo y referencias</a>
+                <p class="fenomeno-cifra">Hasta 0,016° (≈ 1′) entre 1900 y 2100.</p>
+                <a href="#modelos">Método y fuentes</a>
               </article>
 
               <article class="alcance-fenomeno">
                 <h3>La Luna</h3>
                 <p>
-                  Posición lunar y aproximaciones utilizadas en los cálculos.
+                  Posición de baja precisión (dibujo y altura) y de alta precisión (eventos).
                 </p>
-                <a href="#referencias">Consultar modelo y referencias</a>
+                <p class="fenomeno-cifra">Baja: mediana 0,3°–0,8°, hasta 2,7°. Alta: unos 15″ como máximo en longitud.</p>
+                <a href="#modelos">Método y fuentes</a>
+              </article>
+
+              <article class="alcance-fenomeno">
+                <h3>Fases lunares</h3>
+                <p>
+                  Fracción iluminada y momento de las fases con el modelo de alta precisión.
+                </p>
+                <p class="fenomeno-cifra">Luna nueva: hasta 1,6 min. Iluminación: menos de 0,02 puntos porcentuales.</p>
+                <a href="#modelos">Método y fuentes</a>
               </article>
 
               <article class="alcance-fenomeno">
                 <h3>Eclipses</h3>
                 <p>
-                  Modelos geométricos, condiciones de cálculo y limitaciones
-                  de las predicciones.
+                  Fecha, clase e instante del máximo.
                 </p>
-                <a href="#referencias">Consultar modelo y referencias</a>
+                <p class="fenomeno-cifra">24 de 24 eclipses de 2026–2030 con fecha y clase correctas; máximo dentro de 30 s respecto a NASA.</p>
+                <a href="#validacion">Cómo se validó</a>
               </article>
 
               <article class="alcance-fenomeno">
-                <h3>Reloj astronómico</h3>
+                <h3>Reloj y analema</h3>
                 <p>
-                  Hora solar, ecuación del tiempo y representación de los ciclos.
+                  Hora solar, ecuación del tiempo, salida y puesta del Sol.
                 </p>
-                <a href="#referencias">Consultar modelo y referencias</a>
+                <p class="fenomeno-cifra">Ecuación del tiempo: hasta 4 s. Salida y puesta: hasta 15 s frente a la referencia, con el mismo criterio de horizonte.</p>
+                <a href="#condiciones">Condiciones de uso</a>
               </article>
 
               <article class="alcance-fenomeno">
-                <h3>Analema</h3>
+                <h3>Planetas</h3>
                 <p>
-                  Representación de la declinación solar y la ecuación del tiempo.
+                  Posición heliocéntrica por elementos keplerianos.
                 </p>
-                <a href="#referencias">Consultar modelo y referencias</a>
+                <p class="fenomeno-cifra">Mediana de 0,08° o menos entre 1800 y 2050. Saturno es el peor caso.</p>
+                <a href="#condiciones">Intervalo de validez</a>
+              </article>
+
+              <article class="alcance-fenomeno">
+                <h3>Calendario chino</h3>
+                <p>
+                  Año Nuevo lunar y fracción del año, con lunas nuevas de serie y solsticio de baja precisión.
+                </p>
+                <p class="fenomeno-cifra">Sin validar de extremo a extremo. El solsticio puede variar hasta 17 min; solo afecta si cae cerca de la medianoche de Pekín.</p>
+                <a href="#validacion">Limitaciones conocidas</a>
               </article>
             </div>
 
             <p class="alcance-aclaracion">
-              Los valores cuantitativos de precisión se incorporarán cuando
-              estén documentados o se hayan contrastado con referencias
-              independientes.
+              Las cifras de la Luna de baja precisión no incluyen paralaje:
+              la altura sobre el horizonte puede diferir hasta cerca de 1° adicional.
             </p>
           </section>
 
@@ -226,17 +269,64 @@
             <h2>Límites temporales y geográficos</h2>
 
             <p>
-              Los resultados pueden depender del intervalo temporal cubierto
-              por el modelo, de la fecha y hora seleccionadas, de las coordenadas
-              geográficas y del tratamiento de las escalas de tiempo.
+              Los resultados dependen del intervalo cubierto por cada modelo,
+              de las coordenadas y del tratamiento del tiempo. El selector de fecha
+              no impide elegir cualquier año, pero fuera de estos intervalos la
+              fiabilidad disminuye.
             </p>
 
-            <div class="alcance-placeholder">
-              <h3>Intervalos y condiciones de validez</h3>
-              <p>
-                Aquí se indicarán los intervalos admitidos, las condiciones
-                de uso y los comportamientos que requieren precaución.
-              </p>
+            <div class="alcance-conceptos">
+              <article class="alcance-concepto">
+                <h3>Intervalo temporal</h3>
+                <p>
+                  Alta precisión: pensada para 1900–2150 y con buen acuerdo medido hasta 2300.
+                  Antes de ~1890 el error crece con rapidez (≈ 18′ en la Luna en 1850 y varios
+                  grados hacia 1800) porque ΔT se extrapola. Planetas: válidos entre 1800 y 2050;
+                  antes de 1800 el error llega a decenas de grados en Mercurio.
+                </p>
+              </article>
+
+              <article class="alcance-concepto">
+                <h3>Tiempo (ΔT)</h3>
+                <p>
+                  Después de 2050, ΔT es una predicción, no una medida. Una incertidumbre
+                  de 100 s desplaza la trayectoria de un eclipse unas decenas de kilómetros
+                  y su hora local en proporción.
+                </p>
+              </article>
+
+              <article class="alcance-concepto">
+                <h3>Zona horaria</h3>
+                <p>
+                  Con ubicación real se usa el huso del dispositivo, con horario de verano.
+                  Con ubicación manual se estima por longitud (lon ÷ 15, redondeada), sin
+                  horario de verano ni husos políticos.
+                </p>
+              </article>
+
+              <article class="alcance-concepto">
+                <h3>Salida y puesta del Sol</h3>
+                <p>
+                  Se calcula el cruce a −0,833° al nivel del mar. No incluye relieve,
+                  altitud del observador ni refracción real; la hora observada puede diferir
+                  de minutos, sobre todo en latitudes altas, y en la región polar se informa
+                  el estado (Sol de medianoche o noche polar).
+                </p>
+              </article>
+
+              <article class="alcance-concepto">
+                <h3>Posición de la Luna</h3>
+                <p>
+                  La altura es geocéntrica: no corrige paralaje ni refracción.
+                </p>
+              </article>
+
+              <article class="alcance-concepto">
+                <h3>Mejor lugar para observar</h3>
+                <p>
+                  Considera geometría y fase de la Luna, no nubosidad ni contaminación lumínica.
+                </p>
+              </article>
             </div>
           </section>
 
@@ -246,19 +336,48 @@
             <h2>Validación y limitaciones conocidas</h2>
 
             <p>
-              La validación permite evaluar el comportamiento de los cálculos
-              mediante su comparación con referencias independientes y pruebas
-              reproducibles.
+              Las pruebas se realizaron en octubre de 2026 comparando el código del
+              proyecto con la biblioteca astronómica <em>ephem</em> (versión 4.2.1)
+              y con el catálogo de eclipses de NASA (Espenak).
             </p>
 
-            <div class="alcance-placeholder">
-              <h3>Pruebas y resultados</h3>
+            <div class="alcance-tabla">
+              <table>
+                <thead>
+                  <tr><th>Prueba</th><th>Muestra</th><th>Resultado</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Sol y Luna, baja y alta precisión</td><td>400 instantes aleatorios por intervalo (2000–2050, 1900–2100, 1800–2200)</td><td>Cifras de la sección 03</td></tr>
+                  <tr><td>Fase y lunas nuevas</td><td>143 lunas nuevas entre 1975 y 2057</td><td>Alta precisión: ≤ 1,6 min. Ciclo medio: hasta 17,6 h</td></tr>
+                  <tr><td>Salida y puesta del Sol</td><td>6 ciudades × 6 fechas, entre 55° S y 65° N</td><td>≤ 15 s con el mismo criterio de horizonte</td></tr>
+                  <tr><td>Eclipses 2026–2030</td><td>24 eclipses (12 solares y 12 lunares)</td><td>24 con fecha y clase correctas; máximo ≤ 30 s respecto a NASA</td></tr>
+                  <tr><td>Planetas</td><td>60 instantes por intervalo</td><td>Mediana ≤ 0,08° en 1800–2050</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p>
+              Una parte de la diferencia del Sol de alta precisión puede deberse a
+              convenciones distintas (nutación y aberración), no solo a error del modelo.
+              Las referencias usan sus propias escalas de ΔT, así que el acuerdo lejos
+              del presente no equivale a verdad independiente.
+            </p>
+
+            <div class="alcance-nota">
+              <h3>Lo que no se ha validado</h3>
               <p>
-                Se documentarán las referencias utilizadas, las diferencias
-                observadas, las pruebas realizadas y las limitaciones pendientes
-                de verificar.
+                Cometas y lluvias de meteoros (vista aproximada), magnitud y trayectoria de los
+                eclipses, calendario chino completo, horas locales de los contactos de un eclipse,
+                contornos del Lunario y exactitud del mapa de tierra.
               </p>
             </div>
+
+            <ul class="alcance-lista">
+              <li>El cinturón de asteroides es decorativo.</li>
+              <li>Las fechas de paso de algunos cometas (Encke, Biela, Halley) se ingresaron a mano y no se han contrastado de forma independiente.</li>
+              <li>La orientación y la altura de la Luna usan el modelo de baja precisión, con las diferencias indicadas arriba.</li>
+              <li>La geocodificación depende de un servicio externo (Nominatim) y puede fallar o tardar.</li>
+            </ul>
           </section>
 
           <!-- 06. Fuentes -->
@@ -267,30 +386,51 @@
             <h2>Fuentes y referencias</h2>
 
             <p>
-              Las fuentes permiten identificar los modelos, métodos y datos
-              utilizados para fundamentar los cálculos de AD ASTRA.
+              Estas fuentes identifican los modelos, métodos y datos usados en los
+              cálculos de AD ASTRA.
             </p>
 
             <ul class="alcance-referencias">
               <li>
                 <span>01</span>
                 <div>
-                  <h3>Modelos y métodos astronómicos</h3>
-                  <p>Referencias técnicas de los algoritmos utilizados.</p>
+                  <h3>Meeus, J. — <em>Astronomical Algorithms</em></h3>
+                  <p>Capítulos 25 (Sol), 47 (Luna), 48 (fase) y 49 (fases lunares). Base de los cálculos de alta precisión.</p>
                 </div>
               </li>
               <li>
                 <span>02</span>
                 <div>
-                  <h3>Fuentes de datos</h3>
-                  <p>Efemérides, catálogos y referencias de comparación.</p>
+                  <h3>JPL — Standish, <em>Keplerian Elements for Approximate Positions of the Major Planets</em></h3>
+                  <p>Tabla 1, válida 1800–2050. Posiciones heliocéntricas de los planetas.</p>
                 </div>
               </li>
               <li>
                 <span>03</span>
                 <div>
-                  <h3>Documentación del proyecto</h3>
-                  <p>Implementación, criterios de validación y limitaciones.</p>
+                  <h3>Espenak y Meeus — ΔT</h3>
+                  <p>Polinomios de la diferencia entre tiempo terrestre y tiempo universal.</p>
+                </div>
+              </li>
+              <li>
+                <span>04</span>
+                <div>
+                  <h3>NASA — Catálogo de eclipses (Espenak)</h3>
+                  <p>Referencia de comparación para eclipses solares y lunares 2026–2030.</p>
+                </div>
+              </li>
+              <li>
+                <span>05</span>
+                <div>
+                  <h3>PyEphem (<em>ephem</em> 4.2.1)</h3>
+                  <p>Referencia independiente para posiciones, fases, estaciones y salida y puesta del Sol.</p>
+                </div>
+              </li>
+              <li>
+                <span>06</span>
+                <div>
+                  <h3>Natural Earth, OpenStreetMap y Nominatim</h3>
+                  <p>Contornos terrestres de 110 m y geocodificación inversa del lugar elegido.</p>
                 </div>
               </li>
             </ul>
