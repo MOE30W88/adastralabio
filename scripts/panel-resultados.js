@@ -117,9 +117,14 @@ function actualizarPanelResultados(ahora) {
   poner("fecha", `${DIAS_SEMANA[p.getUTCDay()]} ${p.getUTCDate()} de ${MESES[p.getUTCMonth()].toLowerCase()}`, `día ${Math.floor(diaDelAnioFraccional(p)) + 1} de ${diasEnAnio(anio)}`);
   poner("huso", textoHusoHorario(husoDelLugar(ahora)), ubicacion.esManual ? "estimado por longitud" : "de tu dispositivo");
  
-  const edad = edadLunar(ahora);
-  const fase = FASES_LUNARES[Math.floor((edad / PERIODO_SINODICO) * 8 + 0.5) % 8];
-  poner("fase", fase, `${Math.round(fraccionIluminada(ahora) * 100)}% iluminada`);
+  const instanteMs = ahora.getTime();
+  const fp = faseLunarPrecisa(instanteMs);
+  const elong = fp.creciente ? fp.elongacion : 360 - fp.elongacion;
+  const fase = FASES_LUNARES[Math.floor(elong / 45 + 0.5) % 8];
+  let kLuna = Math.floor((instanteMs / 86400000 + 2440587.5 - 2451550.09766) / 29.530588861);
+  if (lunaNuevaMeeus(kLuna + 1) <= instanteMs) kLuna++; else if (lunaNuevaMeeus(kLuna) > instanteMs) kLuna--;
+  const edad = (instanteMs - lunaNuevaMeeus(kLuna)) / 86400000;
+  poner("fase", fase, `${Math.round(fp.fraccion * 100)}% iluminada`);
   poner("edadLunar", `${edad.toFixed(1)} días`);
  
   const solar = posicionSolar(ahora);

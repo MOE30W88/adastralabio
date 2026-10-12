@@ -1,0 +1,97 @@
+/* css/matematicas.css — Página Matemáticas: fórmulas (MathML), esquemas SVG y ejemplos.
+   Colores: solo variables de css/tema.css. */
+
+.mat-intro { max-width: 74ch; margin: 0 0 1rem; }
+.mat-intro p { margin: 0 0 1.1rem; font-size: 1.05rem; line-height: 1.75; color: var(--tinta-suave); }
+
+.mat-grupo {
+  margin: clamp(3rem, 6vh, 4.5rem) 0 0;
+  padding-top: 2rem;
+  border-top: 1px solid var(--linea);
+  scroll-margin-top: 90px;
+}
+.mat-grupo:first-of-type { margin-top: 2rem; }
+.mat-grupo h2 { margin: 0 0 0.4rem; font-size: clamp(1.5rem, 2.6vw, 2.05rem); font-weight: normal; color: var(--texto); }
+.mat-grupo > p { margin: 0 0 1rem; max-width: 70ch; font-size: 1rem; line-height: 1.7; color: var(--tinta-tenue); }
+
+.mat-item {
+  margin: 2.25rem 0 0;
+  padding: 1.6rem 1.7rem;
+  border: 1px solid var(--linea);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--panel) 62%, transparent);
+  backdrop-filter: blur(8px);
+  scroll-margin-top: 90px;
+}
+.mat-item h3 { margin: 0 0 0.9rem; font-size: 1.4rem; font-weight: normal; color: var(--texto); }
+.mat-item p { margin: 0 0 1rem; max-width: 74ch; font-size: 1rem; line-height: 1.7; color: var(--tinta-suave); }
+.mat-etiqueta { margin: 0 0 0.3rem !important; font-size: 0.72rem !important; letter-spacing: 0.25em; text-transform: uppercase; color: var(--acento) !important; }
+.mat-item strong { color: var(--texto); font-weight: 600; }
+.mat-item code { font-size: 0.88em; color: var(--oro-claro); }
+
+/* Figura */
+.mat-visual { margin: 1.4rem 0; display: flex; flex-direction: column; align-items: center; gap: 0.7rem; }
+.mat-svg { width: min(100%, 340px); height: auto; overflow: visible; }
+.mat-visual figcaption { max-width: 52ch; text-align: center; font-size: 0.88rem; line-height: 1.5; font-style: italic; color: var(--tinta-tenue); }
+.f-circ { fill: none; stroke: var(--linea); stroke-width: 1.5; }
+.f-circ-tenue { fill: none; stroke: var(--linea); stroke-width: 1; stroke-dasharray: 3 4; }
+.f-marca { stroke: var(--tinta-tenue); stroke-width: 1; }
+.f-marca-g { stroke: var(--texto); stroke-width: 1.8; }
+.f-eje { stroke: var(--tinta-tenue); stroke-width: 1; stroke-dasharray: 5 4; fill: none; }
+.f-guia { stroke: var(--linea); stroke-width: 1; fill: none; }
+.f-acento { stroke: var(--acento); stroke-width: 2; fill: none; }
+.f-acento-g { stroke: var(--acento); stroke-width: 3.2; stroke-linecap: round; fill: none; }
+.f-acento-tenue { stroke: var(--acento); stroke-width: 2.4; opacity: 0.35; stroke-linecap: round; }
+.f-punto { fill: var(--acento); stroke: none; }
+.f-punta { fill: var(--acento); }
+.f-curva { fill: none; stroke: var(--acento); stroke-width: 2.2; stroke-linejoin: round; }
+.f-tri { fill: color-mix(in srgb, var(--acento) 30%, transparent); stroke: var(--acento); stroke-width: 1.6; }
+.f-etq { fill: var(--tinta-suave); font-size: 11.5px; font-family: var(--fuente); }
+.f-etq-a { fill: var(--acento); font-size: 12.5px; font-family: var(--fuente); font-weight: 600; }
+
+.f-sol { fill: var(--sol); stroke: var(--sol-contorno); stroke-width: 1.5; }
+.f-luna { fill: var(--luna-luz); stroke: var(--luna-contorno); stroke-width: 1.5; }
+.f-sol-disco { fill: color-mix(in srgb, var(--sol) 85%, transparent); stroke: var(--sol-contorno); stroke-width: 1.5; }
+.f-luna-disco { fill: color-mix(in srgb, var(--luna-sombra) 88%, transparent); stroke: var(--luna-contorno); stroke-width: 1.5; }
+.f-umbra { fill: color-mix(in srgb, var(--luna-sombra) 55%, transparent); stroke: var(--linea); stroke-width: 1.2; }
+.f-penumbra { fill: color-mix(in srgb, var(--luna-sombra) 22%, transparent); stroke: var(--linea); stroke-width: 1; stroke-dasharray: 3 4; }
+.mat-fig-par { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem 2rem; }
+.mat-fig-par .mat-svg { width: min(100%, 280px); }
+.mat-escala { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.35rem 0.9rem; margin-top: 0.4rem; font-size: 0.78rem; color: var(--tinta-tenue); }
+.mat-escala div { display: flex; align-items: center; gap: 0.35rem; }
+.mat-escala span { display: inline-block; width: 1.6rem; height: 0.8rem; border: 1px solid var(--linea); border-radius: 3px; }
+.mat-escala b { font-weight: normal; }
+
+/* Fórmulas */
+.mat-formula {
+  margin: 1rem 0;
+  padding: 0.8rem 1.1rem 1rem;
+  border-left: 2px solid var(--acento);
+  background: color-mix(in srgb, var(--oro) 6%, transparent);
+  border-radius: 0 8px 8px 0;
+  overflow-x: auto;
+}
+.mat-formula-etq { display: block; margin-bottom: 0.2rem; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--acento); }
+.mat-formula math { font-size: 1.3rem; color: var(--texto); }
+.mat-variables { margin: 1.2rem 0; display: grid; gap: 0.5rem; max-width: 74ch; }
+.mat-variables > div { display: grid; grid-template-columns: minmax(5.5rem, auto) 1fr; gap: 1rem; align-items: baseline; }
+.mat-variables dt { color: var(--acento); }
+.mat-variables dt math { font-size: 1.1rem; }
+.mat-variables dd { margin: 0; font-size: 0.95rem; line-height: 1.55; color: var(--tinta-suave); }
+
+.mat-ejemplo { margin: 1.3rem 0 1rem; padding: 1rem 1.2rem; border: 1px dashed var(--linea); border-radius: 8px; }
+.mat-ejemplo h4 { margin: 0 0 0.5rem; font-size: 0.74rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: normal; color: var(--acento); }
+.mat-ejemplo p { margin: 0; }
+.mat-nota { padding-left: 1rem; border-left: 2px solid var(--linea); font-size: 0.92rem !important; font-style: italic; color: var(--tinta-tenue) !important; }
+.mat-nota a { color: var(--acento); }
+.mat-medidas { margin: 0 !important; font-size: 0.85rem !important; color: var(--tinta-tenue) !important; }
+
+.mat-tabla { border-collapse: collapse; font-size: 0.92rem; }
+.mat-tabla th, .mat-tabla td { padding: 0.4rem 0.9rem; text-align: left; border-bottom: 1px solid var(--linea); color: var(--tinta-suave); }
+.mat-tabla th { font-weight: normal; font-size: 0.9rem; letter-spacing: 0.05em; color: var(--acento); }
+
+@media (max-width: 768px) {
+  .mat-item { padding: 1.2rem 1rem; }
+  .mat-variables > div { grid-template-columns: 1fr; gap: 0.1rem; }
+  .mat-formula math { font-size: 1.1rem; }
+}
