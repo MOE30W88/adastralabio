@@ -86,7 +86,7 @@
 .mat-nota a { color: var(--acento); }
 .mat-medidas { margin: 0 !important; font-size: 0.85rem !important; color: var(--tinta-tenue) !important; }
 
-.mat-tabla { border-collapse: collapse; font-size: 0.92rem; }
+.mat-tabla { border-collapse: collapse; font-size: 0.92rem; display: block; max-width: 100%; overflow-x: auto; }
 .mat-tabla th, .mat-tabla td { padding: 0.4rem 0.9rem; text-align: left; border-bottom: 1px solid var(--linea); color: var(--tinta-suave); }
 .mat-tabla th { font-weight: normal; font-size: 0.9rem; letter-spacing: 0.05em; color: var(--acento); }
 
@@ -95,3 +95,15 @@
   .mat-variables > div { grid-template-columns: 1fr; gap: 0.1rem; }
   .mat-formula math { font-size: 1.1rem; }
 }
+
+/* Figuras de los grupos Lunario, Zodíaco, Calendario, Sistema solar y Rotación (solo variables de tema.css) */
+.f-sec-1 { fill: color-mix(in srgb, var(--tropico-cancer) 55%, transparent); stroke: var(--linea); stroke-width: 1; }
+.f-sec-2 { fill: color-mix(in srgb, var(--sol) 65%, transparent); stroke: var(--linea); stroke-width: 1; }
+.f-sec-3 { fill: color-mix(in srgb, var(--tropico-capricornio) 60%, transparent); stroke: var(--linea); stroke-width: 1; }
+.f-sec-4 { fill: color-mix(in srgb, var(--hielo) 60%, transparent); stroke: var(--linea); stroke-width: 1; }
+.f-roca-m { fill: var(--roca-marron); stroke: none; }
+.f-roca-n { fill: var(--roca-negra); stroke: none; }
+.f-ali-1 { stroke: var(--alineacion-2); stroke-width: 2; stroke-dasharray: 4 4; fill: none; }
+.f-tierra { fill: var(--tierra); stroke: none; }
+.f-globo { fill: var(--globo-2); stroke: none; }
+.f-globo-linea { stroke: var(--globo-linea); stroke-width: 1; fill: none; opacity: 0.55; }
