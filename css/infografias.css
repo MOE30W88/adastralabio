@@ -1,0 +1,49 @@
+/* css/infografias.css — Página Infografías: ficha visual por capa (esquema, cifras clave y lectura en el reloj).
+   Las figuras usan las clases f-* de css/matematicas.css. Colores: solo variables de css/tema.css. */
+
+.inf-intro { max-width: 74ch; margin: 0 0 1rem; }
+.inf-intro p { margin: 0 0 1.1rem; font-size: 1.05rem; line-height: 1.75; color: var(--tinta-suave); }
+
+.inf-grupo { margin: clamp(3rem, 6vh, 4.5rem) 0 0; padding-top: 2rem; border-top: 1px solid var(--linea); scroll-margin-top: 90px; }
+.inf-grupo:first-of-type { margin-top: 2rem; }
+.inf-grupo h2 { margin: 0 0 0.4rem; font-size: clamp(1.5rem, 2.6vw, 2.05rem); font-weight: normal; color: var(--texto); }
+.inf-grupo > p { margin: 0 0 1rem; max-width: 70ch; font-size: 1rem; line-height: 1.7; color: var(--tinta-tenue); }
+
+.inf-item {
+  margin: 2.25rem 0 0;
+  padding: 1.6rem 1.7rem 1.4rem;
+  border: 1px solid var(--linea);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--panel) 62%, transparent);
+  backdrop-filter: blur(8px);
+  scroll-margin-top: 90px;
+}
+.inf-etiqueta { margin: 0 0 0.3rem; font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--acento); }
+.inf-item h3 { margin: 0 0 0.7rem; font-size: 1.4rem; font-weight: normal; color: var(--texto); }
+.inf-lead { margin: 0 0 1.2rem; max-width: 66ch; font-size: 1.08rem; line-height: 1.7; color: var(--tinta-suave); }
+
+.inf-item .mat-svg { width: min(100%, 400px); }
+.inf-item .mat-fig-par .mat-svg { width: min(100%, 320px); }
+
+/* Cifras clave */
+.inf-cifras { display: grid; grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr)); gap: 0.8rem; margin: 1.4rem 0; }
+.inf-cifra { padding: 0.9rem 1rem; border: 1px solid var(--linea); border-radius: 8px; background: color-mix(in srgb, var(--oro) 6%, transparent); text-align: center; }
+.inf-cifra b { display: block; font-size: clamp(1.25rem, 2.4vw, 1.7rem); font-weight: 500; line-height: 1.15; color: var(--acento); overflow-wrap: anywhere; }
+.inf-cifra span { display: block; margin-top: 0.35rem; font-size: 0.82rem; line-height: 1.4; color: var(--tinta-tenue); }
+
+/* Cómo leerlo */
+.inf-leer h4 { margin: 1.4rem 0 0.6rem; font-size: 0.74rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: normal; color: var(--acento); }
+.inf-pasos { margin: 0; padding: 0; list-style: none; counter-reset: paso; display: grid; gap: 0.6rem; max-width: 66ch; }
+.inf-pasos li { counter-increment: paso; display: grid; grid-template-columns: 1.9rem 1fr; gap: 0.8rem; align-items: start; font-size: 0.98rem; line-height: 1.55; color: var(--tinta-suave); }
+.inf-pasos li::before { content: counter(paso); display: grid; place-items: center; width: 1.9rem; height: 1.9rem; border: 1px solid var(--acento); border-radius: 50%; font-size: 0.85rem; color: var(--acento); }
+
+.inf-dato { margin: 1.3rem 0 0; padding: 0.8rem 1rem; max-width: 66ch; border-left: 2px solid var(--acento); background: color-mix(in srgb, var(--oro) 6%, transparent); border-radius: 0 8px 8px 0; font-size: 0.95rem; line-height: 1.6; color: var(--tinta-suave); }
+.inf-dato strong { color: var(--texto); font-weight: 600; }
+
+.inf-mas { margin: 1rem 0 0; font-size: 0.88rem; }
+.inf-mas a { color: var(--acento); text-underline-offset: 3px; }
+
+@media (max-width: 768px) {
+  .inf-item { padding: 1.2rem 1rem; }
+  .inf-cifras { grid-template-columns: repeat(2, 1fr); }
+}

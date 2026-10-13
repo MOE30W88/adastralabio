@@ -10,6 +10,7 @@ const fechaDigital = document.getElementById("fecha-digital");
  
 const RADIO_ORBITA_SOL = 540;
 const RADIO_ORBITA_LUNA = 540;
+const OPACIDAD_BAJO_HORIZONTE = 0.3; // Sol y Luna bajo el horizonte siguen visibles (atenuados) en la mitad nocturna del dial
 const etiquetaHuso = document.getElementById("etiqueta-huso");
  
 let marcadorHora = null;
@@ -110,7 +111,7 @@ function actualizarSol(fecha, alturaSolar) {
  
   sol.setAttribute("cx", p.x);
   sol.setAttribute("cy", p.y);
-  sol.style.opacity = intensidad;
+  sol.style.opacity = Math.max(intensidad, OPACIDAD_BAJO_HORIZONTE);
   sol.style.filter =
     intensidad > 0
       ? `drop-shadow(0 0 ${4 + intensidad * 14}px #f5c344)`
@@ -170,7 +171,7 @@ function actualizarLuna(fecha, alturaSolar) {
   const intensidad = intensidadLunar(altura, alturaSolar, 1);
   const grupo = document.getElementById("capa-fase-lunar");
   grupo.setAttribute("transform", `translate(${p.x} ${p.y})`);
-  grupo.style.opacity = intensidad;
+  grupo.style.opacity = Math.max(intensidad, OPACIDAD_BAJO_HORIZONTE);
   grupo.style.filter =
     intensidad > 0
       ? `drop-shadow(0 0 ${2 + intensidad * 10}px #cfd8e3)`

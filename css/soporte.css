@@ -1,0 +1,45 @@
+/* css/soporte.css — Página Soporte: mapa del sitio, privacidad, términos, FAQs y créditos.
+   Colores: solo variables de css/tema.css. */
+
+.sop-seccion { margin: clamp(2.5rem, 5vh, 4rem) 0 0; padding-top: 2rem; border-top: 1px solid var(--linea); scroll-margin-top: 90px; max-width: 80ch; }
+.sop-seccion:first-of-type { margin-top: 1rem; border-top: 0; padding-top: 0; }
+.sop-etiqueta { margin: 0 0 0.3rem; font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--acento); }
+.sop-seccion h2 { margin: 0 0 0.8rem; font-size: clamp(1.5rem, 2.6vw, 2.05rem); font-weight: normal; color: var(--texto); }
+.sop-seccion h3 { margin: 1.8rem 0 0.5rem; font-size: 1.15rem; font-weight: normal; color: var(--texto); }
+.sop-seccion p, .sop-seccion li { font-size: 1rem; line-height: 1.75; color: var(--tinta-suave); }
+.sop-seccion p { margin: 0 0 1rem; }
+.sop-seccion strong { color: var(--texto); font-weight: 600; }
+.sop-seccion a { color: var(--acento); text-underline-offset: 3px; }
+.sop-seccion code { font-size: 0.88em; color: var(--oro-claro); }
+.sop-fecha { font-size: 0.88rem !important; font-style: italic; color: var(--tinta-tenue) !important; }
+
+.sop-aviso { padding: 0.8rem 1rem; border: 1px dashed var(--acento); border-radius: 8px; font-size: 0.92rem !important; }
+.sop-pendiente { padding: 0 0.3em; border-radius: 3px; background: color-mix(in srgb, var(--acento) 22%, transparent); color: var(--texto); }
+.sop-lista { margin: 0 0 1rem; padding-left: 1.2rem; display: grid; gap: 0.6rem; }
+
+/* Mapa del sitio */
+.sop-mapa { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1rem; margin-top: 1.4rem; }
+.sop-mapa > div { padding: 1.1rem 1.2rem; border: 1px solid var(--linea); border-radius: 10px; background: color-mix(in srgb, var(--panel) 62%, transparent); }
+.sop-mapa h3 { margin: 0 0 0.3rem; font-size: 1.15rem; }
+.sop-mapa h3 a { color: var(--texto); text-decoration: none; }
+.sop-mapa h3 a:hover { color: var(--acento); }
+.sop-mapa p { font-size: 0.92rem; line-height: 1.55; margin: 0 0 0.5rem; }
+.sop-mapa ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.15rem; }
+.sop-mapa li { font-size: 0.95rem; line-height: 1.5; }
+
+/* FAQs */
+.sop-faqs { display: grid; gap: 0.6rem; margin-top: 1rem; }
+.sop-faq { border: 1px solid var(--linea); border-radius: 8px; background: color-mix(in srgb, var(--panel) 62%, transparent); }
+.sop-faq summary { cursor: pointer; padding: 0.9rem 1.1rem; font-size: 1.02rem; color: var(--texto); list-style: none; display: flex; justify-content: space-between; gap: 1rem; }
+.sop-faq summary::-webkit-details-marker { display: none; }
+.sop-faq summary::after { content: "+"; color: var(--acento); font-size: 1.2rem; line-height: 1; }
+.sop-faq[open] summary::after { content: "−"; }
+.sop-faq summary:hover, .sop-faq summary:focus-visible { color: var(--acento); }
+.sop-faq p { margin: 0; padding: 0 1.1rem 1rem; }
+
+/* Créditos */
+.sop-creditos { margin: 0 0 1rem; padding: 0; list-style: none; display: grid; gap: 0.7rem; }
+.sop-creditos li { display: grid; gap: 0.15rem; padding-left: 1rem; border-left: 2px solid var(--linea); font-size: 0.95rem; }
+.sop-creditos li span { color: var(--tinta-tenue); line-height: 1.55; }
+
+@media (max-width: 768px) { .sop-faq summary { padding: 0.8rem 0.9rem; } }
