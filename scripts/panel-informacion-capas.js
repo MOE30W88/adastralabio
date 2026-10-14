@@ -7,7 +7,10 @@ const NOMBRES_CAPAS_PANEL = {
   zodiaco: "Zodíaco",
   calendario: "Calendario",
   rotacion: "Rotación",
+  "sistema-solar": "Sistema solar",
 };
+// Ancla de cada capa en paginas/infografias.html (el botón "+" lleva a la infografía de la capa activa; el Astrolabio, a la página completa)
+const ANCLAS_INFOGRAFIA = { reloj: "grupo-reloj", "dia-noche": "grupo-dia-y-noche", lunario: "grupo-lunario", zodiaco: "grupo-zodiaco", calendario: "grupo-calendario", "sistema-solar": "grupo-sistema-solar", rotacion: "grupo-rotacion" };
 const CONTENIDOS_PANEL_CAPA = { todas: "astrolabio", reloj: "reloj", "dia-noche": "dia-noche", lunario: "lunario", zodiaco: "zodiaco", calendario: "calendario", rotacion: "rotacion" };
 let enfoquePanelActivo = "todas";
 let ultimoRefrescoPanelDinamico = 0;
@@ -19,6 +22,13 @@ function actualizarPanelPorEnfoque(clave) {
   if (!contenidoSolar || !contenidoCapa) return;
 
   enfoquePanelActivo = clave;
+  const masInfo = document.getElementById("boton-masinfo");
+  if (masInfo) {
+    masInfo.href = "paginas/infografias.html" + (ANCLAS_INFOGRAFIA[clave] ? `#${ANCLAS_INFOGRAFIA[clave]}` : "");
+    const titulo = ANCLAS_INFOGRAFIA[clave] ? `Infografía: ${NOMBRES_CAPAS_PANEL[clave]}` : "Infografía";
+    masInfo.title = titulo;
+    masInfo.setAttribute("aria-label", `Ir a ${titulo}`);
+  }
   const esSistemaSolar = clave === "sistema-solar";
   contenidoSolar.hidden = !esSistemaSolar;
   contenidoCapa.hidden = esSistemaSolar;

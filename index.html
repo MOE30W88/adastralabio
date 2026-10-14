@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="css/calendario-chino.css" />
     <link rel="stylesheet" href="css/tema.css" />
     <link rel="stylesheet" href="css/estructura.css" />
+    <link rel="stylesheet" href="css/mapa-selector.css" />
     <link rel="stylesheet" href="css/rotacion.css" />
     <link rel="stylesheet" href="css/velocidad.css" />
     <link rel="stylesheet" href="css/secciones.css" />
@@ -107,6 +108,7 @@
     <script src="scripts/main.js" defer></script>
     <script src="scripts/nav-scroll.js" defer></script>
     <script src="scripts/paneles-laterales.js" defer></script>
+    <script src="scripts/mapa-selector.js" defer></script>
     <script src="scripts/evento-visibilidad.js" defer></script>
     <script src="scripts/evento-detalle.js" defer></script>
     <script src="scripts/evento-mejor-lugar.js" defer></script>
@@ -339,14 +341,34 @@
           <aside id="panel-geolocalizacion" class="panel-flotante panel-der panel-lateral-nuevo" aria-label="Panel de geolocalización" aria-hidden="true" inert>
             <section class="seccion-viajero">
               <h3>Mapa</h3>
-              <label for="input-latitud">Latitud</label>
-              <input type="number" id="input-latitud" step="0.0001" placeholder="13.6927" />
-              <label for="input-longitud">Longitud</label>
-              <input type="number" id="input-longitud" step="0.0001" placeholder="-89.1917" />
+              <div class="mapa-busqueda">
+                <input type="search" id="mapa-buscar" placeholder="Buscar ciudad o país" autocomplete="off" aria-label="Buscar ciudad o país" aria-controls="mapa-resultados" />
+                <ul id="mapa-resultados" class="mapa-resultados" role="listbox" hidden></ul>
+              </div>
+              <div id="mapa-visor" class="mapa-visor" tabindex="0" role="application" aria-label="Mapa para elegir ubicación: arrastra para mover, rueda o pellizco para ampliar, clic para elegir el punto">
+                <svg id="mapa-svg" class="mapa-svg" aria-hidden="true"></svg>
+                <div class="mapa-zoom">
+                  <button type="button" id="mapa-mas" aria-label="Acercar">+</button>
+                  <button type="button" id="mapa-menos" aria-label="Alejar">−</button>
+                </div>
+                <p id="mapa-estado" class="mapa-estado" aria-live="polite"></p>
+              </div>
+              <p class="mapa-ayuda">Haz clic en el mapa para tomar el punto. Al buscar una ciudad se elige su centro.</p>
+              <div class="mapa-coords">
+                <div>
+                  <label for="input-latitud">Latitud</label>
+                  <input type="number" id="input-latitud" step="0.0001" placeholder="13.6927" />
+                </div>
+                <div>
+                  <label for="input-longitud">Longitud</label>
+                  <input type="number" id="input-longitud" step="0.0001" placeholder="-89.1917" />
+                </div>
+              </div>
               <div class="fila-botones">
                 <button id="boton-ir-ubicacion">Ir a esta ubicación</button>
                 <button id="boton-ubicacion-real">⟲ Mi ubicación</button>
               </div>
+              <p class="mapa-credito">Mapa: Natural Earth (dominio público). Búsqueda en línea: Nominatim © OpenStreetMap.</p>
             </section>
           </aside>
           <svg

@@ -202,6 +202,10 @@ main { display: block; width: 100%; margin: 0; padding: 0; }
 .panel-izq { left: calc(clamp(1rem, 3vw, 3rem) + 3.5rem); transform: translateY(-50%) translateX(-16px); }
 .panel-der { right: calc(clamp(1rem, 3vw, 3rem) + 3.5rem); width: 320px; transform: translateY(-50%) translateX(16px); }
 .panel-lateral-nuevo { top: 50%; min-height: min(55vh, 380px); background: var(--superficie); border: 1px solid var(--borde-oro); border-radius: 20px; }
+/* Los paneles de fecha/hora y de información comparten fondo y borde con el de geolocalización */
+#cajon-viajero, #cajon-planetas { background: var(--superficie); border: 1px solid var(--borde-oro); border-radius: 20px; }
+/* Los paneles de fecha/hora y de información comparten fondo y borde con el de geolocalización */
+#cajon-viajero, #cajon-planetas { background: var(--superficie); border: 1px solid var(--borde-oro); border-radius: 20px; }
 .panel-flotante.abierto { visibility: visible; opacity: 1; transform: translateY(-50%) translateX(0); transition-delay: 0s; }
  
 /* Resultados: sin marco, tarjetas limpias */

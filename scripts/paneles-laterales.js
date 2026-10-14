@@ -46,8 +46,9 @@ PANELES_LATERALES.forEach(([idBoton, idPanel]) => {
     boton.setAttribute("aria-expanded", "true");
 
     if (idPanel === "cajon-viajero") {
-      document.getElementById("contenedor-app")?.classList.add("desplazado");
+      document.getElementById("contenedor-app")?.classList.remove("desplazado", "mapa-abierto");
     }
+    if (idPanel === "panel-geolocalizacion") document.getElementById("contenedor-app")?.classList.add("mapa-abierto");
     if (idPanel === "cajon-planetas") ultimoRefrescoPlanetas = 0;
   });
 });

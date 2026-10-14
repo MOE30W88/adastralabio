@@ -1,0 +1,72 @@
+/* css/mapa-selector.css — mapa de la geolocalización: elegir lat/lng con un clic y desplazar el reloj mientras está abierto.
+   Debe cargarse DESPUÉS de estructura.css. Colores: solo variables de css/tema.css. */
+
+/* Panel más ancho mientras contiene el mapa */
+#panel-geolocalizacion.panel-flotante { --ancho-mapa: min(30rem, 34vw); width: var(--ancho-mapa); }
+
+@media (max-width: 1100px) { #panel-geolocalizacion.panel-flotante { width: min(26rem, calc(100% - 1rem)); max-height: 100%; } }
+
+/* Búsqueda por ciudad o país */
+.mapa-busqueda { position: relative; margin-bottom: 8px; }
+.mapa-resultados {
+  position: absolute; top: 100%; left: 0; right: 0; z-index: 5;
+  max-height: 14rem; overflow-y: auto; margin: 2px 0 0; padding: 0; list-style: none;
+  background: var(--superficie); border: 1px solid var(--borde-oro); border-radius: 8px; box-shadow: var(--sombra);
+}
+.mapa-resultados[hidden] { display: none; }
+.mapa-resultados li { display: block; padding: 6px 10px; cursor: pointer; font-size: 0.85rem; color: var(--tinta-suave); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mapa-resultados li small { color: var(--texto-suave); }
+.mapa-resultados li:hover, .mapa-resultados li[aria-selected="true"] { background: color-mix(in srgb, var(--oro) 14%, transparent); color: var(--texto); }
+.mapa-resultados .mapa-en-linea { border-top: 1px solid var(--borde-sutil); color: var(--acento); }
+
+/* Visor */
+.mapa-visor {
+  position: relative; aspect-ratio: 3 / 2; overflow: hidden; border-radius: 10px;
+  background: var(--superficie-2); border: 1px solid var(--borde-sutil);
+  touch-action: none; cursor: grab; user-select: none; -webkit-user-select: none;
+}
+.mapa-visor:active { cursor: grabbing; }
+.mapa-visor:focus-visible { outline: 2px solid var(--acento); outline-offset: 2px; }
+.mapa-svg { display: block; width: 100%; height: 100%; }
+.mapa-tierra { fill: color-mix(in srgb, var(--acento) 16%, var(--superficie)); stroke: var(--acento); stroke-width: 0.8px; stroke-opacity: 0.7; vector-effect: non-scaling-stroke; }
+.mapa-fronteras { fill: none; stroke: var(--texto-suave); stroke-width: 0.7px; stroke-opacity: 0.65; vector-effect: non-scaling-stroke; }
+.mapa-ciudad { fill: var(--texto); }
+.mapa-capital { fill: var(--acento); }
+.mapa-etq, .mapa-etq-pais { font-family: var(--fuente); fill: var(--texto); stroke: var(--superficie); stroke-linejoin: round; paint-order: stroke; pointer-events: none; }
+.mapa-etq-pais { fill: var(--texto-suave); letter-spacing: 0.08em; text-transform: uppercase; }
+.mapa-marcador { fill: color-mix(in srgb, var(--alerta) 35%, transparent); stroke: var(--alerta); stroke-width: 2px; vector-effect: non-scaling-stroke; }
+.mapa-actual { fill: none; stroke: var(--acento); stroke-width: 2px; vector-effect: non-scaling-stroke; }
+
+.mapa-zoom { position: absolute; top: 6px; right: 6px; display: flex; flex-direction: column; gap: 4px; }
+.mapa-zoom button {
+  width: 28px; height: 28px; padding: 0; border-radius: 6px; cursor: pointer; font: 1.1rem/1 var(--fuente);
+  background: var(--superficie); color: var(--acento); border: 1px solid var(--borde-oro);
+}
+.mapa-zoom button:hover { background: color-mix(in srgb, var(--oro) 14%, var(--superficie)); }
+.mapa-estado { position: absolute; left: 8px; bottom: 6px; right: 44px; margin: 0; font-size: 0.72rem; color: var(--texto-suave); pointer-events: none; }
+.mapa-ayuda, .mapa-credito { margin: 6px 0 0; font-size: 0.72rem; line-height: 1.35; color: var(--texto-suave); }
+.mapa-coords { display: grid; grid-template-columns: 1fr 1fr; column-gap: 8px; }
+
+/* Con el mapa abierto, la esfera, la hora y los controles de la izquierda se corren a la izquierda y la esfera se encoge un poco para que el
+   panel no la tape. La fecha y los controles de la derecha quedarían bajo el panel, así que se atenúan mientras tanto.
+   Solo en pantallas anchas (≥ 1101 px); en las angostas el panel pasa a ser una hoja superpuesta. */
+#reloj, #hora-digital, #fecha-digital, .controles-tiempo { transition: translate 0.35s ease, scale 0.35s ease, opacity 0.25s ease; }
+@media (min-width: 1101px) {
+  #contenedor-app.mapa-abierto #reloj { translate: calc(min(30rem, 34vw) * -0.38) 0; }
+  #contenedor-app.mapa-abierto #hora-digital,
+  #contenedor-app.mapa-abierto .controles-tiempo-izq { translate: calc(min(30rem, 34vw) * -0.25) 0; }
+  #contenedor-app.mapa-abierto #reloj { scale: 0.88; }
+  #contenedor-app.mapa-abierto #fecha-digital,
+  #contenedor-app.mapa-abierto .controles-tiempo-der { opacity: 0; pointer-events: none; }
+}
+
+/* Pantallas pequeñas: la hoja ocupa todo el ancho disponible y el mapa se acorta para que el panel quepa sin barra de desplazamiento */
+@media (max-width: 600px) {
+  #panel-geolocalizacion.panel-flotante { left: 0.5rem; right: 0.5rem; width: auto; max-width: none; padding: 12px 14px; }
+  #panel-geolocalizacion .seccion-viajero { margin-bottom: 0; }
+  #panel-geolocalizacion h3 { margin: 0 0 6px; }
+  .mapa-visor { aspect-ratio: auto; height: clamp(150px, 28vh, 300px); }
+  .mapa-ayuda { display: none; } /* la línea de estado del mapa ya indica qué hacer */
+  .mapa-credito { margin-top: 4px; font-size: 0.68rem; }
+  #panel-geolocalizacion .seccion-viajero label { margin-top: 6px; }
+}
