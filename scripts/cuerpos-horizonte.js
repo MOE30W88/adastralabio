@@ -94,7 +94,7 @@ function planetasVisibles(fecha, lat, lon) {
     const elong = Math.acos((v[0] * sol[0] + v[1] * sol[1] + v[2] * sol[2]) / (Math.hypot(v[0], v[1], v[2]) * sn)) / CU_R;
     const visible = c.altura >= CUERPOS.ALTURA_MIN_PLANETA && elong >= CUERPOS.ELONGACION_MIN && m <= limite;
     lista.push({ nombre: p.nombre, color: p.color, altura: c.altura, magnitud: m, elongacion: elong, visible,
-      margen: limite - m, angulo: cuAnguloDial(c.altura, c.H, info) });
+      margen: limite - m, angulo: cuNorm180(c.H + info.delta + 180) });
   }
   return lista;
 }

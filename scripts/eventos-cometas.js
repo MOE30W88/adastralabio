@@ -11,7 +11,7 @@ const COMETAS = [
   { titulo: "Perihelio del cometa Halley (1P)", fecha: Date.UTC(2061, 6, 28), texto: "Vuelve cada 75–76 años · visible a simple vista" },
   // ── Históricos (para el viajero del tiempo) ──
   { titulo: "Perihelio del Gran Cometa de 1680", fecha: Date.UTC(1680, 11, 18), texto: "Primer cometa hallado con telescopio · Newton usó su órbita para probar la gravitación" },
-  { titulo: "Descubrimiento del cometa Encke (2P)", fecha: Date.UTC(1786, 0, 17), texto: "El de menor período conocido: 3,3 años" },
+  { titulo: "Perihelio del cometa Encke (2P)", fecha: Date.UTC(2023, 9, 22), texto: "Su vuelta anterior · cada 3,3 años" },
   { titulo: "Perihelio del Gran Cometa de 1811", fecha: Date.UTC(1811, 8, 12), texto: "Visible a simple vista 260 días · el «vino del cometa»" },
   { titulo: "El cometa Biela se parte en dos", fecha: Date.UTC(1846, 0, 13), texto: "Desapareció tras 1852 y dejó las Biélidas" },
   { titulo: "Perihelio del Gran Cometa de 1843", fecha: Date.UTC(1843, 1, 27), texto: "Rasante del Sol · una de las colas más largas jamás vistas" },

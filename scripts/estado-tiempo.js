@@ -7,13 +7,18 @@ const estadoTiempo = {
   multiplicador: 1,
 };
 
+// Rango donde los cálculos son fiables (ver Alcance): 1900–2150
+const FECHA_MIN = Date.UTC(1900, 0, 1);
+const FECHA_MAX = Date.UTC(2150, 11, 31, 23, 59);
+
 function obtenerFechaActual() {
   if (!estadoTiempo.modoViajero) {
     return new Date();
   }
   const transcurridoReal = Date.now() - estadoTiempo.momentoFijado;
   const transcurridoSimulado = transcurridoReal * estadoTiempo.multiplicador;
-  return new Date(estadoTiempo.fechaBase.getTime() + transcurridoSimulado);
+  const t = estadoTiempo.fechaBase.getTime() + transcurridoSimulado;
+  return new Date(Math.min(FECHA_MAX, Math.max(FECHA_MIN, t)));
 }
 
 function establecerFechaViajero(fecha) {

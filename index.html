@@ -4,11 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AD ASTRA — Reloj astronómico</title>
+    <meta name="description" content="AD ASTRA: reloj astronómico interactivo. El cielo, el tiempo y la posición del Sol y la Luna en una sola esfera, según tu ubicación." />
+    <meta name="theme-color" content="#050813" /> 
     <script>try{var p=localStorage.getItem("tema-preferencia")||"auto",h=new Date().getHours();document.documentElement.dataset.tema=p==="auto"?(h>=6&&h<18?"dia":"noche"):p}catch(e){}</script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet" />
-    <link rel="icon" href="data:," />
+    <link rel="icon" type="image/svg+xml" href="svg/logo/favicon.svg?v=2" />
     <link rel="stylesheet" href="css/base.css" />
     <link rel="stylesheet" href="css/reloj.css" />
     <link rel="stylesheet" href="css/viajero.css" />
@@ -145,8 +147,8 @@
         <button type="button" id="boton-idioma" class="boton-tema boton-idioma" title="Cambiar idioma" aria-label="Cambiar idioma">ES</button>
         <div class="control-tema" role="group" aria-label="Modo de color">
           <button type="button" class="control-tema-opcion" data-tema-pref="auto">Auto</button>
-          <button type="button" class="control-tema-opcion" data-tema-pref="dia"><span class="icono-svg icono-dia" aria-hidden="true"></span></button>
-          <button type="button" class="control-tema-opcion" data-tema-pref="noche"><span class="icono-svg icono-noche" aria-hidden="true"></span></button>
+          <button type="button" class="control-tema-opcion" data-tema-pref="dia" aria-label="Modo día" title="Modo día"><span class="icono-svg icono-dia" aria-hidden="true"></span></button>
+          <button type="button" class="control-tema-opcion" data-tema-pref="noche" aria-label="Modo noche" title="Modo noche"><span class="icono-svg icono-noche" aria-hidden="true"></span></button>
         </div>
       </div>  
       </header>
@@ -156,10 +158,10 @@
           <h1 class="hero-titular">El cielo, el tiempo y la posición del Sol en una sola esfera.</h1>
         </section>
         <section id="escenario" class="escenario">
-          <button type="button" id="boton-viajar" class="tirador tirador-izq" title="Fecha y hora" aria-label="Abrir panel de fecha y hora" aria-controls="cajon-viajero" aria-expanded="false">
+          <button type="button" id="boton-viajar" class="tirador tirador-der tirador-fecha" title="Fecha y hora" aria-label="Abrir panel de fecha y hora" aria-controls="cajon-viajero" aria-expanded="false">
             <span class="icono-svg icono-panel-fecha" aria-hidden="true"></span>
           </button>
-          <button type="button" id="boton-geolocalizacion" class="tirador tirador-izq tirador-secundario" title="Geolocalización" aria-label="Abrir panel de geolocalización" aria-controls="panel-geolocalizacion" aria-expanded="false">
+          <button type="button" id="boton-geolocalizacion" class="tirador tirador-der tirador-lugar" title="Geolocalización" aria-label="Abrir panel de geolocalización" aria-controls="panel-geolocalizacion" aria-expanded="false">
             <span class="icono-svg icono-panel-geolocalizacion" aria-hidden="true"></span>
           </button>
           <button type="button" id="boton-planetas" class="tirador tirador-der" title="Sistema solar" aria-label="Sistema solar" aria-controls="cajon-planetas" aria-expanded="false">
@@ -174,11 +176,11 @@
           <button type="button" id="boton-trayectorias" class="boton-trayectorias" aria-pressed="false" title="Mostrar órbitas de cometas y lluvias" aria-label="Mostrar órbitas de cometas y lluvias" hidden>
             <span class="icono-trayectorias" aria-hidden="true"></span>
           </button>
-          <aside id="cajon-viajero" class="panel-flotante panel-izq" aria-label="Panel de fecha y hora" aria-hidden="true" inert>
+          <aside id="cajon-viajero" class="panel-flotante panel-der" aria-label="Panel de fecha y hora" aria-hidden="true" inert>
             <section class="seccion-viajero">
               <h3>Reloj</h3>
               <label for="input-fecha-hora">Fecha y hora</label>
-              <input type="datetime-local" id="input-fecha-hora" />
+              <input type="datetime-local" id="input-fecha-hora" min="1900-01-01T00:00" max="2150-12-31T23:59" />
               <div class="fila-botones">
                 <button id="boton-ir-fecha">Ir a esta fecha</button>
                 <button id="boton-ahora">⟲ Ahora</button>
@@ -334,7 +336,7 @@
               <div id="datos-panel-capa"></div>
             </section>
           </aside>
-          <aside id="panel-geolocalizacion" class="panel-flotante panel-izq panel-lateral-nuevo" aria-label="Panel de geolocalización" aria-hidden="true" inert>
+          <aside id="panel-geolocalizacion" class="panel-flotante panel-der panel-lateral-nuevo" aria-label="Panel de geolocalización" aria-hidden="true" inert>
             <section class="seccion-viajero">
               <h3>Mapa</h3>
               <label for="input-latitud">Latitud</label>
@@ -505,15 +507,15 @@
           </nav>
           <nav class="pie-bloque" aria-labelledby="pie-titulo-soporte">
             <h2 id="pie-titulo-soporte">Soporte</h2>
-            <a href="#mapa-del-sitio">Mapa del sitio</a>
-            <a href="#privacidad">Política de privacidad</a>
-            <a href="#terminos">Términos y condiciones</a>
-            <a href="#faqs">FAQs</a>
-            <a href="#creditos">Créditos y fuentes</a>
+            <a href="paginas/soporte.html#mapa-del-sitio">Mapa del sitio</a>
+            <a href="paginas/soporte.html#privacidad">Política de privacidad</a>
+            <a href="paginas/soporte.html#terminos">Términos y condiciones</a>
+            <a href="paginas/soporte.html#faqs">FAQs</a>
+            <a href="paginas/soporte.html#creditos">Créditos y fuentes</a>
           </nav>
           <div class="pie-bloque">
             <h2>Contacto</h2>
-            <a href="mailto:correo@ejemplo.com">correo@ejemplo.com</a>
+            <a href="mailto:moises.soriano.dev@gmail.com">moises.soriano.dev@gmail.com</a>
             <span>Redes</span>
             <div class="pie-redes">
               <a class="pie-red instagram" href="#" aria-label="Instagram"></a>

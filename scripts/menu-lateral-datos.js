@@ -19,6 +19,15 @@ const MENUS_LATERALES = {
       ],
     },
   ],
+
+    soporte: [
+    { titulo: "Contenido", items: [
+      { texto: "Mapa del sitio", id: "mapa-del-sitio" },
+      { texto: "Política de privacidad", id: "privacidad" },
+      { texto: "Términos y condiciones", id: "terminos" },
+      { texto: "FAQs", id: "faqs" },
+      { texto: "Créditos y fuentes", id: "creditos" } ] } ],
+
   capas: [
     { titulo: "Reloj", items: ["Fondo del reloj", "Marco y escala horaria", "Escala de minutos", "Aguja horaria", "Aguja minutera", "Segundero", "Marcadores del reloj", "Analema"] },
     { titulo: "Día y noche", items: ["Eventos solares", "Sol", "Luna", "Planetas sobre el horizonte", "Eclipse", "Horizonte", "Marcas de eventos"] },

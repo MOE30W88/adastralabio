@@ -30,3 +30,10 @@
 .modo-rincones .vinetas-izq { left: 0.75rem; align-items: flex-start; }
 .modo-rincones .vinetas-der { right: 0.75rem; align-items: flex-end; }
 .modo-rincones .vinetas-col > * { pointer-events: auto; }
+
+/* Móvil: las viñetas ocupan todo el ancho disponible y quedan alineadas */
+@media (max-width: 600px) {
+  .modo-debajo { padding-inline: 0.75rem; }
+  .modo-debajo .vinetas-col { width: 100%; }
+  .modo-debajo .vinetas-col > * { width: 100%; max-width: none; box-sizing: border-box; }
+}

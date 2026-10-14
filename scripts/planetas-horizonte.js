@@ -1,6 +1,7 @@
 // scripts/planetas-horizonte.js
-// Capa Día y noche: un punto brillante por cada planeta visible a simple vista desde tu ubicación, en el borde exterior del anillo,
+// Capa Día y noche: un punto por cada planeta visible a simple vista desde tu ubicación, en el borde exterior del anillo,
 // con su nombre. Solo se dibuja lo que el cálculo indica que se ve (sobre el horizonte, cielo lo bastante oscuro y brillo suficiente).
+// Su brillo crece con el margen sobre la magnitud límite: aparecen poco a poco al oscurecer y se apagan al amanecer.
 // Depende de: cuerpos-horizonte.js, main.js (polar), astronomia.js
 
 const PLANETAS_HORIZONTE = { radio: 578, radioEtiqueta: 632 };
