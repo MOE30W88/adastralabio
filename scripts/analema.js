@@ -35,10 +35,10 @@ function construirAnalema(anio = aHoraDePared(obtenerFechaActual()).getUTCFullYe
   }, capa);
 
   const estaciones = [
-    { longitud: 0, nombre: "Equinoccio de marzo" },
-    { longitud: 90, nombre: "Solsticio de junio" },
-    { longitud: 180, nombre: "Equinoccio de septiembre" },
-    { longitud: 270, nombre: "Solsticio de diciembre" },
+    { longitud: 0, nombre: tx("Equinoccio de marzo") },
+    { longitud: 90, nombre: tx("Solsticio de junio") },
+    { longitud: 180, nombre: tx("Equinoccio de septiembre") },
+    { longitud: 270, nombre: tx("Solsticio de diciembre") },
   ];
   estaciones.forEach(({ longitud, nombre }) => {
     let mejorInstante = null;
@@ -80,10 +80,10 @@ function construirAnalema(anio = aHoraDePared(obtenerFechaActual()).getUTCFullYe
     svgAnalema("line", { class: "reloj-auxiliar-aguja minuto", x1: cx, y1: cy, x2: cx, y2: cy - ANALEMA.relojR * 0.8, id: `aguja-aux-${i}-minuto` }, g);
     svgAnalema("circle", { class: "reloj-auxiliar-centro", cx, cy, r: 4 }, g);
     const label = svgAnalema("text", { class: "reloj-auxiliar-etiqueta", x: cx, y: cy + ANALEMA.relojR + 45, "text-anchor": "middle" }, g);
-    label.textContent = i ? "HORA CIVIL" : "HORA SOLAR";
+    label.textContent = i ? tx("HORA CIVIL") : tx("HORA SOLAR");
   });
   const etiqueta = svgAnalema("text", { class: "analema-etiqueta", x: 600, y: 790, "text-anchor": "middle" }, capa);
-  etiqueta.textContent = "ANALEMA · ECUACIÓN DEL TIEMPO / DECLINACIÓN";
+  etiqueta.textContent = tx("ANALEMA · ECUACIÓN DEL TIEMPO / DECLINACIÓN");
   svgAnalema("text", {
     id: "etiqueta-evento-analema",
     x: 600,

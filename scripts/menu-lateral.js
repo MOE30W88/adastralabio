@@ -30,7 +30,7 @@ function mlCrear(nav) {
     const det = document.createElement("details");
     det.className = "ml-grupo";
     const sum = document.createElement("summary");
-    sum.textContent = g.titulo;
+    sum.textContent = tx(g.titulo);
     const ol = document.createElement("ol");
     g.items.forEach((it, n) => {
       const texto = typeof it === "string" ? it : it.texto;
@@ -44,7 +44,7 @@ function mlCrear(nav) {
         num.textContent = `${n + 1}.`;
         a.append(num, " ");
       }
-      a.append(texto);
+      a.append(tx(texto));
       li.appendChild(a);
       ol.appendChild(li);
     });

@@ -24,6 +24,25 @@ const TEXTOS_ECLIPSE = {
     maximoBajoHorizonte: "El máximo ocurre con el Sol bajo el horizonte",
     etiquetaLupa: "Vista del eclipse",
   },
+  en: {
+    "solar-parcial": "Partial solar eclipse",
+    "solar-total": "Total solar eclipse",
+    "solar-anular": "Annular solar eclipse",
+    "lunar-penumbral": "Penumbral lunar eclipse",
+    "lunar-parcial": "Partial lunar eclipse",
+    "lunar-total": "Total lunar eclipse",
+    ocultacion: (p) => `Sun obscured ${p} %`,
+    faseTotal: "Totality",
+    faseAnular: "Annular phase",
+    umbra: (p) => `Umbra over ${p} % of the Moon`,
+    penumbra: (p) => `Penumbra over ${p} % of the Moon`,
+    maximoAhora: "Maximum now",
+    maximoEn: (t) => `Maximum in ${t}`,
+    maximoHace: (t) => `Maximum ${t} ago`,
+    lunaBajoHorizonte: "The Moon is below the horizon",
+    maximoBajoHorizonte: "The maximum occurs with the Sun below the horizon",
+    etiquetaLupa: "Eclipse view",
+  },
 };
 function textoEclipse(clave, dato) {
   const tabla = TEXTOS_ECLIPSE[idiomaActual?.()] || TEXTOS_ECLIPSE.es;

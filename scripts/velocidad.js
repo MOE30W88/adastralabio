@@ -29,11 +29,11 @@ function pintarControlesVelocidad() {
     const corriendo = activo && nivel === 0;
     const normal = caja.querySelector('[data-tipo="normal"]');
     caja.classList.toggle("activa", activo);
-    caja.querySelector(".control-tiempo-etiqueta").textContent = pausado && lado === 1 ? "pausa" : textoMultiplicador(activo ? magnitud : 1);
+    caja.querySelector(".control-tiempo-etiqueta").textContent = pausado && lado === 1 ? tx("pausa") : textoMultiplicador(activo ? magnitud : 1);
     normal.classList.toggle("activa", corriendo);
     normal.querySelector("path").setAttribute("d", corriendo ? ICONO_PAUSA : ICONO_PLAY);
-    const sentidoTxt = lado === 1 ? "a velocidad normal" : "hacia atrás";
-    const texto = corriendo ? "Pausar el tiempo" : `Reproducir ${sentidoTxt} (x1)`;
+    const sentidoTxt = lado === 1 ? tx("a velocidad normal") : tx("hacia atrás");
+    const texto = corriendo ? tx("Pausar el tiempo") : tx`Reproducir ${sentidoTxt} (x1)`;
     normal.title = texto;
     normal.setAttribute("aria-label", texto);
     caja.querySelector('[data-tipo="rapido"]').classList.toggle("activa", activo && nivel > 0);

@@ -24,9 +24,7 @@
 .pie-redes { display: flex; width: 100%; max-width: 22rem; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.4rem; padding: 0.6rem 0.75rem; border: 1px solid var(--linea); border-radius: 8px; }
 .pie-red { display: block; width: 1.9rem; height: 1.9rem; background: var(--texto-suave); -webkit-mask: var(--icono) center / contain no-repeat; mask: var(--icono) center / contain no-repeat; transition: background-color 0.2s, transform 0.2s; }
 .pie-red:hover, .pie-red:focus-visible { background: var(--acento); transform: translateY(-2px); }
-.pie-red.instagram { --icono: url("../svg/redes/instagram.svg"); }
-.pie-red.youtube { --icono: url("../svg/redes/youtube.svg"); }
-.pie-red.x { --icono: url("../svg/redes/x.svg"); }
+.pie-red.github { --icono: url("../svg/redes/github.svg"); }
 
 .pie-final { display: grid; justify-items: center; gap: 0.7rem; width: min(100%, 1500px); margin: 3rem auto 0; color: var(--texto-suave); font-size: 0.78rem; letter-spacing: 0.08em; text-align: center; }
 .pie-final::before { width: min(100%, 36rem); border-top: 1px solid var(--borde-oro); content: ""; }

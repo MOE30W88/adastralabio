@@ -11,15 +11,15 @@ const SEPARACION_MINIMA = 40;    // alto mínimo entre etiquetas del mismo lado 
 
 // lado: "izq" = por la mañana, "arriba" = mediodía, "der" = por la tarde; tipo: "sol" (dorado) o "crepusculo" (hielo)
 const EVENTOS_DIA_NOCHE = [
-  { clave: "albaAstro", texto: "Alba astronómica", lado: "izq", tipo: "crepusculo", leer: (e) => e.alba.astronomico },
-  { clave: "albaNautico", texto: "Alba náutica", lado: "izq", tipo: "crepusculo", leer: (e) => e.alba.nautico },
-  { clave: "albaCivil", texto: "Alba civil", lado: "izq", tipo: "crepusculo", leer: (e) => e.alba.civil },
-  { clave: "salida", texto: "Salida del Sol", lado: "izq", tipo: "sol", leer: (e) => e.alba.salida },
-  { clave: "mediodia", texto: "Mediodía solar", lado: "arriba", tipo: "sol", leer: (e) => e.mediodia },
-  { clave: "puesta", texto: "Puesta del Sol", lado: "der", tipo: "sol", leer: (e) => e.ocaso.salida },
-  { clave: "ocasoCivil", texto: "Ocaso civil", lado: "der", tipo: "crepusculo", leer: (e) => e.ocaso.civil },
-  { clave: "ocasoNautico", texto: "Ocaso náutico", lado: "der", tipo: "crepusculo", leer: (e) => e.ocaso.nautico },
-  { clave: "ocasoAstro", texto: "Ocaso astronómico", lado: "der", tipo: "crepusculo", leer: (e) => e.ocaso.astronomico },
+  { clave: "albaAstro", texto: tx("Alba astronómica"), lado: "izq", tipo: "crepusculo", leer: (e) => e.alba.astronomico },
+  { clave: "albaNautico", texto: tx("Alba náutica"), lado: "izq", tipo: "crepusculo", leer: (e) => e.alba.nautico },
+  { clave: "albaCivil", texto: tx("Alba civil"), lado: "izq", tipo: "crepusculo", leer: (e) => e.alba.civil },
+  { clave: "salida", texto: tx("Salida del Sol"), lado: "izq", tipo: "sol", leer: (e) => e.alba.salida },
+  { clave: "mediodia", texto: tx("Mediodía solar"), lado: "arriba", tipo: "sol", leer: (e) => e.mediodia },
+  { clave: "puesta", texto: tx("Puesta del Sol"), lado: "der", tipo: "sol", leer: (e) => e.ocaso.salida },
+  { clave: "ocasoCivil", texto: tx("Ocaso civil"), lado: "der", tipo: "crepusculo", leer: (e) => e.ocaso.civil },
+  { clave: "ocasoNautico", texto: tx("Ocaso náutico"), lado: "der", tipo: "crepusculo", leer: (e) => e.ocaso.nautico },
+  { clave: "ocasoAstro", texto: tx("Ocaso astronómico"), lado: "der", tipo: "crepusculo", leer: (e) => e.ocaso.astronomico },
 ];
 
 let claveMarcasEventos = null;

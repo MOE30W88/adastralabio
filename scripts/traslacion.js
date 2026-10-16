@@ -84,8 +84,8 @@ function dibujarOrbitasPlanetarias() {
     punto.setAttribute("r", planeta.radioDibujo);
     punto.setAttribute("fill", planeta.color);
     punto.setAttribute("class", "planeta");
-    punto.setAttribute("data-tooltip", planeta.nombre);
-    punto.setAttribute("aria-label", planeta.nombre);
+    punto.setAttribute("data-tooltip", tx(planeta.nombre));
+    punto.setAttribute("aria-label", tx(planeta.nombre));
     punto.setAttribute("role", "img");
     punto.setAttribute("tabindex", "0");
     capaPlanetas.appendChild(punto);

@@ -31,6 +31,18 @@ const TEXTOS_LUNARIO = {
     nodoNorte: "Nodo norte",
     nodoSur: "Nodo sur",
   },
+  en: {
+    distancia: (km) => `Distance to the Moon: ${km} km`,
+    fase: (nombre, pct) => `${nombre} · ${pct} %`,
+    fases: ["New Moon", "Waxing crescent", "First quarter", "Waxing gibbous", "Full Moon", "Waning gibbous", "Last quarter", "Waning crescent"],
+    sol: "Sun",
+    vistaTierra: "View from Earth",
+    mareas: (clase, pct) => `${["Neap tides", "Intermediate tides", "Spring tides", "Extreme spring tides"][clase]} · ${pct} %`,
+    mareaMuertas: "neap",
+    mareaVivas: "spring",
+    nodoNorte: "North node",
+    nodoSur: "South node",
+  },
 };
 function textoLunario(clave, a, b) {
   const tabla = TEXTOS_LUNARIO[idiomaActual?.()] || TEXTOS_LUNARIO.es;
@@ -273,8 +285,8 @@ function actualizarLunario(fecha) {
   const insetLuna = `<g><title>${textoLunario("vistaTierra")}</title>${lunLunaSvg([-255, 935], m, s, 36, proyTierra)}${sombraInset}</g>`;
 
   // Textos: distancia real y fase
-  const km = (Math.round(luna.distancia / 10) * 10).toLocaleString("es-ES");
-  const nombre = TEXTOS_LUNARIO.es.fases && (TEXTOS_LUNARIO[idiomaActual?.()] || TEXTOS_LUNARIO.es).fases[nombreDeFase(fase.elongacion * (fase.creciente ? 1 : -1))];
+  const km = (Math.round(luna.distancia / 10) * 10).toLocaleString(localeActual());
+  const nombre = (TEXTOS_LUNARIO[idiomaActual?.()] || TEXTOS_LUNARIO.es).fases[nombreDeFase(fase.elongacion * (fase.creciente ? 1 : -1))];
   const xi = Math.max(-160, Math.min(160, ((mareas.indice - 25) / 100) * 320 - 160));
   const indicador = `<g transform="translate(0 -905)"><text class="lun-texto" text-anchor="middle">${textoLunario("mareas", mareas.clase, Math.round(mareas.indice))}</text>
     <line class="lun-gauge-pista" x1="-160" y1="26" x2="160" y2="26"/><path class="lun-gauge-marca" d="M ${xi.toFixed(1)} 21 l -8 -14 h 16 z"/>

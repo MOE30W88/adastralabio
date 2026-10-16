@@ -2,9 +2,9 @@
 function actualizarControlVistaSolar(boton) {
   const siguiente = vistaSistemaSolar === "xy" ? "XZ" : "XY";
   boton.dataset.vista = vistaSistemaSolar;
-  boton.setAttribute("aria-label", `Cambiar a vista ${siguiente}`);
+  boton.setAttribute("aria-label", tx`Cambiar a vista ${siguiente}`);
   boton.setAttribute("aria-pressed", String(vistaSistemaSolar === "xz"));
-  boton.title = `Vista ${vistaSistemaSolar.toUpperCase()} · cambiar a ${siguiente}`;
+  boton.title = tx`Vista ${vistaSistemaSolar.toUpperCase()} · cambiar a ${siguiente}`;
 }
 
 let transicionVistaSolarActiva = false;

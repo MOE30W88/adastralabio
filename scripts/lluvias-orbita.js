@@ -24,8 +24,8 @@ function obtenerCapaLluviasOrbita() {
     marca.setAttribute("r", 4.5);
     marca.setAttribute("tabindex", "0");
     marca.setAttribute("role", "img");
-    marca.setAttribute("data-tooltip", `Lluvia de estrellas: ${l.nombre}`);
-    marca.setAttribute("aria-label", `Lluvia de estrellas: ${l.nombre}`);
+    marca.setAttribute("data-tooltip", tx`Lluvia de estrellas: ${l.nombre}`);
+    marca.setAttribute("aria-label", tx`Lluvia de estrellas: ${l.nombre}`);
     const texto = document.createElementNS(SVG_NS, "text");
     texto.setAttribute("class", "texto-lluvia");
     texto.textContent = l.nombre;

@@ -21,10 +21,10 @@ const CALENDARIO_CHINO = {
 
 // Orden tradicional; "archivo" es el nombre usado en svg/zodiaco-chino/
 const ANIMALES_CHINOS = [
-  { archivo: "rata", nombre: "Rata" }, { archivo: "buey", nombre: "Buey" }, { archivo: "tigre", nombre: "Tigre" },
-  { archivo: "conejo", nombre: "Conejo" }, { archivo: "dragon", nombre: "Dragón" }, { archivo: "serpiente", nombre: "Serpiente" },
-  { archivo: "caballo", nombre: "Caballo" }, { archivo: "cabra", nombre: "Cabra" }, { archivo: "mono", nombre: "Mono" },
-  { archivo: "gallo", nombre: "Gallo" }, { archivo: "perro", nombre: "Perro" }, { archivo: "cerdo", nombre: "Cerdo" },
+  { archivo: "rata", nombre: tx("Rata") }, { archivo: "buey", nombre: tx("Buey") }, { archivo: "tigre", nombre: tx("Tigre") },
+  { archivo: "conejo", nombre: tx("Conejo") }, { archivo: "dragon", nombre: tx("Dragón") }, { archivo: "serpiente", nombre: tx("Serpiente") },
+  { archivo: "caballo", nombre: tx("Caballo") }, { archivo: "cabra", nombre: tx("Cabra") }, { archivo: "mono", nombre: tx("Mono") },
+  { archivo: "gallo", nombre: tx("Gallo") }, { archivo: "perro", nombre: tx("Perro") }, { archivo: "cerdo", nombre: tx("Cerdo") },
 ];
 const RUTAS_ZODIACO_CHINO = {
   figura: (n) => `svg/zodiaco-chino/figuras/fig.${n}.svg`,

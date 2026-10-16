@@ -10,15 +10,31 @@ const EVD_HORA_MS = 3600000;
 const EVD_SEGUNDOS_POR_EVENTO = 2.5; // velocidad del carrusel: más segundos = más lento
 const EVD_ETIQUETA = { si: "Sí", regular: "Regular", no: "No", reloj: "En el reloj" };
 
+const TEXTOS_EVD = {
+  es: {
+    ahora: "ahora", en: (t) => `en ${t}`, hace: (t) => `hace ${t}`,
+    min: (n) => `${n} min`, h: (n) => `${n} h`, d: (n) => `${n} d`, meses: (n) => `${n} meses`, anios: (n) => `${n} años`,
+    detalle: "Detalle del evento", cerrar: "Cerrar", visibilidad: "Visibilidad desde tu ubicación", noAplica: "No aplica",
+    verEnReloj: "ver en reloj ▶", mejorLugar: "ir al mejor lugar ▶", volver: "⟲ Volver",
+  },
+  en: {
+    ahora: "now", en: (t) => `in ${t}`, hace: (t) => `${t} ago`,
+    min: (n) => `${n} min`, h: (n) => `${n} h`, d: (n) => `${n} d`, meses: (n) => `${n} ${n === 1 ? "month" : "months"}`, anios: (n) => `${n} ${n === 1 ? "year" : "years"}`,
+    detalle: "Event details", cerrar: "Close", visibilidad: "Visibility from your location", noAplica: "Not applicable",
+    verEnReloj: "view on clock ▶", mejorLugar: "go to the best place ▶", volver: "⟲ Back",
+  },
+};
+const textoEvd = (clave, ...args) => textoDe(TEXTOS_EVD, clave, ...args);
+
 let evdEventos = new Map();   // id → evento del carrusel
 let evdAbierto = null;        // id del evento con la viñeta abierta
 let evdRespaldo = null;       // lugar previo mientras se "ve en el reloj"
 
 function evdCuenta(ms, ahoraMs) {
   const d = ms - ahoraMs, a = Math.abs(d), min = Math.round(a / 60000);
-  if (a < 30 * 60000) return "ahora";
-  const txt = min < 60 ? `${min} min` : a < 48 * EVD_HORA_MS ? `${Math.round(a / EVD_HORA_MS)} h` : a < 60 * 86400000 ? `${Math.round(a / 86400000)} d` : a < 2 * 365 * 86400000 ? `${Math.round(a / 2629800000)} meses` : `${Math.round(a / 31557600000)} años`;
-  return d > 0 ? `en ${txt}` : `hace ${txt}`;
+  if (a < 30 * 60000) return textoEvd("ahora");
+  const txt = min < 60 ? textoEvd("min", min) : a < 48 * EVD_HORA_MS ? textoEvd("h", Math.round(a / EVD_HORA_MS)) : a < 60 * 86400000 ? textoEvd("d", Math.round(a / 86400000)) : a < 2 * 365 * 86400000 ? textoEvd("meses", Math.round(a / 2629800000)) : textoEvd("anios", Math.round(a / 31557600000));
+  return d > 0 ? textoEvd("en", txt) : textoEvd("hace", txt);
 }
 
 // Gancho que llama evento-detalle.js / infografias.js al crear cada evento del carrusel
@@ -59,16 +75,24 @@ function evdCrear() {
   det = document.createElement("div");
   det.id = "evento-detalle";
   det.setAttribute("role", "dialog");
-  det.setAttribute("aria-label", "Detalle del evento");
+  det.setAttribute("aria-label", textoEvd("detalle"));
   det.hidden = true;
-  det.innerHTML = `<button type="button" class="ed-cerrar" aria-label="Cerrar">×</button>
+  det.innerHTML = `<button type="button" class="ed-cerrar" aria-label="${textoEvd("cerrar")}">×</button>
     <div class="ed-cab"><span class="evento-icono ed-icono"><span class="evento-icono-fallback">✦</span></span>
       <div><h3 class="ed-titulo"></h3><p class="ed-cuenta"></p></div></div>
     <p class="ed-fecha"></p><p class="ed-nota"></p>
-    <p class="ed-vis"><span class="ed-vis-etq">Visibilidad desde tu ubicación</span><strong class="ed-vis-val"></strong></p>
-    <button type="button" class="ed-ver">ver en reloj ▶</button>
-    <button type="button" class="ed-mejor" hidden>ir al mejor lugar ▶</button>`;
+    <p class="ed-vis"><span class="ed-vis-etq">${textoEvd("visibilidad")}</span><strong class="ed-vis-val"></strong></p>
+    <button type="button" class="ed-ver">${textoEvd("verEnReloj")}</button>
+    <button type="button" class="ed-mejor" hidden>${textoEvd("mejorLugar")}</button>`;
   document.body.appendChild(det);
+  document.addEventListener("cambio-idioma", () => { // los textos fijos se reescriben; la viñeta abierta se cierra (su título y fecha son del idioma anterior)
+    det.setAttribute("aria-label", textoEvd("detalle"));
+    det.querySelector(".ed-cerrar").setAttribute("aria-label", textoEvd("cerrar"));
+    det.querySelector(".ed-vis-etq").textContent = textoEvd("visibilidad");
+    det.querySelector(".ed-ver").textContent = textoEvd("verEnReloj");
+    det.querySelector(".ed-mejor").textContent = textoEvd("mejorLugar");
+    evdCerrar();
+  });
   det.querySelector(".ed-cerrar").addEventListener("click", evdCerrar);
   det.querySelector(".ed-ver").addEventListener("click", () => { const ev = evdEventos.get(evdAbierto); if (ev) { evdCerrar(); evdVerEnReloj(ev); } });
   det.querySelector(".ed-mejor").addEventListener("click", () => { const ev = evdEventos.get(evdAbierto); if (ev) { evdCerrar(); evdVerEnReloj(ev, true); } });
@@ -85,7 +109,7 @@ function evdAbrir(id, nodo) {
   det.querySelector(".ed-fecha").textContent = ev.fecha;
   det.querySelector(".ed-nota").textContent = ev.alcance || "";
   det.querySelector(".ed-nota").hidden = !ev.alcance;
-  const vis = ev.visibilidad || { estado: null, texto: "No aplica" }, val = det.querySelector(".ed-vis-val");
+  const vis = ev.visibilidad || { estado: null, texto: textoEvd("noAplica") }, val = det.querySelector(".ed-vis-val");
   val.textContent = vis.texto; val.dataset.estado = vis.estado || "";
   // "Mejor lugar": solo si el evento no se ve (bien) desde aquí y existe un lugar mejor (evento-mejor-lugar.js)
   const mejor = det.querySelector(".ed-mejor");
@@ -185,8 +209,9 @@ function evdPastilla() {
   p = document.createElement("div");
   p.id = "evento-en-reloj";
   p.hidden = true;
-  p.innerHTML = `<span class="ep-texto"></span><button type="button" class="ep-volver">⟲ Volver</button>`;
+  p.innerHTML = `<span class="ep-texto"></span><button type="button" class="ep-volver">${textoEvd("volver")}</button>`;
   document.body.appendChild(p);
+  document.addEventListener("cambio-idioma", () => { p.querySelector(".ep-volver").textContent = textoEvd("volver"); });
   p.querySelector(".ep-volver").addEventListener("click", () => document.getElementById("boton-ahora").click());
   return p;
 }

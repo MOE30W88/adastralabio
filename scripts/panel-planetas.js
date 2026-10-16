@@ -16,7 +16,7 @@ function construirTablaPlanetas() {
   PLANETAS.forEach((p) => {
     const fila = document.createElement("tr");
     fila.innerHTML =
-      `<td><span class="punto-planeta" style="background:${p.color}"></span>${p.nombre}</td>` +
+      `<td><span class="punto-planeta" style="background:${p.color}"></span>${tx(p.nombre)}</td>` +
       `<td class="num"></td><td class="num"></td><td class="num">${textoPeriodo(p.periodo)}</td>`;
     cuerpo.appendChild(fila);
     const celdas = fila.querySelectorAll("td");
@@ -41,10 +41,10 @@ function actualizarPanelPlanetas(ahora) {
   const evaluaciones = evaluarAlineaciones(ahora);
   const alineados = evaluaciones.filter((p) => p.alineado);
   const formatoDesvio = (p) =>
-    `${p.nombre} (${p.desviacionGrados.toFixed(2).replace(".", ",")}°; ${p.distanciaEjeUA.toFixed(3).replace(".", ",")} UA)`;
+    `${tx(p.nombre)} (${p.desviacionGrados.toFixed(2).replace(".", ",")}°; ${p.distanciaEjeUA.toFixed(3).replace(".", ",")} UA)`;
   document.getElementById("planetas-alineados").textContent = alineados.length
     ? alineados.map(formatoDesvio).join(" · ")
-    : `Ninguno; menor desviación: ${formatoDesvio(evaluaciones[0])}`;
+    : tx`Ninguno; menor desviación: ${formatoDesvio(evaluaciones[0])}`;
 }
  
 construirTablaPlanetas();

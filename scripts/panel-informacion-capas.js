@@ -1,13 +1,13 @@
 // Espacio de información auxiliar asociado a la capa activa.
 const NOMBRES_CAPAS_PANEL = {
-  todas: "Astrolabio",
-  reloj: "Reloj",
-  "dia-noche": "Día y noche",
-  lunario: "Lunario",
-  zodiaco: "Zodíaco",
-  calendario: "Calendario",
-  rotacion: "Rotación",
-  "sistema-solar": "Sistema solar",
+  todas: tx("Astrolabio"),
+  reloj: tx("Reloj"),
+  "dia-noche": tx("Día y noche"),
+  lunario: tx("Lunario"),
+  zodiaco: tx("Zodíaco"),
+  calendario: tx("Calendario"),
+  rotacion: tx("Rotación"),
+  "sistema-solar": tx("Sistema solar"),
 };
 // Ancla de cada capa en paginas/infografias.html (el botón "+" lleva a la infografía de la capa activa; el Astrolabio, a la página completa)
 const ANCLAS_INFOGRAFIA = { reloj: "grupo-reloj", "dia-noche": "grupo-dia-y-noche", lunario: "grupo-lunario", zodiaco: "grupo-zodiaco", calendario: "grupo-calendario", "sistema-solar": "grupo-sistema-solar", rotacion: "grupo-rotacion" };
@@ -24,10 +24,10 @@ function actualizarPanelPorEnfoque(clave) {
   enfoquePanelActivo = clave;
   const masInfo = document.getElementById("boton-masinfo");
   if (masInfo) {
-    masInfo.href = "paginas/infografias.html" + (ANCLAS_INFOGRAFIA[clave] ? `#${ANCLAS_INFOGRAFIA[clave]}` : "");
-    const titulo = ANCLAS_INFOGRAFIA[clave] ? `Infografía: ${NOMBRES_CAPAS_PANEL[clave]}` : "Infografía";
+    masInfo.href = rutaPagina("infografias.html") + (ANCLAS_INFOGRAFIA[clave] ? `#${ANCLAS_INFOGRAFIA[clave]}` : "");
+    const titulo = ANCLAS_INFOGRAFIA[clave] ? tx`Infografía: ${NOMBRES_CAPAS_PANEL[clave]}` : tx("Infografía");
     masInfo.title = titulo;
-    masInfo.setAttribute("aria-label", `Ir a ${titulo}`);
+    masInfo.setAttribute("aria-label", tx`Ir a ${titulo}`);
   }
   const esSistemaSolar = clave === "sistema-solar";
   contenidoSolar.hidden = !esSistemaSolar;
@@ -38,7 +38,7 @@ function actualizarPanelPorEnfoque(clave) {
   }
   if (esSistemaSolar) return;
 
-  document.getElementById("titulo-panel-capa").textContent = NOMBRES_CAPAS_PANEL[clave] ?? "Astrolabio";
+  document.getElementById("titulo-panel-capa").textContent = NOMBRES_CAPAS_PANEL[clave] ?? tx("Astrolabio");
   // Aquí se conectarán los cálculos y la presentación de cada capa.
   document.getElementById("datos-panel-capa").replaceChildren();
 }
@@ -66,10 +66,10 @@ function actualizarPanelDatosDinamicos(ahora) {
       icono.dataset.signo = signo.nombre;
     }
     document.getElementById("simbolo-signo-zodiaco").textContent = signo.simbolo;
-    document.getElementById("nombre-signo-zodiaco").textContent = signo.nombre;
-    document.getElementById("dato-longitud-zodiaco").textContent = `${solar.longitudEcliptica.toLocaleString("es", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}°`;
-    document.getElementById("dato-avance-zodiaco").textContent = `${avance.toLocaleString("es", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}° de 30° · ${(avance / 30 * 100).toLocaleString("es", { maximumFractionDigits: 1 })}%`;
-    document.getElementById("dato-declinacion-zodiaco").textContent = `${solar.declinacion < 0 ? "−" : "+"}${Math.abs(solar.declinacion).toLocaleString("es", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}°`;
+    document.getElementById("nombre-signo-zodiaco").textContent = tx(signo.nombre);
+    document.getElementById("dato-longitud-zodiaco").textContent = `${solar.longitudEcliptica.toLocaleString(localeActual(), { minimumFractionDigits: 2, maximumFractionDigits: 2 })}°`;
+    document.getElementById("dato-avance-zodiaco").textContent = `${avance.toLocaleString(localeActual(), { minimumFractionDigits: 2, maximumFractionDigits: 2 })}° de 30° · ${(avance / 30 * 100).toLocaleString(localeActual(), { maximumFractionDigits: 1 })}%`;
+    document.getElementById("dato-declinacion-zodiaco").textContent = `${solar.declinacion < 0 ? "−" : "+"}${Math.abs(solar.declinacion).toLocaleString(localeActual(), { minimumFractionDigits: 2, maximumFractionDigits: 2 })}°`;
 
     const anio = ahora.getUTCFullYear();
     if (!proximoCambioZodiaco || proximoCambioZodiaco.indice !== indice || proximoCambioZodiaco.anio !== anio) {
@@ -79,7 +79,7 @@ function actualizarPanelDatosDinamicos(ahora) {
       proximoCambioZodiaco = { indice, anio, instante: instanteLongitudSolar(frontera, aproximacion) };
     }
     const pared = aHoraDePared(new Date(proximoCambioZodiaco.instante));
-    document.getElementById("dato-cambio-zodiaco").textContent = `${pared.getUTCDate()} ${MESES[pared.getUTCMonth()]} · ${dosDigitos(pared.getUTCHours())}:${dosDigitos(pared.getUTCMinutes())}`;
+    document.getElementById("dato-cambio-zodiaco").textContent = `${pared.getUTCDate()} ${mesLargoPanel(pared.getUTCMonth())} · ${dosDigitos(pared.getUTCHours())}:${dosDigitos(pared.getUTCMinutes())}`;
     return;
   }
 
@@ -96,7 +96,7 @@ function actualizarPanelDatosDinamicos(ahora) {
     document.getElementById("dato-ocaso-astronomico").textContent = valor("ocasoAstro");
 
     const hayUbicacion = typeof ubicacion.latitud === "number" && typeof ubicacion.longitud === "number";
-    const visible = (esVisible) => hayUbicacion ? (esVisible ? "Sobre el horizonte · visible" : "Bajo el horizonte · no visible") : "Ubicación necesaria";
+    const visible = (esVisible) => hayUbicacion ? (esVisible ? tx("Sobre el horizonte · visible") : tx("Bajo el horizonte · no visible")) : tx("Ubicación necesaria");
     document.getElementById("dato-visibilidad-sol").textContent = visible(
       hayUbicacion && posicionSolarHorizonte(ahora, ubicacion.latitud, ubicacion.longitud).altura >= 0,
     );
@@ -111,8 +111,8 @@ function actualizarPanelDatosDinamicos(ahora) {
   document.getElementById("dato-hora-24").textContent = textoDeLaHora(ahora);
   document.getElementById("dato-hora-solar").textContent = textoHoraDecimal(horaSolarVerdadera(ahora));
   document.getElementById("dato-hora-civil").textContent = textoDeLaHora(ahora);
-  document.getElementById("dato-ecuacion-tiempo").textContent = `${ecuacion < 0 ? "−" : "+"}${Math.abs(ecuacion).toLocaleString("es", { maximumFractionDigits: 1 })} min`;
-  document.getElementById("dato-declinacion-solar").textContent = `${declinacion < 0 ? "−" : "+"}${Math.abs(declinacion).toLocaleString("es", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}°`;
+  document.getElementById("dato-ecuacion-tiempo").textContent = `${ecuacion < 0 ? "−" : "+"}${Math.abs(ecuacion).toLocaleString(localeActual(), { maximumFractionDigits: 1 })} min`;
+  document.getElementById("dato-declinacion-solar").textContent = `${declinacion < 0 ? "−" : "+"}${Math.abs(declinacion).toLocaleString(localeActual(), { minimumFractionDigits: 2, maximumFractionDigits: 2 })}°`;
 }
 
 actualizarPanelPorEnfoque(document.querySelector(".nav-capas button.activa")?.dataset.enfoque ?? "todas");

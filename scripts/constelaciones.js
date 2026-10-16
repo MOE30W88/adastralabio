@@ -3,7 +3,7 @@
 // Cada sección abarca 30° de la eclíptica y se coloca en el calendario según el día en que el Sol
 // cruza sus límites. La sección que queda bajo el marcador del calendario se marca como activa.
 // Rota junto con el calendario. Dibujos: svg/zodiaco-occidental/ (constelaciones, figura, simbolo); si falta uno, un comodín.
-// Depende de: astronomia.js, planetas.js (precesión), calendario.js, marco.js, hora-local.js
+// Depende de: astronomia.js, planetas.js (precesión), calendario.js, marco.js, hora-local.js, panel-resultados.js (diaMesCortoPanel)
  
 const ANILLO_CONSTELACIONES = {
   radioArco: 900,
@@ -57,6 +57,13 @@ const CONSTELACIONES = [
   hasta: normalizarGrados(INICIO_SECCIONES + (i + 1) * AMPLITUD_SECCION),
 }));
 
+// Nombre mostrado (c.nombre se conserva en español: otros módulos lo comparan)
+const TEXTOS_CONSTELACIONES = {
+  es: {},
+  en: { aries: "Aries", tauro: "Taurus", geminis: "Gemini", cancer: "Cancer", leo: "Leo", virgo: "Virgo", libra: "Libra", escorpio: "Scorpio", sagitario: "Sagittarius", capricornio: "Capricorn", acuario: "Aquarius", piscis: "Pisces" },
+};
+const nombreConstelacion = (c) => textoDe(TEXTOS_CONSTELACIONES, c.clave) ?? c.nombre;
+
 // ── Cálculo de fechas ──────────────────────────────────────────
 // Longitud del Sol (equinoccio de la fecha, como el zodiaco tropical) al mediodía UTC de cada día; se "desenrolla" para que crezca sin saltos
 function longitudesSolaresDelAnio(anio) {
@@ -89,7 +96,7 @@ function diaDeCruce(lam, limite) {
  
 function textoFechaDelAnio(anio, dias) {
   const f = new Date(Date.UTC(anio, 0, 1) + dias * 86400000);
-  return `${f.getUTCDate()} ${MESES[f.getUTCMonth()].slice(0, 3).toLowerCase()}`;
+  return diaMesCortoPanel(f.getUTCDate(), f.getUTCMonth()); // panel-resultados.js
 }
  
 // ── Dibujo ─────────────────────────────────────────────────────
@@ -218,7 +225,7 @@ function dibujarConstelaciones(anio) {
     const grupo = document.createElementNS(SVG_NS, "g");
     grupo.setAttribute("class", "constelacion");
     const titulo = document.createElementNS(SVG_NS, "title");
-    titulo.textContent = `${c.nombre} · ${textoFechaDelAnio(anio, dIni)} – ${textoFechaDelAnio(anio, dFin)}`;
+    titulo.textContent = `${nombreConstelacion(c)} · ${textoFechaDelAnio(anio, dIni)} – ${textoFechaDelAnio(anio, dFin)}`;
     grupo.appendChild(titulo);
  
     const arco = document.createElementNS(SVG_NS, "path");
@@ -271,7 +278,7 @@ function dibujarConstelaciones(anio) {
     nombre.setAttribute("y", pn.y);
     nombre.setAttribute("transform", `rotate(${medio} ${pn.x} ${pn.y})`);
     nombre.setAttribute("class", "nombre-constelacion");
-    nombre.textContent = c.nombre;
+    nombre.textContent = nombreConstelacion(c);
     grupo.appendChild(nombre);
  
     capa.appendChild(grupo);
@@ -303,6 +310,7 @@ function marcarConstelacionActiva(anguloCalendario) {
 }
  
 let anioConstelaciones = null;
+document.addEventListener("cambio-idioma", () => { anioConstelaciones = null; }); // fuerza el redibujo con los nombres del nuevo idioma
  
 // Se llama en cada fotograma: redibuja solo al cambiar de año y rota con el calendario
 function actualizarConstelaciones(ahora, anguloCalendario) {

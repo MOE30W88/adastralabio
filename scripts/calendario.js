@@ -119,7 +119,7 @@ function dibujarCalendario(anio) {
     capa.appendChild(crearMarcaCalendario(anguloInicio, CALENDARIO.anillo, CALENDARIO.anillo + CALENDARIO.largoMes, "marca-calendario marca-mes"));
 
     const anguloMedio = anguloInicio + anchoMes / 2;
-    capa.appendChild(crearEtiquetaMesCurva(MESES[mes], anguloMedio, CALENDARIO.radioEtiqueta));
+    capa.appendChild(crearEtiquetaMesCurva(tx(MESES[mes]), anguloMedio, CALENDARIO.radioEtiqueta));
 
     for (let dia = 1; dia <= dias; dia++) {
       const anguloDia = anguloInicio + ((dia - 1) / dias) * anchoMes;

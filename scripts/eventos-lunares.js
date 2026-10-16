@@ -29,6 +29,18 @@ const TEXTOS_EVENTOS_LUNARES = {
     azul: "Segunda luna llena del mes", negra: "Segunda luna nueva del mes", cosecha: "La luna llena más cercana al equinoccio",
     mareas: (p) => `Fuerza de marea ${p} %`,
   },
+  en: {
+    "eclipse-solar-parcial": "Partial solar eclipse", "eclipse-solar-total": "Total solar eclipse",
+    "eclipse-solar-anular": "Annular solar eclipse", "eclipse-solar-híbrido": "Hybrid solar eclipse",
+    "eclipse-lunar-penumbral": "Penumbral lunar eclipse", "eclipse-lunar-parcial": "Partial lunar eclipse", "eclipse-lunar-total": "Total lunar eclipse",
+    superluna: "Supermoon", microluna: "Micromoon", "luna-azul": "Blue Moon", "luna-negra": "Black Moon",
+    "luna-cosecha": "Harvest Moon", "mareas-vivas": "Extreme spring tides",
+    visibleAqui: "Visible from your location", noVisibleAqui: "Not visible from your location", segunLugar: "Visibility depends on your location",
+    parcialAqui: (p) => `Visible from your location (${p} % of the Sun)`,
+    distancia: (km) => `${km} km from Earth`,
+    azul: "Second full moon of the month", negra: "Second new moon of the month", cosecha: "The full moon closest to the equinox",
+    mareas: (p) => `Tidal force ${p} %`,
+  },
 };
 function textoEventoLunar(clave, dato) {
   const t = TEXTOS_EVENTOS_LUNARES[typeof idiomaActual === "function" ? idiomaActual() : "es"] || TEXTOS_EVENTOS_LUNARES.es;
@@ -146,7 +158,7 @@ function eventosParaCarrusel(desdeMs = Date.now(), meses = 12, maximo = 40) {
   const u = typeof ubicacion !== "undefined" && typeof ubicacion.latitud === "number" ? `${ubicacion.latitud.toFixed(1)},${ubicacion.longitud.toFixed(1)}` : "sin-lugar";
   const clave = `${Math.floor(desdeMs / 3600000)}|${meses}|${maximo}|${u}`;
   if (evlCache.clave === clave) return evlCache.lista;
-  const fmt = new Intl.DateTimeFormat("es", { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit", hour12: false, timeZone: "UTC" });
+  const fmt = new Intl.DateTimeFormat(localeActual(), { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit", hour12: false, timeZone: "UTC" });
   const hasta = desdeMs + meses * 30.44 * EVL.DIA_MS;
   const todos = [...eventosLunares(desdeMs, hasta), ...(typeof eventosAstronomicos === "function" ? eventosAstronomicos(desdeMs, hasta) : [])].sort((a, b) => a.maximo - b.maximo);
   const cerca = (e, o) => o !== e && Math.abs(o.maximo - e.maximo) < 3 * 3600000;
@@ -157,7 +169,7 @@ function eventosParaCarrusel(desdeMs = Date.now(), meses = 12, maximo = 40) {
     const alcance = e.alcance ?? (e.eclipse ? evlAlcanceEclipse(e.eclipse)
       : e.tipo === "luna-azul" ? textoEventoLunar("azul") : e.tipo === "luna-negra" ? textoEventoLunar("negra")
       : e.tipo === "luna-cosecha" ? textoEventoLunar("cosecha") : e.tipo === "mareas-vivas" ? textoEventoLunar("mareas", Math.round(e.indice))
-      : textoEventoLunar("distancia", km.toLocaleString("es-ES")) + (mareas ? ` · ${textoEventoLunar("mareas", Math.round(mareas.indice))}` : ""));
+      : textoEventoLunar("distancia", km.toLocaleString(localeActual())) + (mareas ? ` · ${textoEventoLunar("mareas", Math.round(mareas.indice))}` : ""));
     return {
       id: `${clave2}-${Math.round(e.maximo / 60000)}`,
       titulo: e.titulo ?? textoEventoLunar(clave2),

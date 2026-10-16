@@ -41,7 +41,7 @@ function crearDivisionZodiaco(grados) {
 const etiquetasZodiaco = []; 
 
 function crearEtiquetaCurvaZodiaco(signo, medio) {
-  const texto = `${signo.simbolo}  ${signo.nombre}`;
+  const texto = `${signo.simbolo}  ${tx(signo.nombre)}`;
   const grupo = document.createElementNS(SVG_NS, "g");
 
   const anguloInicio = medio - 15;
@@ -69,7 +69,7 @@ function crearEtiquetaCurvaZodiaco(signo, medio) {
   simbolo.setAttribute("class", "simbolo-zodiacal");
   simbolo.textContent = `${signo.simbolo}\uFE0E`;
   const nombre = document.createElementNS(SVG_NS, "tspan");
-  nombre.textContent = `\u00A0${signo.nombre}`;
+  nombre.textContent = `\u00A0${tx(signo.nombre)}`;
   textPath.append(simbolo, nombre);
 
   textoEl.appendChild(textPath);

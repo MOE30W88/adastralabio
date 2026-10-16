@@ -4,18 +4,18 @@ const EVENTOS_ESTACIONALES = [
   {
     nombre: "equinoccio-primavera",
     longitud: 0,
-    etiqueta: "Equinoccio de primavera",
+    etiqueta: tx("Equinoccio de primavera"),
   },
-  { nombre: "solsticio-verano", longitud: 90, etiqueta: "Solsticio de verano" },
+  { nombre: "solsticio-verano", longitud: 90, etiqueta: tx("Solsticio de verano") },
   {
     nombre: "equinoccio-otonio",
     longitud: 180,
-    etiqueta: "Equinoccio de otoño",
+    etiqueta: tx("Equinoccio de otoño"),
   },
   {
     nombre: "solsticio-invierno",
     longitud: 270,
-    etiqueta: "Solsticio de invierno",
+    etiqueta: tx("Solsticio de invierno"),
   },
 ];
  

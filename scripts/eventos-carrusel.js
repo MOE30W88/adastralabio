@@ -38,7 +38,7 @@ function renderizarEventosProximos(eventos) {
   if (!eventos.length) {
     const estado = document.createElement("p");
     estado.className = "estado-eventos";
-    estado.textContent = "Los próximos eventos aparecerán aquí cuando estén disponibles los cálculos.";
+    estado.textContent = tx("Los próximos eventos aparecerán aquí cuando estén disponibles los cálculos.");
     pista.appendChild(estado);
     controles.hidden = true;
     return;
@@ -136,14 +136,14 @@ function renderizarGaleria(eventos) {
     foto.alt = imagen.alt || "";
     foto.addEventListener("error", () => { foto.hidden = true; }, { once: true });
     item.querySelector(".galeria-leyenda").textContent = titulo;
-    tarjeta.setAttribute("aria-label", `Mostrar ${titulo}`);
+    tarjeta.setAttribute("aria-label", tx`Mostrar ${titulo}`);
     tarjeta.addEventListener("click", () => seleccionar(indice));
     pista.appendChild(item);
 
     const punto = document.createElement("button");
     punto.type = "button";
     punto.className = "galeria-punto";
-    punto.setAttribute("aria-label", `Mostrar imagen ${indice + 1}: ${titulo}`);
+    punto.setAttribute("aria-label", tx`Mostrar imagen ${indice + 1}: ${titulo}`);
     punto.setAttribute("aria-current", "false");
     punto.addEventListener("click", () => seleccionar(indice));
     puntos.appendChild(punto);

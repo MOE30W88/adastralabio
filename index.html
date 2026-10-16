@@ -7,10 +7,9 @@
     <meta name="description" content="AD ASTRA: reloj astronómico interactivo. El cielo, el tiempo y la posición del Sol y la Luna en una sola esfera, según tu ubicación." />
     <meta name="theme-color" content="#050813" /> 
     <script>try{var p=localStorage.getItem("tema-preferencia")||"auto",h=new Date().getHours();document.documentElement.dataset.tema=p==="auto"?(h>=6&&h<18?"dia":"noche"):p}catch(e){}</script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet" />
     <link rel="icon" type="image/svg+xml" href="svg/logo/favicon.svg?v=2" />
+    <link rel="preload" href="fonts/playfair-display-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="css/fuentes.css" />
     <link rel="stylesheet" href="css/base.css" />
     <link rel="stylesheet" href="css/reloj.css" />
     <link rel="stylesheet" href="css/viajero.css" />
@@ -43,6 +42,11 @@
     <link rel="stylesheet" href="css/vineta-eventos.css" />
     <link rel="stylesheet" href="css/vineta-mapa.css" />
     <link rel="stylesheet" href="css/lunario.css" />
+    <script src="scripts/i18n.js" defer></script>
+    <script src="scripts/traducciones-js-en.js" defer></script>
+    <script src="scripts/mapa-nombres-en.js" defer></script>
+    <script src="scripts/traducciones-html.js" defer></script>
+    <script src="scripts/traducir-dom.js" defer></script>
     <script src="scripts/hora-local.js" defer></script>
     <script src="scripts/hora.js" defer></script>
     <script src="scripts/estado-tiempo.js" defer></script>
@@ -142,7 +146,6 @@
           <a href="paginas/alcance.html">Alcance</a>
           <a href="paginas/matematicas.html">Matemáticas</a>
           <a href="paginas/infografias.html">Infografías</a>
-          <a href="paginas/acerca-de.html">Acerca de mí</a>
           <a href="paginas/soporte.html">Soporte</a>
         </nav>
       <div class="cabecera-acciones">
@@ -524,7 +527,6 @@
             <a href="paginas/alcance.html">Alcance</a>
             <a href="paginas/matematicas.html">Matemáticas</a>
             <a href="paginas/infografias.html">Infografías</a>
-            <a href="paginas/acerca-de.html">Acerca de mí</a>
             <a href="paginas/soporte.html">Soporte</a>
           </nav>
           <nav class="pie-bloque" aria-labelledby="pie-titulo-soporte">
@@ -540,9 +542,7 @@
             <a href="mailto:moises.soriano.dev@gmail.com">moises.soriano.dev@gmail.com</a>
             <span>Redes</span>
             <div class="pie-redes">
-              <a class="pie-red instagram" href="#" aria-label="Instagram"></a>
-              <a class="pie-red youtube" href="#" aria-label="YouTube"></a>
-              <a class="pie-red x" href="#" aria-label="X"></a>
+              <a class="pie-red github" href="https://github.com/MOE30W88" target="_blank" rel="noopener noreferrer" aria-label="GitHub"></a>
             </div>
           </div>
         </div>

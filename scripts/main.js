@@ -18,6 +18,19 @@ let marcadorSegundo = null;
  
 let anioCalendarioDibujado = null;
  
+// Capas de movimiento lento: a velocidad normal cambian de forma invisible entre un fotograma y el siguiente, y reescribir sus ~1500
+// elementos SVG 60 veces por segundo obliga al navegador a repintar casi todo el reloj. Se recalculan cada INTERVALO_CAPAS_LENTAS_MS;
+// si el tiempo corre rápido (más de x60, en cualquier sentido) se calculan en cada fotograma para que el movimiento se vea fluido.
+const INTERVALO_CAPAS_LENTAS_MS = 250;
+const VELOCIDAD_CAPAS_FLUIDAS = 60;
+const ultimoCalculoLento = {};
+function capaLenta(clave, calcular) {
+  const rapido = estadoTiempo.modoViajero && Math.abs(estadoTiempo.multiplicador) > VELOCIDAD_CAPAS_FLUIDAS;
+  const t = performance.now();
+  if (!rapido && t - (ultimoCalculoLento[clave] ?? -Infinity) < INTERVALO_CAPAS_LENTAS_MS) return;
+  ultimoCalculoLento[clave] = t;
+  calcular();
+}
 function actualizar() {
   const ahora = obtenerFechaActual();
   actualizarEventosSolaresSiCambio(ahora);
@@ -46,12 +59,12 @@ function actualizar() {
     marcadorSegundo.setAttribute("transform", `rotate(${anguloS} 600 600)`);
   const anguloZod = anguloZodiaco(ahora);
   capaZodiaco.setAttribute("transform", `rotate(${anguloZod} 600 600)`);
-  actualizarTraslacion(ahora);
-  actualizarAsteroides(ahora);
-  actualizarAlineacion(ahora);
-  if (typeof actualizarCometas === "function") actualizarCometas(ahora);
-  if (typeof actualizarLluviasOrbita === "function") actualizarLluviasOrbita(ahora);
-  actualizarEtiquetasZodiaco(anguloZod);
+  capaLenta("traslacion", () => actualizarTraslacion(ahora));
+  capaLenta("asteroides", () => actualizarAsteroides(ahora));
+  capaLenta("alineacion", () => actualizarAlineacion(ahora));
+  if (typeof actualizarCometas === "function") capaLenta("cometas", () => actualizarCometas(ahora));
+  if (typeof actualizarLluviasOrbita === "function") capaLenta("lluvias", () => actualizarLluviasOrbita(ahora));
+  capaLenta("etiquetasZodiaco", () => actualizarEtiquetasZodiaco(anguloZod));
   actualizarIndicadorZodiaco(anguloZod);
   actualizarEventoEstacional(ahora, anguloZod);
  
@@ -62,15 +75,15 @@ function actualizar() {
   }
   const anguloCal = anguloCalendario(ahora);
   capaCalendario.setAttribute("transform", `rotate(${anguloCal} 600 600)`);
-  actualizarAnilloEstaciones(ahora, anguloCal);
+  capaLenta("estaciones", () => actualizarAnilloEstaciones(ahora, anguloCal));
   actualizarConstelaciones(ahora, anguloCal);
-  actualizarCalendarioChino(ahora);
-  actualizarRotacion(ahora);
+  capaLenta("calendarioChino", () => actualizarCalendarioChino(ahora));
+  capaLenta("rotacion", () => actualizarRotacion(ahora));
   actualizarAnalema(ahora);
   actualizarPanelDatosDinamicos(ahora);
   actualizarHorizonte();
   actualizarMarcasEventos(ahora);
-  actualizarEtiquetasCalendario(anguloCal);
+  capaLenta("etiquetasCalendario", () => actualizarEtiquetasCalendario(anguloCal));
  
   let alturaSolar = null;
   if (ubicacion.latitud !== null) {
@@ -137,8 +150,8 @@ const textoUbicacion = document.getElementById("ubicacion");
 const textoPaisCiudad = document.getElementById("pais-ciudad");
  
 function mostrarUbicacion(u) {
-  const latStr = `Lat: ${u.latitud.toFixed(4)}°`;
-  const lonStr = `Lon: ${u.longitud.toFixed(4)}°`;
+  const latStr = tx`Lat: ${u.latitud.toFixed(4)}°`;
+  const lonStr = tx`Lon: ${u.longitud.toFixed(4)}°`;
   textoUbicacion.textContent = `${latStr}\n${lonStr}`;
  
   if (u.ciudad || u.pais) {

@@ -20,6 +20,19 @@ const TEXTOS_MAPA = {
     ahora: "Ahora",
     tu: "Tú",
   },
+  en: {
+    tituloCentral: "Eclipse path",
+    tituloParcial: "Eclipse zone",
+    tituloLunar: "Where the eclipse is visible",
+    maximo: (lat, lon) => `Maximum: ${lat}, ${lon}`,
+    franja: (km, tipo) => `${tipo === "anular" ? "Annularity" : "Totality"} path: ${km} km`,
+    ocultacion: (p) => `Maximum obscuration: ${p} %`,
+    lunar: "Visible where the Moon is above the horizon",
+    lunarLeyenda: "Lighter: only part of the eclipse",
+    calculando: "Calculating the path…",
+    ahora: "Now",
+    tu: "You",
+  },
 };
 function textoMapa(clave, a, b) {
   const t = TEXTOS_MAPA[typeof idiomaActual === "function" ? idiomaActual() : "es"] || TEXTOS_MAPA.es;
@@ -30,8 +43,8 @@ function textoMapa(clave, a, b) {
 let vmapa = null, vmapaCalculando = false, vmapaFirma = "";
 const vmRel = (lon, lon0) => ((((lon - lon0) % 360) + 540) % 360) - 180;
 const vmCoord = (lat, lon) => {
-  const f = (v, pos, neg) => `${Math.abs(v).toLocaleString("es-ES", { minimumFractionDigits: 1, maximumFractionDigits: 1 })}° ${v >= 0 ? pos : neg}`;
-  return textoMapa("maximo", f(lat, "N", "S"), f(lon, "E", "O"));
+  const f = (v, pos, neg) => `${Math.abs(v).toLocaleString(localeActual(), { minimumFractionDigits: 1, maximumFractionDigits: 1 })}° ${v >= 0 ? pos : neg}`;
+  return textoMapa("maximo", f(lat, "N", "S"), f(lon, "E", idiomaActual() === "en" ? "W" : "O"));
 };
 
 function asegurarMapaEclipse() {

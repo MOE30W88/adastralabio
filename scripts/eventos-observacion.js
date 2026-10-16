@@ -8,7 +8,7 @@
 const OBS_DIA = 86400000;
 const OBS_EXTERIORES = ["Marte", "Júpiter", "Saturno", "Urano", "Neptuno"];
 const OBS_INTERIORES = ["Mercurio", "Venus"];
-const OBS_TELESCOPIO = { Urano: "con prismáticos o telescopio", Neptuno: "solo con telescopio" };
+const OBS_TELESCOPIO = { Urano: tx("con prismáticos o telescopio"), Neptuno: tx("solo con telescopio") };
 
 // Vectores geocéntricos (UA, eclíptica de la fecha) del planeta y del Sol
 function obsGeometria(nombre, ms) {
@@ -25,7 +25,7 @@ const obsBiseccion = (f, a, b) => { for (let i = 0; i < 40; i++) { const m = (a 
 const obsMaximo = (f, a, b) => { for (let i = 0; i < 40; i++) { const m1 = a + (b - a) / 3, m2 = b - (b - a) / 3; if (f(m1) < f(m2)) a = m1; else b = m2; } return (a + b) / 2; };
 
 function eventosObservacion(desdeMs, hastaMs) {
-  const eventos = [], fmtUA = (d) => d.toLocaleString("es", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+  const eventos = [], fmtUA = (d) => d.toLocaleString(localeActual(), { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 
   // Oposiciones: la diferencia de longitudes pasa de positiva a negativa por 180° (g = dif − 180 normalizada)
   for (const nombre of OBS_EXTERIORES) {
@@ -37,8 +37,8 @@ function eventosObservacion(desdeMs, hastaMs) {
         const op = obsBiseccion(g, t, t + paso);
         if (op >= desdeMs && op <= hastaMs) {
           eventos.push({
-            tipo: `oposicion-${nombre}`, maximo: op, titulo: `Oposición de ${nombre}`, icono: "svg/eventos/observaciontelescopica.svg",
-            alcance: `Visible toda la noche${OBS_TELESCOPIO[nombre] ? ` ${OBS_TELESCOPIO[nombre]}` : ""} · a ${fmtUA(obsGeometria(nombre, op).dist)} UA de la Tierra`,
+            tipo: `oposicion-${nombre}`, maximo: op, titulo: tx`Oposición de ${tx(nombre)}`, icono: "svg/eventos/observaciontelescopica.svg",
+            alcance: tx`Visible toda la noche${OBS_TELESCOPIO[nombre] ? ` ${OBS_TELESCOPIO[nombre]}` : ""} · a ${fmtUA(obsGeometria(nombre, op).dist)} UA de la Tierra`,
           });
         }
       }
@@ -54,8 +54,8 @@ function eventosObservacion(desdeMs, hastaMs) {
         if (mx < desdeMs || mx > hastaMs) continue;
         const g = obsGeometria(nombre, mx), este = g.dif > 0; // al este del Sol: se ve al atardecer
         eventos.push({
-          tipo: `elongacion-${nombre}-${este ? "este" : "oeste"}`, maximo: mx, titulo: `Máxima elongación de ${nombre}`, icono: "svg/eventos/observaciontelescopica.svg",
-          alcance: `${fmtUA(g.elongacion)}° ${este ? "al este del Sol · visible al atardecer" : "al oeste del Sol · visible antes del amanecer"}`,
+          tipo: `elongacion-${nombre}-${este ? "este" : "oeste"}`, maximo: mx, titulo: tx`Máxima elongación de ${tx(nombre)}`, icono: "svg/eventos/observaciontelescopica.svg",
+          alcance: `${fmtUA(g.elongacion)}° ${este ? tx("al este del Sol · visible al atardecer") : tx("al oeste del Sol · visible antes del amanecer")}`,
         });
       }
     }

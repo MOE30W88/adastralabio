@@ -32,6 +32,23 @@ const TEXTOS_VINETAS = {
     ayer: "ayer", hoy: "hoy", manana: "mañana",
     meses: ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"],
   },
+  en: {
+    tamano: (km, pct) => `${km} km · ${pct >= 0 ? "+" : ""}${pct} % in size`,
+    avisoTamano: "Difference enlarged ×3 in the drawing",
+    azul: "Second full moon of the month",
+    negra: "Second new moon of the month",
+    cosechaRetraso: (min) => `Rises ${min} min later each night`,
+    cosechaPromedio: "The Moon's average is ~50 min",
+    cosechaSinLugar: "The full moon closest to the equinox",
+    cosechaLatitud: "The effect is most noticeable at mid and high latitudes",
+    mareas: (p) => `Tidal force ${p} %`,
+    avisoMareas: "Real tides arrive 1 or 2 days later",
+    exactoAhora: "Exact moment now",
+    exactoEn: (t) => `Exact moment in ${t}`,
+    exactoHace: (t) => `Exact moment ${t} ago`,
+    ayer: "yesterday", hoy: "today", manana: "tomorrow",
+    meses: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+  },
 };
 function textoVineta(clave, a, b) {
   const t = TEXTOS_VINETAS[typeof idiomaActual === "function" ? idiomaActual() : "es"] || TEXTOS_VINETAS.es;
@@ -118,7 +135,7 @@ function lenteTamano(ms, e) {
   const html = `<circle r="${base}" fill="none" stroke="${VCOL.linea}" stroke-width="0.04" stroke-dasharray="0.12 0.1"/>
     ${vDiscoLuna(0, 0, base, `class="vineta-latido" style="--v-min:1;--v-max:${visual.toFixed(3)}"`)}
     <text x="0" y="1.95" fill="#cfd8e3" font-size="0.3" text-anchor="middle">${pct >= 0 ? "+" : ""}${pct} %</text>`;
-  return { html, dato: textoVineta("tamano", (Math.round(d / 10) * 10).toLocaleString("es-ES"), pct), aviso: textoVineta("avisoTamano") };
+  return { html, dato: textoVineta("tamano", (Math.round(d / 10) * 10).toLocaleString(localeActual()), pct), aviso: textoVineta("avisoTamano") };
 }
 
 function lenteMes(ms, e) {

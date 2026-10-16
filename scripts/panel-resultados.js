@@ -34,7 +34,75 @@ const TARJETAS = [
   { g: "astro", k: "edadLunar", t: "Edad lunar", a: "Días transcurridos desde la última luna nueva (el ciclo dura ≈ 29,5 días)." },
 ];
  
+const TARJETAS_EN = {
+  lugar: ["Location", "City and country of the place the clock is using."],
+  coordenadas: ["Coordinates", "Latitude: distance from the equator (+ north, − south). Longitude: distance from the Greenwich meridian (+ east, − west)."],
+  fecha: ["Date", "Day of the week and date at the active location, with the day number within the year."],
+  huso: ["Time zone", "Difference between local time and universal time (GMT/UTC). With a manual location it is estimated from longitude (15° = 1 hour)."],
+  salida: ["Sunrise", "Moment when the upper limb of the Sun appears on the horizon."],
+  puesta: ["Sunset", "Moment when the Sun finishes disappearing below the horizon."],
+  duracion: ["Day length", "Time between sunrise and sunset. It changes through the year depending on latitude."],
+  fase: ["Moon phase", "How much of the lunar disk is lit as seen from Earth."],
+  signo: ["Sun sign", "30° sector of the ecliptic where the Sun is, counted from the March equinox (tropical zodiac). It does not match the visible constellation: because of the precession of the equinoxes, the signs today are offset by about 24° from the constellations of the same name."],
+  estacion: ["Season", "Astronomical season according to the Sun's position on the ecliptic and the hemisphere of the location."],
+  albaAstro: ["Astronomical dawn", "Sun 18° below the horizon: the sky begins to lighten, still almost full night."],
+  albaNautico: ["Nautical dawn", "Sun 12° below the horizon: the sea horizon and the brightest stars can be made out."],
+  albaCivil: ["Civil dawn", "Sun 6° below the horizon: enough light for outdoor activities without artificial light."],
+  mediodia: ["Solar noon", "Instant when the Sun reaches its maximum altitude of the day (crosses the local meridian)."],
+  ocasoCivil: ["Civil dusk", "Sun 6° below the horizon after sunset: useful daylight ends."],
+  ocasoNautico: ["Nautical dusk", "Sun 12° below the horizon: the sea horizon can no longer be made out."],
+  ocasoAstro: ["Astronomical dusk", "Sun 18° below the horizon: astronomical night begins, ideal for observing stars."],
+  horaSolar: ["Apparent solar time", "The time a sundial would show: 12:00 when the Sun crosses the meridian. It differs from civil time by the time zone and the equation of time."],
+  ecuacion: ["Equation of time", "Difference between the real Sun and an ideal Sun moving uniformly, caused by the elliptical orbit and the tilt of Earth's axis."],
+  alturaSol: ["Sun altitude", "Angle of the Sun above the horizon: 0° is the horizon, 90° the zenith; negative = below the horizon."],
+  alturaLuna: ["Moon altitude", "Angle of the Moon above the horizon; negative = below the horizon."],
+  declinacion: ["Solar declination", "Celestial latitude of the Sun: +23.4° at the June solstice, −23.4° at the December solstice, 0° at the equinoxes."],
+  edadLunar: ["Moon age", "Days elapsed since the last new moon (the cycle lasts ≈ 29.5 days)."],
+};
+const MESES_EN = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+const DIAS_SEMANA_EN = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+const TEXTOS_PANEL = {
+  es: {
+    tarjetas: Object.fromEntries(TARJETAS.map((t) => [t.k, [t.t, t.a]])),
+    queEs: (t) => `¿Qué es ${t}?`,
+    fases: FASES_LUNARES,
+    estaciones: ESTACIONES,
+    fecha: (dia, d, mes) => `${dia} ${d} de ${mes.toLowerCase()}`,
+    diaDelAnio: (n, total) => `día ${n} de ${total}`,
+    husoManual: "estimado por longitud", husoDispositivo: "de tu dispositivo",
+    iluminada: (p) => `${p}% iluminada`, dias: (n) => `${n} días`,
+    zodiacoTropical: (l) => `zodiaco tropical · ${l}°`,
+    hemisferioSur: "hemisferio sur", hemisferioNorte: "hemisferio norte",
+    solMedianoche: "Sol de medianoche", nochePolar: "Noche polar",
+    sobreHorizonte: "sobre el horizonte", bajoHorizonte: "bajo el horizonte",
+  },
+  en: {
+    tarjetas: TARJETAS_EN,
+    queEs: (t) => `What is ${t}?`,
+    fases: ["New Moon", "Waxing crescent", "First quarter", "Waxing gibbous", "Full Moon", "Waning gibbous", "Last quarter", "Waning crescent"],
+    estaciones: ["Spring", "Summer", "Autumn", "Winter"],
+    fecha: (dia, d, mes) => `${dia}, ${mes} ${d}`,
+    diaDelAnio: (n, total) => `day ${n} of ${total}`,
+    husoManual: "estimated from longitude", husoDispositivo: "from your device",
+    iluminada: (p) => `${p}% illuminated`, dias: (n) => `${n} days`,
+    zodiacoTropical: (l) => `tropical zodiac · ${l}°`,
+    hemisferioSur: "southern hemisphere", hemisferioNorte: "northern hemisphere",
+    solMedianoche: "Midnight Sun", nochePolar: "Polar night",
+    sobreHorizonte: "above the horizon", bajoHorizonte: "below the horizon",
+  },
+};
+const textoPanel = (clave, ...args) => textoDe(TEXTOS_PANEL, clave, ...args);
+
+// Fechas localizadas, compartidas con panel-lecturas-capas.js y constelaciones.js (es: igual que antes, a partir de MESES / DIAS_SEMANA)
+const enIngles = () => idiomaActual() === "en";
+const diaSemanaPanel = (i) => (enIngles() ? DIAS_SEMANA_EN[i] : DIAS_SEMANA[i]);
+const mesLargoPanel = (i) => (enIngles() ? MESES_EN[i] : MESES[i]);
+const mesCortoPanel = (i) => (enIngles() ? MESES_EN[i].slice(0, 3) : MESES[i].slice(0, 3).toLowerCase());
+const diaMesCortoPanel = (d, i) => (enIngles() ? `${mesCortoPanel(i)} ${d}` : `${d} ${mesCortoPanel(i)}`);
+
 const refsPanel = {};
+const cabecerasPanel = []; // { k, cab, ayuda, boton } para reescribir los textos fijos al cambiar de idioma
  
 // Ids que escriben main.js y ubicacion.js
 const IDS_EXTERNOS = { lugar: "pais-ciudad", coordenadas: "ubicacion" };
@@ -55,13 +123,15 @@ function construirPanel() {
       el.style.setProperty("--icono", `url("${rutaIcono}")`);
     };
     sonda.src = rutaIcono;
+    const [titulo, ayuda] = textoPanel("tarjetas")[t.k];
     el.innerHTML =
-      `<div class="tarjeta-cabecera">${t.t}</div>` +
+      `<div class="tarjeta-cabecera">${titulo}</div>` +
       `<strong class="tarjeta-valor" ${idValor ? `id="${idValor}"` : ""}>—</strong>` +
       `<span class="tarjeta-sub"></span>` +
-      `<p class="tarjeta-ayuda">${t.a}</p>` +
-      `<button type="button" class="ayuda" aria-label="¿Qué es ${t.t}?">?</button>`;
+      `<p class="tarjeta-ayuda">${ayuda}</p>` +
+      `<button type="button" class="ayuda" aria-label="${textoPanel("queEs", titulo)}">?</button>`;
     grid.appendChild(el);
+    cabecerasPanel.push({ k: t.k, cab: el.querySelector(".tarjeta-cabecera"), ayuda: el.querySelector(".tarjeta-ayuda"), boton: el.querySelector(".ayuda") });
     if (!idValor) {
       refsPanel[t.k] = {
         valor: el.querySelector(".tarjeta-valor"),
@@ -71,6 +141,13 @@ function construirPanel() {
   }
 }
 construirPanel();
+document.addEventListener("cambio-idioma", () => {
+  for (const c of cabecerasPanel) {
+    const [titulo, ayuda] = textoPanel("tarjetas")[c.k];
+    c.cab.textContent = titulo; c.ayuda.textContent = ayuda; c.boton.setAttribute("aria-label", textoPanel("queEs", titulo));
+  }
+  ultimoSigno = ""; ultimoRefrescoPanel = 0; // el siguiente fotograma reescribe todos los valores
+});
  
 function poner(k, valor, sub = "") {
   const r = refsPanel[k];
@@ -84,7 +161,7 @@ function poner(k, valor, sub = "") {
 let ultimoSigno = "";
 function ponerSigno(signo, sub) {
   const r = refsPanel.signo;
-  const html = `<span class="simbolo-zodiacal">${signo.simbolo}\uFE0E</span> ${signo.nombre}`;
+  const html = `<span class="simbolo-zodiacal">${signo.simbolo}\uFE0E</span> ${tx(signo.nombre)}`;
   if (html !== ultimoSigno) {
     r.valor.innerHTML = html;
     ultimoSigno = html;
@@ -114,29 +191,29 @@ function actualizarPanelResultados(ahora) {
  
   const p = aHoraDePared(ahora);
   const anio = p.getUTCFullYear();
-  poner("fecha", `${DIAS_SEMANA[p.getUTCDay()]} ${p.getUTCDate()} de ${MESES[p.getUTCMonth()].toLowerCase()}`, `día ${Math.floor(diaDelAnioFraccional(p)) + 1} de ${diasEnAnio(anio)}`);
-  poner("huso", textoHusoHorario(husoDelLugar(ahora)), ubicacion.esManual ? "estimado por longitud" : "de tu dispositivo");
+  poner("fecha", textoPanel("fecha", diaSemanaPanel(p.getUTCDay()), p.getUTCDate(), mesLargoPanel(p.getUTCMonth())), textoPanel("diaDelAnio", Math.floor(diaDelAnioFraccional(p)) + 1, diasEnAnio(anio)));
+  poner("huso", textoHusoHorario(husoDelLugar(ahora)), textoPanel(ubicacion.esManual ? "husoManual" : "husoDispositivo"));
  
   const instanteMs = ahora.getTime();
   const fp = faseLunarPrecisa(instanteMs);
   const elong = fp.creciente ? fp.elongacion : 360 - fp.elongacion;
-  const fase = FASES_LUNARES[Math.floor(elong / 45 + 0.5) % 8];
+  const fase = textoPanel("fases")[Math.floor(elong / 45 + 0.5) % 8];
   let kLuna = Math.floor((instanteMs / 86400000 + 2440587.5 - 2451550.09766) / 29.530588861);
   if (lunaNuevaMeeus(kLuna + 1) <= instanteMs) kLuna++; else if (lunaNuevaMeeus(kLuna) > instanteMs) kLuna--;
   const edad = (instanteMs - lunaNuevaMeeus(kLuna)) / 86400000;
-  poner("fase", fase, `${Math.round(fp.fraccion * 100)}% iluminada`);
-  poner("edadLunar", `${edad.toFixed(1)} días`);
+  poner("fase", fase, textoPanel("iluminada", Math.round(fp.fraccion * 100)));
+  poner("edadLunar", textoPanel("dias", edad.toFixed(1)));
  
   const solar = posicionSolar(ahora);
   const signo = SIGNOS[Math.floor(normalizarGrados(-anguloZodiaco(ahora)) / 30)];
-  ponerSigno(signo, `zodiaco tropical · ${solar.longitudEcliptica.toFixed(1)}°`);
+  ponerSigno(signo, textoPanel("zodiacoTropical", solar.longitudEcliptica.toFixed(1)));
   poner("declinacion", `${solar.declinacion.toFixed(2)}°`);
  
   if (ubicacion.latitud === null) return;
  
   const q = Math.floor(solar.longitudEcliptica / 90);
   const sur = ubicacion.latitud < 0;
-  poner("estacion", ESTACIONES[sur ? (q + 2) % 4 : q], sur ? "hemisferio sur" : "hemisferio norte");
+  poner("estacion", textoPanel("estaciones")[sur ? (q + 2) % 4 : q], textoPanel(sur ? "hemisferioSur" : "hemisferioNorte"));
  
   const clave = claveDiaYLugar(ahora);
   if (clave !== claveEfemeridesPanel) {
@@ -152,7 +229,7 @@ function actualizarPanelResultados(ahora) {
     if (d < 0) d += 86400000;
     poner("duracion", `${Math.floor(d / 3600000)} h ${Math.floor((d % 3600000) / 60000)} min`);
   } else {
-    const texto = e.estado === "sol-medianoche" ? "Sol de medianoche" : "Noche polar";
+    const texto = textoPanel(e.estado === "sol-medianoche" ? "solMedianoche" : "nochePolar");
     poner("salida", texto);
     poner("puesta", texto);
     poner("duracion", e.estado === "sol-medianoche" ? "24 h" : "0 h");
@@ -171,7 +248,7 @@ function actualizarPanelResultados(ahora) {
   poner("ecuacion", `${eq < 0 ? "−" : "+"}${Math.floor(eqAbs)} min ${Math.floor((eqAbs % 1) * 60)} s`);
  
   const alturaSol = posicionSolarHorizonte(ahora, ubicacion.latitud, ubicacion.longitud).altura;
-  poner("alturaSol", `${alturaSol.toFixed(1)}°`, alturaSol >= 0 ? "sobre el horizonte" : "bajo el horizonte");
+  poner("alturaSol", `${alturaSol.toFixed(1)}°`, textoPanel(alturaSol >= 0 ? "sobreHorizonte" : "bajoHorizonte"));
   const alturaLuna = posicionLunarHorizonte(ahora, ubicacion.latitud, ubicacion.longitud).altura;
-  poner("alturaLuna", `${alturaLuna.toFixed(1)}°`, alturaLuna >= 0 ? "sobre el horizonte" : "bajo el horizonte");
+  poner("alturaLuna", `${alturaLuna.toFixed(1)}°`, textoPanel(alturaLuna >= 0 ? "sobreHorizonte" : "bajoHorizonte"));
 }

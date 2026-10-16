@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AD ASTRA — Soporte</title>
     <script>try{var p=localStorage.getItem("tema-preferencia")||"auto",h=new Date().getHours();document.documentElement.dataset.tema=p==="auto"?(h>=6&&h<18?"dia":"noche"):p}catch(e){}</script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet" />
+    <script>try{var g=localStorage.getItem("idioma");if(g?g==="en":!/^es/i.test(navigator.language)){location.replace(location.pathname.replace(/\/paginas\/([^\/]*)$/,"/paginas/en/$1")+location.search+location.hash)}}catch(e){}</script>
     <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="../css/fuentes.css" />
     <link rel="stylesheet" href="../css/base.css" />
     <link rel="stylesheet" href="../css/tema.css" />
     <link rel="stylesheet" href="../css/estructura.css" />
@@ -17,6 +16,7 @@
     <link rel="stylesheet" href="../css/pie.css" />
     <link rel="stylesheet" href="../css/fondo-estrellas.css" />
     <link rel="stylesheet" href="../css/fondo-lavado.css" />
+    <script src="../scripts/i18n.js" defer></script>
     <script src="../scripts/astronomia.js" defer></script>
     <script src="../scripts/ubicacion.js" defer></script>
     <script src="../scripts/tema.js" defer></script>
@@ -41,7 +41,6 @@
           <a href="alcance.html">Alcance</a>
           <a href="matematicas.html">Matemáticas</a>
           <a href="infografias.html">Infografías</a>
-          <a href="acerca-de.html">Acerca de mí</a>
           <a href="soporte.html" class="activa" aria-current="page">Soporte</a>
         </nav>
         <div class="cabecera-acciones">
@@ -93,7 +92,6 @@
 <ul>
 <li><a href="infografias.html#grupo-reloj">Reloj</a></li><li><a href="infografias.html#grupo-dia-y-noche">Día y noche</a></li><li><a href="infografias.html#grupo-lunario">Lunario</a></li><li><a href="infografias.html#grupo-zodiaco">Zodíaco</a></li><li><a href="infografias.html#grupo-calendario">Calendario</a></li><li><a href="infografias.html#grupo-sistema-solar">Sistema solar</a></li><li><a href="infografias.html#grupo-rotacion">Rotación</a></li>
 </ul></div>
-<div><h3><a href="acerca-de.html">Acerca de mí</a></h3><p>Quién hizo AD ASTRA y por qué.</p></div>
 <div><h3><a href="soporte.html">Soporte</a></h3>
 <ul>
 <li><a href="#mapa-del-sitio">Mapa del sitio</a></li><li><a href="#privacidad">Política de privacidad</a></li><li><a href="#terminos">Términos y condiciones</a></li><li><a href="#faqs">FAQs</a></li><li><a href="#creditos">Créditos y fuentes</a></li>
@@ -103,48 +101,56 @@
 <section class="sop-seccion" id="privacidad">
 <p class="sop-etiqueta">02 — Soporte</p>
 <h2>Política de privacidad</h2>
-<p class="sop-aviso"><strong>Borrador pendiente de revisión legal.</strong> Los textos de esta sección describen lo que hace hoy el sitio. Los campos resaltados deben completarse y el conjunto debe revisarlo un abogado antes de publicarse.</p>
-<p class="sop-fecha">Última actualización: 12 de octubre de 2026</p>
-<p>AD ASTRA es un reloj astronómico que se ejecuta en tu navegador. Los cálculos se hacen en tu dispositivo: el sitio no tiene cuentas de usuario, formularios ni base de datos propia. Esta política explica qué datos se usan y con quién se comparten.</p>
+<p class="sop-fecha">Última actualización: 15 de octubre de 2026</p>
+<p>AD ASTRA es un reloj astronómico que se ejecuta en tu navegador. Los cálculos se hacen en tu dispositivo: el sitio no tiene cuentas de usuario, formularios ni base de datos propia, y no recoge datos para el autor. Esta política explica qué datos se usan, con qué servicios externos pueden compartirse y qué puedes decidir tú.</p>
 
-<h3>1. Responsable</h3>
-<p>Moisés Soriano. Contacto: <mark class="sop-pendiente">[correo de contacto]</mark>. Domicilio o jurisdicción: <mark class="sop-pendiente">[completar]</mark>.</p>
+<h3>1. Responsable y contacto</h3>
+<p>El responsable del sitio es Moisés Soriano, autor de AD ASTRA. Para cualquier consulta sobre esta política escribe al correo de contacto que aparece en el <a href="../index.html#pie">pie de la página de inicio</a>.</p>
 
-<h3>2. Qué datos se tratan</h3>
+<h3>2. Resumen</h3>
+<p>AD ASTRA no usa cookies, analítica, publicidad ni seguimiento entre sitios; no te pide nombre, correo ni ningún dato personal; y no vende ni cede datos. Lo único que sale de tu navegador hacia un tercero es el texto o las coordenadas que se consultan en el servicio de nombres de lugares (apartado 3), y solo por una acción o permiso tuyo.</p>
+
+<h3>3. Qué datos se tratan y quién los recibe</h3>
 <ul class="sop-lista">
-<li><strong>Tu ubicación.</strong> El sitio puede pedirte permiso, a través del navegador, para conocer tu latitud y longitud, y así calcular el Sol, la Luna, el horizonte y los eclipses visibles desde tu lugar. También puedes escribir una ubicación a mano. Estas coordenadas se usan en tu dispositivo para los cálculos y no se envían a ningún servidor de AD ASTRA.</li>
-<li><strong>Nombre de la ciudad y el país.</strong> Para mostrar tu localidad, el navegador envía tu latitud y longitud al servicio de geocodificación inversa Nominatim, de OpenStreetMap (nominatim.openstreetmap.org). Ese servicio recibe también tu dirección IP y los datos habituales de tu navegador, y se rige por su propia política de uso y privacidad.</li>
-<li><strong>Tipografía.</strong> La letra del sitio (Playfair Display) se carga desde Google Fonts (fonts.googleapis.com y fonts.gstatic.com). Google recibe tu dirección IP y datos del navegador al servirla, según su propia política.</li>
-<li><strong>Preferencias en tu navegador.</strong> El sitio guarda en el almacenamiento local de tu navegador dos preferencias: el modo de color (<code>tema-preferencia</code>) y el idioma (<code>idioma</code>). No son cookies, no se envían a ningún servidor y puedes borrarlas desde los ajustes del navegador.</li>
-<li><strong>Registros del servidor.</strong> El proveedor que aloje el sitio (<mark class="sop-pendiente">[proveedor de hospedaje]</mark>) puede registrar tu dirección IP y datos técnicos de cada visita, como cualquier servidor web.</li>
+<li><strong>Tu ubicación.</strong> Sirve para calcular el Sol, la Luna, el horizonte y los eclipses visibles desde tu lugar. La obtiene tu navegador solo si concedes el permiso, o la indicas tú escribiendo un lugar o eligiéndolo en el mapa. Las coordenadas se usan en tu dispositivo, no se envían a ningún servidor de AD ASTRA y no se guardan: viven solo mientras la página está abierta.</li>
+<li><strong>Nombre del lugar (Nominatim, de OpenStreetMap).</strong> Para mostrar la ciudad y el país, y para buscar lugares por nombre, tu navegador consulta el servicio Nominatim (nominatim.openstreetmap.org), operado por la Fundación OpenStreetMap. Le envía las coordenadas (al conceder tu ubicación o elegir un punto del mapa) o el texto que escribes en el buscador. Ese servicio recibe además tu dirección IP y los datos habituales del navegador, y los trata según su <a href="https://osmfoundation.org/wiki/Privacy_Policy" target="_blank" rel="noopener noreferrer">política de privacidad</a> y su <a href="https://operations.osmfoundation.org/policies/nominatim/" target="_blank" rel="noopener noreferrer">política de uso</a>. Estas consultas se hacen solo por una acción o un permiso tuyo (conceder la ubicación, buscar o elegir un punto); si ya diste el permiso de ubicación al sitio, la consulta del nombre del lugar se repite al abrirlo.</li>
+<li><strong>Mapa.</strong> El mapa del selector se dibuja con datos incluidos en el propio sitio (Natural Earth). No se cargan mapas ni imágenes desde servidores externos.</li>
+<li><strong>Tipografía.</strong> La letra del sitio (Playfair Display) se sirve desde el propio sitio. No se contacta con Google ni con otros servicios de fuentes.</li>
+<li><strong>Preferencias en tu navegador.</strong> El sitio guarda en el almacenamiento local de tu navegador dos preferencias: el modo de color (<code>tema-preferencia</code>) y el idioma (<code>idioma</code>). No son cookies, no identifican a nadie, no se envían a ningún servidor y puedes borrarlas desde los ajustes del navegador.</li>
+<li><strong>Alojamiento.</strong> El sitio se publica en GitHub Pages (GitHub, Inc.). Como cualquier servidor web, el proveedor puede registrar tu dirección IP y datos técnicos de cada visita, según su <a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">declaración de privacidad</a>. El autor no recibe esos registros.</li>
 </ul>
 
-<h3>3. Qué no hace el sitio</h3>
-<p>No usa cookies propias, herramientas de analítica, publicidad ni seguimiento entre sitios. No vende ni cede datos personales. No te pide nombre, correo ni ningún otro dato para usarlo.</p>
+<h3>4. Qué no hace el sitio</h3>
+<p>No crea perfiles, no toma decisiones automatizadas sobre ti, no usa cookies propias ni de terceros, no incluye herramientas de analítica ni de publicidad, no incrusta redes sociales y no te pide datos para usarlo.</p>
 
-<h3>4. Para qué se usan los datos</h3>
-<p>Solo para mostrar el reloj: calcular las posiciones astronómicas de tu lugar, mostrar la hora local y recordar tus preferencias de modo de color e idioma.</p>
+<h3>5. Para qué se usan los datos y con qué base</h3>
+<p>Solo para mostrar el reloj: calcular las posiciones astronómicas de tu lugar, mostrar la hora local, nombrar tu localidad y recordar tus preferencias. La ubicación y las consultas de lugares se usan porque tú las solicitas o autorizas; las preferencias, para que el sitio funcione como lo dejaste.</p>
 
-<h3>5. Conservación</h3>
-<p>Las coordenadas viven mientras la página está abierta. Las preferencias permanecen en tu navegador hasta que las borres. AD ASTRA no conserva ningún dato en servidores propios.</p>
+<h3>6. Conservación</h3>
+<p>AD ASTRA no conserva ningún dato en servidores propios. Las coordenadas viven mientras la página está abierta. Las preferencias permanecen en tu navegador hasta que las borres. Los terceros mencionados conservan los datos que reciben según sus propias políticas.</p>
 
-<h3>6. Servicios de terceros y enlaces</h3>
-<p>Nominatim/OpenStreetMap y Google Fonts son servicios de terceros con sus propias condiciones. El correo de contacto y las redes sociales del pie de página abren aplicaciones o sitios externos, que tratan tus datos según sus políticas.</p>
+<h3>7. Servicios de terceros, enlaces y transferencias</h3>
+<p>Nominatim/OpenStreetMap y GitHub son servicios de terceros con sus propias condiciones, y sus servidores pueden estar en otro país distinto del tuyo. El correo de contacto y el enlace a GitHub del pie de página abren aplicaciones o sitios externos, que tratan tus datos según sus políticas.</p>
 
-<h3>7. Tus derechos</h3>
-<p>Puedes negar o retirar el permiso de ubicación desde la configuración del navegador y seguir usando el reloj con una ubicación manual. Para cualquier solicitud sobre tus datos, escribe al contacto indicado. <mark class="sop-pendiente">[adaptar esta sección a la ley de protección de datos aplicable]</mark></p>
+<h3>8. Tus derechos</h3>
+<p>Como AD ASTRA no guarda datos personales, no hay datos suyos que consultar, corregir o borrar en el sitio. Puedes negar o retirar el permiso de ubicación desde la configuración del navegador, borrar las preferencias guardadas y dejar de usar el buscador de lugares cuando quieras. Para ejercer tus derechos sobre los datos que reciban los servicios de terceros, dirígete a ellos. Si resides en un lugar con ley de protección de datos, tienes derecho a acceder, rectificar, suprimir, oponerte y limitar el tratamiento de tus datos, y a reclamar ante la autoridad de protección de datos de tu país. También puedes escribir al contacto indicado arriba.</p>
 
-<h3>8. Cambios</h3>
-<p>Si el sitio cambia la forma en que trata datos, esta política se actualizará y se indicará la fecha.</p>
+<h3>9. Menores</h3>
+<p>El sitio no está dirigido a menores de edad ni recoge datos de nadie. Si eres menor, usa el sitio con acompañamiento de una persona adulta.</p>
+
+<h3>10. Seguridad</h3>
+<p>El sitio se sirve por conexión cifrada (HTTPS) y no almacena datos personales, por lo que no hay una base de datos que proteger. Ningún sistema es infalible; si detectas un problema de seguridad, avísanos por el contacto indicado.</p>
+
+<h3>11. Cambios</h3>
+<p>Si el sitio cambia la forma en que trata datos, esta política se actualizará y se indicará la fecha de arriba.</p>
 </section>
 <section class="sop-seccion" id="terminos">
 <p class="sop-etiqueta">03 — Soporte</p>
 <h2>Términos y condiciones</h2>
-<p class="sop-aviso"><strong>Borrador pendiente de revisión legal.</strong> Los textos de esta sección describen lo que hace hoy el sitio. Los campos resaltados deben completarse y el conjunto debe revisarlo un abogado antes de publicarse.</p>
-<p class="sop-fecha">Última actualización: 12 de octubre de 2026</p>
+<p class="sop-fecha">Última actualización: 15 de octubre de 2026</p>
 
 <h3>1. Aceptación</h3>
-<p>Al usar AD ASTRA aceptas estos términos. Si no estás de acuerdo, no uses el sitio.</p>
+<p>Al usar AD ASTRA aceptas estos términos y la <a href="#privacidad">política de privacidad</a>. Si no estás de acuerdo, no uses el sitio.</p>
 
 <h3>2. Qué es AD ASTRA</h3>
 <p>Un reloj astronómico interactivo con fines <strong>informativos, educativos y de divulgación</strong>. Calcula en tu navegador posiciones del Sol, la Luna y los planetas, fases, estaciones, eclipses y otros eventos.</p>
@@ -152,27 +158,35 @@
 <h3>3. Exactitud y uso adecuado</h3>
 <ul class="sop-lista">
 <li>Los cálculos son aproximados y su precisión varía según el fenómeno, la fecha y el lugar. Las condiciones de validez se describen en <a href="alcance.html">Alcance</a>.</li>
-<li>No está pensado para navegación, topografía, seguridad, investigación científica ni decisiones que requieran efemérides oficiales. Para esos usos consulta fuentes especializadas.</li>
+<li>El sitio no está pensado para navegación, topografía, seguridad, investigación científica, ni para decisiones que requieran efemérides oficiales. Para esos usos consulta fuentes especializadas.</li>
 <li><strong>Seguridad.</strong> Nunca mires al Sol directamente, incluso durante un eclipse, sin protección ocular certificada para observación solar. AD ASTRA indica cuándo y desde dónde puede ocurrir un fenómeno, no si es seguro observarlo.</li>
+<li>Los signos y sectores del zodiaco son una representación geométrica de la posición del Sol. No son astrología ni contienen predicciones.</li>
 </ul>
 
-<h3>4. Propiedad intelectual</h3>
-<p>El diseño, el código, los textos, los iconos y las ilustraciones de AD ASTRA son de Moisés Soriano y están protegidos: © 2026, todos los derechos reservados <mark class="sop-pendiente">[confirmar tipo de licencia]</mark>. Los datos, algoritmos y tipografías de terceros conservan sus licencias, que se detallan en <a href="#creditos">Créditos y fuentes</a>. No puedes copiar, redistribuir ni modificar el contenido propio sin permiso escrito, salvo lo que la ley permita.</p>
+<h3>4. Propiedad intelectual y licencia</h3>
+<p>El diseño, el código, los textos, los iconos y las ilustraciones de AD ASTRA son de Moisés Soriano y están protegidos por derechos de autor: © 2026. Se ofrecen bajo la licencia del proyecto, que figura en el archivo <code>LICENSE.md</code> del repositorio: uso <strong>personal, educativo y no comercial</strong>, con atribución al autor, y sin permiso para usarlo con fines comerciales ni para crear derivados comerciales sin autorización escrita. Para otros usos, escribe al contacto indicado abajo.</p>
+<p>Los datos, algoritmos, mapas y tipografías de terceros conservan sus propias licencias, que se detallan en <a href="#creditos">Créditos y fuentes</a>. «AD ASTRA» y su logotipo identifican este proyecto; no los uses de forma que sugiera que tu trabajo es el original o cuenta con respaldo del autor.</p>
 
-<h3>5. Disponibilidad</h3>
-<p>El sitio se ofrece «tal cual». Puede cambiar, interrumpirse o dejar de estar disponible sin aviso. Algunas funciones dependen de servicios externos (ubicación del navegador, Nominatim, Google Fonts).</p>
+<h3>5. Uso aceptable</h3>
+<p>Puedes usar el sitio libremente para fines personales y educativos. No intentes dañarlo, sobrecargarlo ni eludir sus límites, y no automatices consultas masivas a los servicios externos que usa (como Nominatim): tienen sus propias normas de uso y puedes ser bloqueado por ellos.</p>
 
-<h3>6. Limitación de responsabilidad</h3>
-<p>En la medida que permita la ley, el autor no responde por daños derivados del uso del sitio o de la confianza en sus resultados. <mark class="sop-pendiente">[redactar y revisar con abogado según la jurisdicción]</mark></p>
+<h3>6. Servicios de terceros</h3>
+<p>Algunas funciones dependen de servicios externos (la ubicación de tu navegador, Nominatim/OpenStreetMap, el alojamiento en GitHub Pages). Se rigen por sus propias condiciones y pueden fallar o cambiar sin que el autor pueda controlarlo.</p>
 
-<h3>7. Enlaces externos</h3>
-<p>El sitio enlaza a servicios y redes de terceros cuyo contenido y políticas no controla.</p>
+<h3>7. Disponibilidad</h3>
+<p>El sitio se ofrece «tal cual» y «según disponibilidad», sin garantía de funcionamiento continuo, de ausencia de errores ni de que los resultados sirvan para un fin concreto. Puede cambiar, interrumpirse o dejar de estar disponible sin aviso.</p>
 
-<h3>8. Cambios</h3>
-<p>Estos términos pueden actualizarse. La fecha de arriba indica la última versión.</p>
+<h3>8. Limitación de responsabilidad</h3>
+<p>En la medida que permita la ley, el autor no responde por daños directos, indirectos o consecuentes derivados del uso del sitio, de la imposibilidad de usarlo o de la confianza en sus resultados, incluidos los relacionados con la observación de fenómenos astronómicos. Nada de lo anterior limita derechos irrenunciables que la ley de tu país te reconozca como usuario ni responsabilidades que no puedan excluirse legalmente.</p>
 
-<h3>9. Ley aplicable y contacto</h3>
-<p>Ley y tribunales aplicables: <mark class="sop-pendiente">[jurisdicción]</mark>. Contacto: <mark class="sop-pendiente">[correo de contacto]</mark>.</p>
+<h3>9. Enlaces externos</h3>
+<p>El sitio enlaza a servicios y sitios de terceros (como GitHub y fuentes de referencia) cuyo contenido y políticas no controla.</p>
+
+<h3>10. Cambios</h3>
+<p>Estos términos pueden actualizarse. La fecha de arriba indica la última versión; seguir usando el sitio después de un cambio supone aceptar la nueva versión.</p>
+
+<h3>11. Ley aplicable y contacto</h3>
+<p>Estos términos se rigen por las leyes del país de residencia del autor, y las controversias se someterán a los tribunales competentes de ese lugar, sin perjuicio de los derechos que la ley te reconozca como consumidor en tu país. Contacto: el correo que aparece en el <a href="../index.html#pie">pie de la página de inicio</a>.</p>
 </section>
 <section class="sop-seccion" id="faqs">
 <p class="sop-etiqueta">04 — Soporte</p>
@@ -186,9 +200,9 @@
 <details class="sop-faq"><summary>¿Los signos del zodiaco son astrología?</summary><p>No. El reloj muestra la longitud eclíptica del Sol, dividida en 12 sectores de 30°. No hace predicciones ni horóscopos, y esos sectores no coinciden con los límites de las constelaciones reales.</p></details>
 <details class="sop-faq"><summary>¿Por qué el año chino empieza en febrero?</summary><p>Porque el calendario chino es lunisolar: el año empieza con el Año Nuevo lunar, que cae entre enero y febrero. El reloj lo calcula con las lunas nuevas y los solsticios.</p></details>
 <details class="sop-faq"><summary>¿Por qué los planetas del reloj no están a escala?</summary><p>Porque las distancias reales no cabrían en pantalla: Neptuno está a unas 30 veces la distancia de la Tierra. El reloj comprime las distancias grandes con una escala de potencia. Sirve para ordenar y comparar, no para medir.</p></details>
-<details class="sop-faq"><summary>¿Funciona sin conexión?</summary><p>Los cálculos se hacen en tu navegador, pero la tipografía y el nombre de tu ciudad dependen de servicios externos. Sin conexión el reloj puede verse con otra letra y sin el nombre de la localidad.</p></details>
+<details class="sop-faq"><summary>¿Funciona sin conexión?</summary><p>Una vez cargada la página, los cálculos se hacen en tu navegador. Sin conexión no aparecen el nombre de tu ciudad ni los resultados del buscador de lugares, porque dependen de un servicio externo.</p></details>
 <details class="sop-faq"><summary>¿Puedo usarlo para decidir cuándo observar un eclipse?</summary><p>Puedes usarlo como guía de cuándo y desde dónde ocurre, pero confirma con fuentes oficiales y nunca mires al Sol sin protección certificada.</p></details>
-<details class="sop-faq"><summary>Encontré un error. ¿Cómo lo reporto?</summary><p>Escribe a <mark class="sop-pendiente">[correo de contacto]</mark> con la fecha, la hora y la ubicación que usabas y una captura si puedes.</p></details>
+<details class="sop-faq"><summary>Encontré un error. ¿Cómo lo reporto?</summary><p>Escribe al correo del <a href="../index.html#pie">pie de la página de inicio</a> con la fecha, la hora y la ubicación que usabas y una captura si puedes.</p></details>
 </div>
 </section>
 <section class="sop-seccion" id="creditos">
@@ -204,7 +218,7 @@
 <h3>Mapas y geografía</h3>
 <ul class="sop-creditos"><li><strong>Natural Earth</strong><span>Contornos terrestres de 110 m, de dominio público, distribuidos en el paquete world-atlas.</span></li><li><strong>OpenStreetMap y Nominatim</strong><span>Geocodificación inversa de la ubicación. Datos © OpenStreetMap contributors, bajo licencia ODbL.</span></li></ul>
 <h3>Tipografía</h3>
-<ul class="sop-creditos"><li><strong>Playfair Display</strong><span>Diseñada por Claus Eggers Sørensen, publicada con licencia SIL Open Font License a través de Google Fonts.</span></li></ul>
+<ul class="sop-creditos"><li><strong>Playfair Display</strong><span>Diseñada por Claus Eggers Sørensen, con licencia SIL Open Font License 1.1 (<a href="../fonts/OFL-Playfair-Display.txt">texto de la licencia</a>). Se sirve desde este sitio.</span></li></ul>
 <h3>Iconos e ilustraciones</h3>
 <p>Todos los iconos y las ilustraciones SVG del reloj son obra original de Moisés Soriano, creados en Adobe Illustrator.</p>
 </section>

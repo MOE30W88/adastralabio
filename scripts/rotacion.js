@@ -15,12 +15,34 @@ const ROTACION = {
   paralelos: [-60, -30, 0, 30, 60],
 };
 
+const TEXTOS_ROTACION = {
+  es: {
+    angulo: "Ángulo de inclinación",
+    ecuador: "Ecuador", tropicoCancer: "Trópico de Cáncer", tropicoCapricornio: "Trópico de Capricornio",
+    polarArtico: "Círculo polar ártico", polarAntartico: "Círculo polar antártico",
+    poloNorte: "Polo norte", poloSur: "Polo sur",
+    velocidad: (valor, ecuador) => `Velocidad de rotación · ${valor} m/s${ecuador ? " (ecuador)" : ""}`,
+    ubicacion: (lat, lon) => `Lat ${lat} · Lon ${lon}`,
+  },
+  en: {
+    angulo: "Tilt angle",
+    ecuador: "Equator", tropicoCancer: "Tropic of Cancer", tropicoCapricornio: "Tropic of Capricorn",
+    polarArtico: "Arctic Circle", polarAntartico: "Antarctic Circle",
+    poloNorte: "North Pole", poloSur: "South Pole",
+    velocidad: (valor, ecuador) => `Rotation speed · ${valor} m/s${ecuador ? " (equator)" : ""}`,
+    ubicacion: (lat, lon) => `Lat ${lat} · Lon ${lon}`,
+  },
+};
+const textoRotacion = (clave, ...args) => textoDe(TEXTOS_ROTACION, clave, ...args);
+let etiquetasRotacion = []; // { el, clave }: textos fijos que se reescriben al cambiar de idioma
+
 const NS_SVG = "http://www.w3.org/2000/svg";
 let rotacionConstruida = false;
 let meridianosGlobo = [];      // { linea, longitud }
 let puntoUbicacionGlobo = null;
 let etiquetaUbicacionGlobo = null;
 let textoVelocidadRotacion = null;
+let valorEjeRotacion = null;
 let ultimaLatitudEtiqueta = undefined;
 let ultimaLatitudUbicacion = undefined;
 let ultimaLongitudUbicacion = undefined;
@@ -33,7 +55,8 @@ function crearSvg(nombre, atributos = {}, padre = null) {
 }
 
 function formatoGrados(valor) {
-  return `${valor.toFixed(2).replace(".", ",")}°`;
+  const t = valor.toFixed(2);
+  return `${idiomaActual() === "en" ? t : t.replace(".", ",")}°`;
 }
 
 function construirEjeRotacion(capa) {
@@ -58,10 +81,12 @@ function construirEjeRotacion(capa) {
   const medio = polar(rArco + 34, eps / 2);
   const valor = crearSvg("text", { class: "texto-eje-rotacion", x: medio.x, y: medio.y, "text-anchor": "middle" }, capa);
   valor.textContent = formatoGrados(eps);
+  valorEjeRotacion = valor;
 
   // Extremo superior: nombre del ángulo. Extremo inferior: velocidad de rotación.
   const etiquetaAngulo = crearSvg("text", { class: "texto-eje-rotacion", x: extremoSup.x + 22, y: extremoSup.y + 8, "text-anchor": "start" }, capa);
-  etiquetaAngulo.textContent = "Ángulo de inclinación";
+  etiquetaAngulo.textContent = textoRotacion("angulo");
+  etiquetasRotacion.push({ el: etiquetaAngulo, clave: "angulo" });
   textoVelocidadRotacion = crearSvg("text", { class: "texto-eje-rotacion", x: extremoInf.x - 22, y: extremoInf.y + 8, "text-anchor": "end" }, capa);
 }
 
@@ -90,11 +115,11 @@ function construirGlobo(capa) {
     const medio = R * Math.cos((lat * Math.PI) / 180);
     let especial = "";
     let etiqueta = "";
-    if (lat === 0) { especial = "ecuador"; etiqueta = "Ecuador"; }
-    else if (lat === eps) { especial = "circulo-notable tropico-cancer"; etiqueta = "Trópico de Cáncer"; }
-    else if (lat === -eps) { especial = "circulo-notable tropico-capricornio"; etiqueta = "Trópico de Capricornio"; }
-    else if (lat === 90 - eps) { especial = "circulo-notable circulo-polar"; etiqueta = "Círculo polar ártico"; }
-    else if (lat === -(90 - eps)) { especial = "circulo-notable circulo-polar"; etiqueta = "Círculo polar antártico"; }
+    if (lat === 0) { especial = "ecuador"; etiqueta = "ecuador"; }
+    else if (lat === eps) { especial = "circulo-notable tropico-cancer"; etiqueta = "tropicoCancer"; }
+    else if (lat === -eps) { especial = "circulo-notable tropico-capricornio"; etiqueta = "tropicoCapricornio"; }
+    else if (lat === 90 - eps) { especial = "circulo-notable circulo-polar"; etiqueta = "polarArtico"; }
+    else if (lat === -(90 - eps)) { especial = "circulo-notable circulo-polar"; etiqueta = "polarAntartico"; }
     crearSvg("line", { class: `globo-paralelo ${especial}`.trim(), x1: c - medio, y1: y, x2: c + medio, y2: y }, tierra);
     if (etiqueta) {
       const ladoDerecho = lat > 0;
@@ -122,13 +147,16 @@ function construirGlobo(capa) {
       transform: `rotate(${-eps} ${x} ${y})`,
       "text-anchor": ladoDerecho ? "start" : "end",
     }, etiquetasReferencia);
-    texto.textContent = etiqueta;
+    texto.textContent = textoRotacion(etiqueta);
+    etiquetasRotacion.push({ el: texto, clave: etiqueta });
   });
 
   const poloNorte = crearSvg("text", { class: "globo-etiqueta-polo", x: c + 20, y: c - R - 25, transform: `rotate(${-eps} ${c + 18} ${c - R - 18})`, "text-anchor": "start" }, etiquetasReferencia);
-  poloNorte.textContent = "Polo norte";
+  poloNorte.textContent = textoRotacion("poloNorte");
+  etiquetasRotacion.push({ el: poloNorte, clave: "poloNorte" });
   const poloSur = crearSvg("text", { class: "globo-etiqueta-polo", x: c + 20, y: c + R + 65, transform: `rotate(${-eps} ${c + 18} ${c + R + 28})`, "text-anchor": "start" }, etiquetasReferencia);
-  poloSur.textContent = "Polo sur";
+  poloSur.textContent = textoRotacion("poloSur");
+  etiquetasRotacion.push({ el: poloSur, clave: "poloSur" });
 
   puntoUbicacionGlobo = crearSvg("circle", { class: "globo-ubicacion", cx: c, cy: c, r: 6, visibility: "hidden" }, tierra);
   etiquetaUbicacionGlobo = crearSvg("text", { class: "globo-etiqueta-ubicacion", visibility: "hidden" }, tierra);
@@ -149,8 +177,8 @@ function actualizarEtiquetaVelocidad() {
   ultimaLatitudEtiqueta = ubicacion.latitud;
   const lat = ubicacion.latitud;
   const v = ROTACION.velocidadEcuatorial * Math.cos(((lat ?? 0) * Math.PI) / 180);
-  const valor = Math.round(v).toLocaleString("es");
-  textoVelocidadRotacion.textContent = `Velocidad de rotación · ${valor} m/s${lat === null ? " (ecuador)" : ""}`;
+  const valor = Math.round(v).toLocaleString(localeActual());
+  textoVelocidadRotacion.textContent = textoRotacion("velocidad", valor, lat === null);
 }
 
 // Longitud (este +) del punto subsolar: el meridiano que mira hacia el Sol
@@ -200,9 +228,15 @@ function actualizarRotacion(ahora) {
     etiquetaUbicacionGlobo.setAttribute("transform", `rotate(${-ROTACION.inclinacion} ${x + (x < c ? 12 : -12)} ${y - 12})`);
     etiquetaUbicacionGlobo.setAttribute("text-anchor", x < c ? "start" : "end");
     if (ubicacion.latitud !== ultimaLatitudUbicacion || ubicacion.longitud !== ultimaLongitudUbicacion) {
-      etiquetaUbicacionGlobo.textContent = `Lat ${formatoGrados(ubicacion.latitud)} · Lon ${formatoGrados(ubicacion.longitud)}`;
+      etiquetaUbicacionGlobo.textContent = textoRotacion("ubicacion", formatoGrados(ubicacion.latitud), formatoGrados(ubicacion.longitud));
       ultimaLatitudUbicacion = ubicacion.latitud;
       ultimaLongitudUbicacion = ubicacion.longitud;
     }
   }
 }
+
+document.addEventListener("cambio-idioma", () => {
+  etiquetasRotacion.forEach(({ el, clave }) => { el.textContent = textoRotacion(clave); });
+  if (valorEjeRotacion) valorEjeRotacion.textContent = formatoGrados(ROTACION.inclinacion);
+  ultimaLatitudEtiqueta = ultimaLatitudUbicacion = ultimaLongitudUbicacion = undefined;
+});

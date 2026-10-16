@@ -9,13 +9,13 @@ const ubicacion = {
 function mensajeDeError(error) {
   switch (error.code) {
     case error.PERMISSION_DENIED:
-      return "Permiso de ubicación denegado.";
+      return tx("Permiso de ubicación denegado.");
     case error.POSITION_UNAVAILABLE:
-      return "No se pudo determinar la ubicación.";
+      return tx("No se pudo determinar la ubicación.");
     case error.TIMEOUT:
-      return "La ubicación tardó demasiado en responder.";
+      return tx("La ubicación tardó demasiado en responder.");
     default:
-      return "Error desconocido al obtener la ubicación.";
+      return tx("Error desconocido al obtener la ubicación.");
   }
 }
 
@@ -23,7 +23,7 @@ async function obtenerPaisYCiudad(lat, lon) {
   try {
     const respuesta = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=10`, {
       headers: {
-        'Accept-Language': 'es' 
+        'Accept-Language': idiomaActual()
       }
     });
     const datos = await respuesta.json();
@@ -81,7 +81,7 @@ function establecerUbicacionManual(lat, lon) {
   });
 
   document.getElementById("ubicacion").textContent =
-    `Lat: ${lat.toFixed(4)}°\nLon: ${lon.toFixed(4)}°`;
+    tx`Lat: ${lat.toFixed(4)}°\nLon: ${lon.toFixed(4)}°`;
 
   dibujarTropicos();
 }

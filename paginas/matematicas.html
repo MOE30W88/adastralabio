@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AD ASTRA — Matemáticas</title>
     <script>try{var p=localStorage.getItem("tema-preferencia")||"auto",h=new Date().getHours();document.documentElement.dataset.tema=p==="auto"?(h>=6&&h<18?"dia":"noche"):p}catch(e){}</script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet" />
+    <script>try{var g=localStorage.getItem("idioma");if(g?g==="en":!/^es/i.test(navigator.language)){location.replace(location.pathname.replace(/\/paginas\/([^\/]*)$/,"/paginas/en/$1")+location.search+location.hash)}}catch(e){}</script>
     <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="../css/fuentes.css" />
     <link rel="stylesheet" href="../css/base.css" />
     <link rel="stylesheet" href="../css/tema.css" />
     <link rel="stylesheet" href="../css/estructura.css" />
@@ -17,6 +16,7 @@
     <link rel="stylesheet" href="../css/pie.css" />
     <link rel="stylesheet" href="../css/fondo-estrellas.css" />
     <link rel="stylesheet" href="../css/fondo-lavado.css" />
+    <script src="../scripts/i18n.js" defer></script>
     <script src="../scripts/astronomia.js" defer></script>
     <script src="../scripts/ubicacion.js" defer></script>
     <script src="../scripts/tema.js" defer></script>
@@ -41,7 +41,6 @@
           <a href="alcance.html">Alcance</a>
           <a href="matematicas.html" class="activa" aria-current="page">Matemáticas</a>
           <a href="infografias.html">Infografías</a>
-          <a href="acerca-de.html">Acerca de mí</a>
           <a href="soporte.html">Soporte</a>
         </nav>
         <div class="cabecera-acciones">

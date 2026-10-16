@@ -25,8 +25,8 @@ function eventosAlineacion(desdeMs, hastaMs) {
         const t = (lo + hi) / 2, d = alineacionDesviacion(P, t);
         if (d.grados <= UMBRAL_EVENTO_ALINEACION && t >= desdeMs && t <= hastaMs) {
           eventos.push({
-            tipo: `alineacion-${P.nombre}`, maximo: t, titulo: `Alineación Sol–Tierra–${P.nombre}`, icono: "svg/eventos/alineacion.svg",
-            alcance: `${P.nombre} ${d.mismoLado ? "del mismo lado del Sol que la Tierra" : "al otro lado del Sol"} · a ${d.grados.toLocaleString("es", { maximumFractionDigits: 2 })}° del eje`,
+            tipo: `alineacion-${P.nombre}`, maximo: t, titulo: tx`Alineación Sol–Tierra–${tx(P.nombre)}`, icono: "svg/eventos/alineacion.svg",
+            alcance: tx`${tx(P.nombre)} ${d.mismoLado ? tx("del mismo lado del Sol que la Tierra") : tx("al otro lado del Sol")} · a ${d.grados.toLocaleString(localeActual(), { maximumFractionDigits: 2 })}° del eje`,
           });
         }
       }

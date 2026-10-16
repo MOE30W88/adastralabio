@@ -6,15 +6,15 @@
 // Depende de: planetas.js (GRAD, coordenadasOrbitales, resumenHeliocentrico, posicionEnVistaSistemaSolar, siglosDesdeJ2000, DIAL_UA_MAXIMA), astronomia.js (normalizarGrados)
 
 const COMETAS_ORBITA = [
-  { nombre: "Halley (1P)", q: 0.5748638313743413, e: 0.9679359956953211, i: 162.1905300439129, nodo: 59.09894720612437, arg: 112.2414314637764,
+  { nombre: tx("Halley (1P)"), q: 0.5748638313743413, e: 0.9679359956953211, i: 162.1905300439129, nodo: 59.09894720612437, arg: 112.2414314637764,
     perihelios: [2391598.5, 2418781.5, 2446470.5, 2474033.5], periodo: 27728.05 },
-  { nombre: "Encke (2P)", q: 0.3380578611304654, e: 0.8477003352638754, i: 11.40704098723543, nodo: 334.1851099834068, arg: 187.1421582207019,
+  { nombre: tx("Encke (2P)"), q: 0.3380578611304654, e: 0.8477003352638754, i: 11.40704098723543, nodo: 334.1851099834068, arg: 187.1421582207019,
     perihelios: [2460239.681188389], periodo: 1207.915530076109 },
-  { nombre: "Churyumov-Gerasimenko (67P)", q: 1.243265640702404, e: 0.6409081308996354, i: 7.040294937543767, nodo: 50.13557377155012, arg: 12.79824970228189,
+  { nombre: tx("Churyumov-Gerasimenko (67P)"), q: 1.243265640702404, e: 0.6409081308996354, i: 7.040294937543767, nodo: 50.13557377155012, arg: 12.79824970228189,
     perihelios: [2457247.5886578, 2459520.5], periodo: 2353.076067903661 },
-  { nombre: "Hartley–IRAS (161P)", q: 1.277330149886204, e: 0.8346684889670795, i: 95.6428369693173, nodo: 1.312092735709084, arg: 46.90947271024465,
+  { nombre: tx("Hartley–IRAS (161P)"), q: 1.277330149886204, e: 0.8346684889670795, i: 95.6428369693173, nodo: 1.312092735709084, arg: 46.90947271024465,
     perihelios: [2461373.309104741], periodo: 7843.677327531275 },
-  { nombre: "Hale-Bopp (C/1995 O1)", q: 0.890537663547794, e: 0.9949810027633206, i: 89.28759424740302, nodo: 282.7334213961641, arg: 130.4146670659176,
+  { nombre: tx("Hale-Bopp (C/1995 O1)"), q: 0.890537663547794, e: 0.9949810027633206, i: 89.28759424740302, nodo: 282.7334213961641, arg: 130.4146670659176,
     perihelios: [2450537.134907144], periodo: 863279.5 },
 ];
 const COMETAS_UA_MAX = 30; // más allá la órbita sale del dial (radio 480)
@@ -118,7 +118,7 @@ function actualizarCometas(fecha) {
     x.cola.setAttribute("y1", p.y);
     x.cola.setAttribute("x2", p.x + ((p.x - 600) / lejos) * largo);
     x.cola.setAttribute("y2", p.y + ((p.y - 600) / lejos) * largo);
-    const txt = `${x.c.nombre} · a ${r.distancia.toLocaleString("es", { maximumFractionDigits: 1 })} UA del Sol`;
+    const txt = tx`${x.c.nombre} · a ${r.distancia.toLocaleString(localeActual(), { maximumFractionDigits: 1 })} UA del Sol`;
     if (x.marcador.getAttribute("data-tooltip") !== txt) { x.marcador.setAttribute("data-tooltip", txt); x.marcador.setAttribute("aria-label", txt); }
   });
 }

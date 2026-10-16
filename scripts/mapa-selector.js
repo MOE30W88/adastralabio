@@ -15,6 +15,26 @@ const MAPA_SEL = {
   tamanoEtiqueta: 11,    // px
 };
 
+const TEXTOS_MAPA_SELECTOR = {
+  es: {
+    elegido: (lat, lon) => `${lat}°, ${lon}° · pulsa «Ir a esta ubicación»`,
+    pais: "país",
+    enLinea: (t) => `Buscar «${t}» en línea (OpenStreetMap)`,
+    buscando: "Buscando en línea…", sinResultados: "Sin resultados en línea.",
+    errorEnLinea: "No se pudo buscar en línea. Revisa tu conexión.",
+    cargando: "Cargando mapa…", errorMapa: "No se pudo cargar el mapa. Puedes escribir las coordenadas.",
+  },
+  en: {
+    elegido: (lat, lon) => `${lat}°, ${lon}° · press "Go to this location"`,
+    pais: "country",
+    enLinea: (t) => `Search "${t}" online (OpenStreetMap)`,
+    buscando: "Searching online…", sinResultados: "No online results.",
+    errorEnLinea: "Online search failed. Check your connection.",
+    cargando: "Loading map…", errorMapa: "The map could not be loaded. You can type the coordinates.",
+  },
+};
+const textoMapaSel = (clave, ...args) => textoDe(TEXTOS_MAPA_SELECTOR, clave, ...args);
+
 const mapa = { listo: false, w: 0, h: 0, cx: 0, cy: 0, s: 0, elegido: null, indice: [], resultados: [], activo: -1, ultimaEnLinea: 0, pendiente: false };
 const mapaPunteros = new Map();
 let mapaDatosPromesa = null;
@@ -128,8 +148,8 @@ function mapaDibujarEtiquetas() {
     if (punto) nodos.push(mapaNodo("circle", { class: punto, cx: lon, cy: -lat, r: 2.6 * u }));
     nodos.push(mapaNodo("text", { class: clase, x: punto ? lon + 5 * u : lon - ancho / 2 * u, y: -lat + 3.5 * u, "font-size": fs * u, "stroke-width": 3 * u }, nombre));
   };
-  if (s < 9) MAPA_PAISES.forEach(([nombre, lat, lon]) => poner(nombre, lat, lon, "mapa-etq-pais", null));
-  if (s >= 3.5) for (const [nombre, , lat, lon, capital] of MAPA_CIUDADES) poner(nombre, lat, lon, "mapa-etq", capital ? "mapa-capital" : "mapa-ciudad");
+  if (s < 9) MAPA_PAISES.forEach(([nombre, lat, lon]) => poner(nombreMapa(nombre), lat, lon, "mapa-etq-pais", null));
+  if (s >= 3.5) for (const [nombre, , lat, lon, capital] of MAPA_CIUDADES) poner(nombreMapa(nombre), lat, lon, "mapa-etq", capital ? "mapa-capital" : "mapa-ciudad");
   g.replaceChildren(...nodos);
   mapaDibujarMarcas();
 }
@@ -152,7 +172,7 @@ function mapaElegir(lat, lon) {
   mapa.elegido = [lat, lon];
   mapaEl("input-latitud").value = lat.toFixed(4);
   mapaEl("input-longitud").value = lon.toFixed(4);
-  mapaEl("mapa-estado").textContent = `${lat.toFixed(4)}°, ${lon.toFixed(4)}° · pulsa «Ir a esta ubicación»`;
+  mapaEl("mapa-estado").textContent = textoMapaSel("elegido", lat.toFixed(4), lon.toFixed(4));
   mapaDibujarMarcas();
 }
 
@@ -232,10 +252,19 @@ function mapaIniciarGestos() {
 }
 
 // ───── Búsqueda (local y en línea) ─────
+// Al cambiar de idioma: el subtítulo "país" del índice y la lista abierta se reescriben; el mensaje de estado se actualiza si es el de la elección de punto
+document.addEventListener("cambio-idioma", () => {
+  if (!mapa.listo) return;
+  mapaConstruirIndice();
+  const ul = mapaEl("mapa-resultados"), campo = mapaEl("mapa-buscar");
+  if (ul && !ul.hidden && campo) { const t = campo.value.trim(); mapaMostrarLista(mapaBuscarLocal(t), t.length >= 3 ? t : null); }
+  if (mapa.elegido && mapaEl("mapa-estado").textContent.includes("°, ")) mapaEl("mapa-estado").textContent = textoMapaSel("elegido", mapa.elegido[0].toFixed(4), mapa.elegido[1].toFixed(4));
+});
+
 function mapaConstruirIndice() {
   mapa.indice = [
-    ...MAPA_PAISES.map(([n, lat, lon]) => ({ n, sub: "país", nn: mapaNorm(n), lat, lon, s: 7, pais: true, pob: 1e9 })),
-    ...MAPA_CIUDADES.map(([n, p, lat, lon, , pob]) => ({ n, sub: p, nn: mapaNorm(n), lat, lon, s: 40, pais: false, pob })),
+    ...MAPA_PAISES.map(([n, lat, lon]) => ({ n: nombreMapa(n), sub: textoMapaSel("pais"), nn: mapaNorm(n + " " + nombreMapa(n)), lat, lon, s: 7, pais: true, pob: 1e9 })),
+    ...MAPA_CIUDADES.map(([n, p, lat, lon, , pob]) => ({ n: nombreMapa(n), sub: nombreMapa(p), nn: mapaNorm(n + " " + nombreMapa(n)), lat, lon, s: 40, pais: false, pob })),
   ];
 }
 
@@ -252,7 +281,7 @@ async function mapaBuscarEnLinea(texto) {
   const espera = MAPA_SEL.pausaEnLineaMs - (Date.now() - mapa.ultimaEnLinea);
   if (espera > 0) await new Promise((r) => setTimeout(r, espera));
   mapa.ultimaEnLinea = Date.now();
-  const r = await fetch(`https://nominatim.openstreetmap.org/search?format=jsonv2&limit=6&accept-language=es&q=${encodeURIComponent(texto)}`);
+  const r = await fetch(`https://nominatim.openstreetmap.org/search?format=jsonv2&limit=6&accept-language=${idiomaActual()}&q=${encodeURIComponent(texto)}`);
   if (!r.ok) throw new Error("Nominatim " + r.status);
   return (await r.json()).map((d) => {
     const [sur, norte, oeste, este] = (d.boundingbox || []).map(Number);
@@ -275,7 +304,7 @@ function mapaMostrarLista(items, textoEnLinea) {
   if (textoEnLinea) {
     const li = document.createElement("li");
     li.className = "mapa-en-linea"; li.dataset.enlinea = "1"; li.setAttribute("role", "option");
-    li.textContent = `Buscar «${textoEnLinea}» en línea (OpenStreetMap)`;
+    li.textContent = textoMapaSel("enLinea", textoEnLinea);
     ul.append(li);
   }
   ul.hidden = ul.children.length === 0;

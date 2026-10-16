@@ -11,9 +11,9 @@ const UMBRAL_NOCHE = -6;     // altura del Sol (°) por debajo de la cual Auto p
 const REVISION_AUTO_MS = 15000;
 const PREFERENCIAS = ["auto", "dia", "noche"];
 const TEXTOS_TEMA = {
-  auto: "Automático (según el Sol de tu lugar)",
-  dia: "Modo día",
-  noche: "Modo noche",
+  auto: tx("Automático (según el Sol de tu lugar)"),
+  dia: tx("Modo día"),
+  noche: tx("Modo noche"),
 };
 
 let preferencia = PREFERENCIA_POR_DEFECTO;

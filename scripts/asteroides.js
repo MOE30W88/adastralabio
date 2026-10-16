@@ -36,8 +36,8 @@ function obtenerCapaAsteroides() {
     const planetas = document.getElementById("capa-planetas");
     planetas.parentNode.insertBefore(capaAsteroides, planetas); // bajo los planetas
   }
-  capaAsteroides.setAttribute("data-tooltip", "Cinturón de asteroides");
-  capaAsteroides.setAttribute("aria-label", "Cinturón de asteroides");
+  capaAsteroides.setAttribute("data-tooltip", tx("Cinturón de asteroides"));
+  capaAsteroides.setAttribute("aria-label", tx("Cinturón de asteroides"));
   capaAsteroides.setAttribute("role", "img");
   capaAsteroides.setAttribute("tabindex", "0");
   return capaAsteroides;
