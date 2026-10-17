@@ -24,7 +24,7 @@ function actualizarPanelPorEnfoque(clave) {
   enfoquePanelActivo = clave;
   const masInfo = document.getElementById("boton-masinfo");
   if (masInfo) {
-    masInfo.href = rutaPagina("infografias.html") + (ANCLAS_INFOGRAFIA[clave] ? `#${ANCLAS_INFOGRAFIA[clave]}` : "");
+    masInfo.href = rutaPagina("paginas/infografias.html") + (ANCLAS_INFOGRAFIA[clave] ? `#${ANCLAS_INFOGRAFIA[clave]}` : "");
     const titulo = ANCLAS_INFOGRAFIA[clave] ? tx`Infografía: ${NOMBRES_CAPAS_PANEL[clave]}` : tx("Infografía");
     masInfo.title = titulo;
     masInfo.setAttribute("aria-label", tx`Ir a ${titulo}`);

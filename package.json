@@ -1,0 +1,24 @@
+{
+  "name": "proyecto-ad-astra",
+  "version": "1.0.0",
+  "description": "**AD ASTRA** es un reloj astronómico interactivo inspirado en el Orloj de Praga. Reúne en una esfera SVG el reloj civil, el ciclo día/noche, el Sol y la Luna, el zodiaco, el calendario, el sistema solar y los eventos astronómicos próximos. La intención es didáctica: explorar cómo se relacionan el tiempo, la fecha y la ubicación mediante capas que se recalculan al cambiar cualquiera de ellos.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MOE30W88/proyect-ad-astra.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/MOE30W88/proyect-ad-astra/issues"
+  },
+  "homepage": "https://github.com/MOE30W88/proyect-ad-astra#readme",
+  "devDependencies": {
+    "esbuild": "^0.28.2"
+  }
+}

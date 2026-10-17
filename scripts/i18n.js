@@ -4,7 +4,7 @@
 //   localeActual()            "es" | "en-US" (para toLocaleString, Intl.DateTimeFormat…)
 //   textoDe(tablas, clave, …) busca clave en tablas[idioma] y, si falta, en tablas.es; si es función la llama con los argumentos
 //   tx("texto"), tx`texto ${x}`   traducen textos escritos por scripts (diccionario en traducciones-js-en.js)
-//   rutaPagina("infografias.html#x")  ruta desde index.html a una página interna, en el idioma activo
+//   rutaPagina("paginas/infografias.html#x")  ruta desde index.html a una página interna, en el idioma activo (ruta real en español; en inglés añade en/)
 //   urlPaginaEquivalente(idioma)      en una página interna: URL de su versión en el otro idioma (null en index)
 // El idioma se guarda en localStorage ("idioma"). Sin preferencia guardada: el de la página (/paginas/en/ = inglés) o el del navegador (en ese caso se guarda en la primera visita).
 
@@ -56,7 +56,7 @@ function tx(texto, ...valores) {
 }
 
 function rutaPagina(relativa) {
-  return (idiomaActivo === "en" ? "paginas/en/" : "paginas/") + relativa;
+  return idiomaActivo === "en" ? relativa.replace(/^paginas\//, "paginas/en/") : relativa;
 }
 
 function urlPaginaEquivalente(idioma) {
