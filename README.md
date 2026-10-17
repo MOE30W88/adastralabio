@@ -114,8 +114,6 @@ El coste está en repintar el SVG (unos 2 000 elementos), no en el JavaScript. M
 
 ## Pendientes
 
-- Revisión de las traducciones al inglés por una persona nativa, en especial Soporte (texto legal) y los titulares.
-- Revisión de privacidad y términos por un profesional del derecho (los textos ya están completos).
 - Medir con PageSpeed sobre el sitio publicado; ideas pendientes: reducir la frecuencia de dibujado y sustituir la animación de lluvias de meteoros, que repinta todo el SVG.
 
 ---
@@ -134,4 +132,4 @@ Sin librerías JavaScript. El único servicio externo es **Nominatim** (OpenStre
 
 ---
 
-**Última actualización:** 15 de octubre de 2026
+**Última actualización:** 75 de octubre de 2026
