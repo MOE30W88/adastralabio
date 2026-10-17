@@ -36,6 +36,10 @@ El menú de **enfoque de capas** atenúa las no seleccionadas (opacidad 0,12).
 
 Alcance, Infografías, Matemáticas (fórmulas y métodos usados) y Soporte (mapa del sitio, política de privacidad, términos y condiciones, preguntas frecuentes y créditos).
 
+### Idiomas (ES/EN)
+
+El sitio está en español e inglés. `scripts/i18n.js` decide el idioma (el guardado en `localStorage.idioma`; si no hay, el de la página; si no, el del navegador) y expone `tx()`. Los textos de los scripts se traducen con `tx("texto en español")` y el diccionario `scripts/traducciones-js-en.js`; el HTML del reloj, con `traducciones-html.js` + `traducir-dom.js`; los nombres de países y ciudades, con `mapa-nombres-en.js`; y cada módulo con tablas propias usa `{es:{}, en:{}}`. Las páginas internas en inglés son archivos aparte en `paginas/en/` (mismos ids y anclas). Al cambiar de idioma en el reloj se recarga la página; en las internas se navega a la página equivalente. Si se añade un texto nuevo en español, hay que añadir su entrada en inglés.
+
 ---
 
 ## Cómo ejecutarlo
@@ -64,13 +68,14 @@ node tools/empaquetar.js             # crea publicar/ con estilos y scripts unid
 
 ```text
 index.html                 reloj principal
-paginas/                   alcance, infografias, matematicas, soporte
+paginas/                   alcance, infografias, matematicas, soporte (en español)
+paginas/en/                las mismas cuatro páginas en inglés
 css/                       un archivo por capa o componente; tema.css define todas las variables de color;
                            fuentes.css declara la tipografía alojada
 fonts/                     Playfair Display (woff2) y su licencia OFL
 tools/                     auditar-rutas.js, empaquetar.js, generar-mapa.js (genera los datos del mapa)
 scripts/                   más de 80 módulos, agrupados por función:
-  núcleo                   atributos-eficientes, main, hora, hora-local, estado-tiempo, ubicacion, viajero, idioma, tema
+  núcleo                   atributos-eficientes, main, hora, hora-local, estado-tiempo, ubicacion, viajero, i18n, idioma, traducciones-js-en, traducciones-html, traducir-dom, mapa-nombres-en, tema
   astronomía               astronomia, efemerides-precisas (Meeus), efemerides-solares, planetas,
                            traslacion, eclipses, nodos-lunares, cometas/lluvias/asteroides-orbita
   dial y capas             marco, horizonte, luna-angulo, fase-lunar, cuerpos-horizonte,
@@ -109,7 +114,7 @@ El coste está en repintar el SVG (unos 2 000 elementos), no en el JavaScript. M
 
 ## Pendientes
 
-- Traducciones reales ES/EN (el control guarda el idioma, pero los textos están en español).
+- Revisión de las traducciones al inglés por una persona nativa, en especial Soporte (texto legal) y los titulares.
 - Revisión de privacidad y términos por un profesional del derecho (los textos ya están completos).
 - Medir con PageSpeed sobre el sitio publicado; ideas pendientes: reducir la frecuencia de dibujado y sustituir la animación de lluvias de meteoros, que repinta todo el SVG.
 
@@ -129,4 +134,4 @@ Sin librerías JavaScript. El único servicio externo es **Nominatim** (OpenStre
 
 ---
 
-**Última actualización:** 16 de octubre de 2026
+**Última actualización:** 15 de octubre de 2026

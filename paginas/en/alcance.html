@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AD ASTRA — Scope</title>
+    <script>try{var p=localStorage.getItem("tema-preferencia")||"auto",h=new Date().getHours();document.documentElement.dataset.tema=p==="auto"?(h>=6&&h<18?"dia":"noche"):p}catch(e){}</script>
+    <script>try{if(localStorage.getItem("idioma")==="es"){location.replace(location.pathname.replace(/\/paginas\/en\/([^\/]*)$/,"/paginas/$1")+location.search+location.hash)}}catch(e){}</script>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="../../css/fuentes.css" />
+    <link rel="stylesheet" href="../../css/base.css" />
+    <link rel="stylesheet" href="../../css/tema.css" />
+    <link rel="stylesheet" href="../../css/estructura.css" />
+    <link rel="stylesheet" href="../../css/menu-lateral.css" />
+    <link rel="stylesheet" href="../../css/alcance.css" />
+    <link rel="stylesheet" href="../../css/pie.css" />
+    <link rel="stylesheet" href="../../css/fondo-estrellas.css" />
+    <link rel="stylesheet" href="../../css/fondo-lavado.css" />
+    <script src="../../scripts/i18n.js" defer></script>
+    <script src="../../scripts/traducciones-js-en.js" defer></script>
+    <script src="../../scripts/astronomia.js" defer></script>
+    <script src="../../scripts/ubicacion.js" defer></script>
+    <script src="../../scripts/tema.js" defer></script>
+    <script src="../../scripts/idioma.js" defer></script>
+    <script src="../../scripts/menu-lateral-datos.js" defer></script>
+    <script src="../../scripts/menu-lateral.js" defer></script>
+  </head>
+  <body>
+    <div id="fondo-lavado" aria-hidden="true"></div>
+    <div id="fondo-estrellas" aria-hidden="true">
+      <div class="estrellas-fondo estrellas-a"></div>
+      <div class="estrellas-fondo estrellas-b"></div>
+    </div>
+    <div id="contenedor-app">
+      <header class="cabecera menu-secciones">
+        <a class="logo" href="../../index.html" aria-label="AD ASTRA, go to the Astrolabe"> <span class="logo-marca" aria-hidden="true"></span> <span>AD ASTRA</span> </a>
+           <nav class="nav-secciones" aria-label="Site navigation">
+          <a href="../../index.html">Astrolabe</a> <a href="alcance.html" class="activa" aria-current="page">Scope</a> <a href="matematicas.html">Mathematics</a> <a href="infografias.html">Infographics</a> <a href="soporte.html">Support</a>
+        </nav>
+        <div class="cabecera-acciones">
+          <button type="button" id="boton-idioma" class="boton-tema boton-idioma" title="Change language" aria-label="Change language">ES</button>
+          <div class="control-tema" role="group" aria-label="Color mode">
+            <button type="button" class="control-tema-opcion" data-tema-pref="auto">Auto</button>
+            <button type="button" class="control-tema-opcion" data-tema-pref="dia"><span class="icono-svg icono-dia" aria-hidden="true"></span></button>
+            <button type="button" class="control-tema-opcion" data-tema-pref="noche"><span class="icono-svg icono-noche" aria-hidden="true"></span></button>
+          </div>
+        </div>
+      </header>
+      <main>
+        <section class="hero">
+          <p class="hero-etiqueta">The limits of precision</p>
+          <h1 class="hero-titular">
+            Models, uncertainty and scope of the astronomical calculations.
+          </h1>
+        </section>
+
+        <div class="pagina-con-menu">
+          <nav class="menu-lateral" data-menu="alcance" data-titulo="Scope" data-descripcion="Models, uncertainty and limits of the astronomical calculations." aria-label="Scope contents"></nav>
+        <div class="contenido-pagina">
+
+          <!-- Introducción -->
+          <section class="alcance-introduccion" aria-labelledby="titulo-introduccion">
+            <h2 id="titulo-introduccion">The scope of our calculations</h2>
+
+            <p>
+              AD ASTRA combines mathematical and astronomical models to represent the motion of the celestial bodies and to calculate various celestial phenomena. The reliability of each result depends on the method used, the data available and the approximations inherent in the calculation.
+            </p>
+
+            <p>
+              This section documents the models used, their known precision, the sources of uncertainty and the limits of each process. The goal is to offer a transparent view of the project's capabilities and to provide the context needed to interpret its results.
+            </p>
+
+            <p class="alcance-destacado">
+              Knowing the limitations of a model is a fundamental part of understanding its results.
+            </p>
+          </section>
+
+          <!-- 01. Precisión e incertidumbre -->
+          <section id="precision" class="alcance-seccion">
+            <p class="seccion-etiqueta">01 — Fundamentals</p>
+            <h2>Precision, error and uncertainty</h2>
+
+            <p>
+              To interpret an astronomical result correctly, it is necessary to distinguish between the difference from a reference value, the uncertainty associated with the result, and the level of detail with which it is represented.
+            </p>
+
+            <div class="alcance-conceptos">
+              <article class="alcance-concepto">
+                <h3>Error</h3>
+                <p>
+                  Difference between a calculated result and a reference value, expressed in an appropriate unit.
+                </p>
+              </article>
+
+              <article class="alcance-concepto">
+                <h3>Uncertainty</h3>
+                <p>
+                  Estimate of the doubt associated with a result, taking into account the data, models and approximations used.
+                </p>
+              </article>
+
+              <article class="alcance-concepto">
+                <h3>Resolution</h3>
+                <p>
+                  Level of detail with which the system expresses or represents a result.
+                </p>
+              </article>
+            </div>
+
+            <aside class="alcance-nota">
+              <h3>A fundamental distinction</h3>
+              <p>
+                Showing more decimals does not guarantee that a result is more precise.
+              </p>
+            </aside>
+          </section>
+
+          <!-- 02. Modelos de cálculo -->
+          <section id="modelos" class="alcance-seccion">
+            <p class="seccion-etiqueta">02 — Methodology</p>
+            <h2>Calculation models</h2>
+
+            <p>
+              AD ASTRA uses two levels of calculation. The <strong>low-precision</strong> ones are compact formulas, enough to draw the clock and show general readings. The <strong>high-precision</strong> ones are used where an error of minutes or degrees would be visible: phases, events and eclipses. Neither claims to replace an official ephemeris.
+            </p>
+
+            <div class="alcance-tabla">
+              <table>
+                <thead>
+                  <tr><th>Element</th><th>Method</th><th>Source</th><th>Use in the project</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Sun (low precision)</td><td>Mean longitude and equation of the center</td><td>Almanac formulas</td><td>Drawing, altitude, solar time, equation of time, sunrise and sunset</td></tr>
+                  <tr><td>Sun (high precision)</td><td>Series with planetary perturbations and aberration</td><td>Meeus, ch. 25</td><td>Eclipses, phases and events</td></tr>
+                  <tr><td>Moon (low precision)</td><td>One main term in longitude and one in latitude</td><td>Almanac formulas</td><td>Orientation in the drawing and altitude above the horizon</td></tr>
+                  <tr><td>Moon (high precision)</td><td>Periodic series of 60 + 60 terms</td><td>Meeus, ch. 47</td><td>Phase, distance, eclipses and lunar events</td></tr>
+                  <tr><td>Phases and new moons</td><td>New moon instants by series, phases by searching for the exact elongation</td><td>Meeus, ch. 49 and 48</td><td>Events carousel, lunar calendar and Chinese calendar</td></tr>
+                  <tr><td>Eclipses</td><td>Shadow axis relative to the center of the Earth (simplified Besselian elements)</td><td>Own geometry on top of Meeus</td><td>Detection, class and instant of maximum</td></tr>
+                  <tr><td>Terrestrial time (ΔT)</td><td>Piecewise polynomials</td><td>Espenak and Meeus</td><td>UTC → TT conversion in high-precision calculations</td></tr>
+                  <tr><td>Planets</td><td>Keplerian elements and Kepler's equation</td><td>JPL (Standish), Table 1</td><td>Solar System view (heliocentric positions)</td></tr>
+                  <tr><td>Chinese calendar</td><td>New moons, solstice and solar terms; Beijing time</td><td>Rules of the official calendar</td><td>Lunar New Year and fraction of the year</td></tr>
+                  <tr><td>Comets</td><td>Approximate orbital elements</td><td>Tabulated data</td><td>Qualitative view of orbits</td></tr>
+                  <tr><td>Asteroid belt</td><td>Decorative distribution (170 rocks)</td><td>—</td><td>Illustration only, does not represent real asteroids</td></tr>
+                  <tr><td>Land outlines</td><td>110 m land mask</td><td>Natural Earth</td><td>Maps and location selection</td></tr>
+                  <tr><td>Place name</td><td>Reverse geocoding</td><td>OpenStreetMap / Nominatim</td><td>Label of the chosen location</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p class="alcance-aclaracion">
+              The lunar outlines are simplified: they are for recognizing the region, not for lunar cartography.
+            </p>
+          </section>
+
+          <!-- 03. Precisión por fenómeno -->
+          <section id="fenomenos" class="alcance-seccion">
+            <p class="seccion-etiqueta">03 — Evaluation</p>
+            <h2>Precision by phenomenon</h2>
+
+            <p>
+              Each calculation has its own sources of uncertainty, which is why precision is documented separately. The figures below are differences measured against an independent reference (see section 05), not guarantees about the real world.
+            </p>
+
+            <div class="alcance-fenomenos">
+
+              <article class="alcance-fenomeno">
+                <h3>The Sun</h3>
+                <p>
+                  Low-precision declination and right ascension.
+                </p>
+                <p class="fenomeno-cifra">Up to 0.016° (≈ 1′) between 1900 and 2100.</p>
+                <a href="#modelos">Method and sources</a>
+              </article>
+
+              <article class="alcance-fenomeno">
+                <h3>The Moon</h3>
+                <p>
+                  Low-precision position (drawing and altitude) and high-precision position (events).
+                </p>
+                <p class="fenomeno-cifra">Low: median 0.3°–0.8°, up to 2.7°. High: about 15″ at most in longitude.</p>
+                <a href="#modelos">Method and sources</a>
+              </article>
+
+              <article class="alcance-fenomeno">
+                <h3>Lunar phases</h3>
+                <p>
+                  Illuminated fraction and moment of the phases with the high-precision model.
+                </p>
+                <p class="fenomeno-cifra">New moon: up to 1.6 min. Illumination: less than 0.02 percentage points.</p>
+                <a href="#modelos">Method and sources</a>
+              </article>
+
+              <article class="alcance-fenomeno">
+                <h3>Eclipses</h3>
+                <p>
+                  Date, class and instant of maximum.
+                </p>
+                <p class="fenomeno-cifra">24 of 24 eclipses from 2026–2030 with the correct date and class; maximum within 30 s of NASA.</p>
+                <a href="#validacion">How it was validated</a>
+              </article>
+
+              <article class="alcance-fenomeno">
+                <h3>Clock and analemma</h3>
+                <p>
+                  Solar time, equation of time, sunrise and sunset.
+                </p>
+                <p class="fenomeno-cifra">Equation of time: up to 4 s. Sunrise and sunset: up to 15 s against the reference, with the same horizon criterion.</p>
+                <a href="#condiciones">Conditions of use</a>
+              </article>
+
+              <article class="alcance-fenomeno">
+                <h3>Planets</h3>
+                <p>
+                  Heliocentric position from Keplerian elements.
+                </p>
+                <p class="fenomeno-cifra">Median of 0.08° or less between 1800 and 2050. Saturn is the worst case.</p>
+                <a href="#condiciones">Validity range</a>
+              </article>
+
+              <article class="alcance-fenomeno">
+                <h3>Chinese calendar</h3>
+                <p>
+                  Lunar New Year and fraction of the year, with series-based new moons and a low-precision solstice.
+                </p>
+                <p class="fenomeno-cifra">Not validated end to end. The solstice can vary by up to 17 min; it only matters if it falls close to Beijing midnight.</p>
+                <a href="#validacion">Known limitations</a>
+              </article>
+            </div>
+
+            <p class="alcance-aclaracion">
+              The low-precision Moon figures do not include parallax: the altitude above the horizon can differ by up to about 1° more.
+            </p>
+          </section>
+
+          <!-- 04. Límites temporales y geográficos -->
+          <section id="condiciones" class="alcance-seccion">
+            <p class="seccion-etiqueta">04 — Calculation conditions</p>
+            <h2>Time and geographic limits</h2>
+
+            <p>
+              The results depend on the interval covered by each model, on the coordinates and on how time is handled. The date selector does not prevent choosing any year, but outside these intervals reliability decreases.
+            </p>
+
+            <div class="alcance-conceptos">
+              <article class="alcance-concepto">
+                <h3>Time interval</h3>
+                <p>
+                  High precision: designed for 1900–2150, with good measured agreement up to 2300. Before ~1890 the error grows quickly (≈ 18′ for the Moon in 1850 and several degrees around 1800) because ΔT is extrapolated. Planets: valid between 1800 and 2050; before 1800 the error reaches tens of degrees for Mercury.
+                </p>
+              </article>
+
+              <article class="alcance-concepto">
+                <h3>Time (ΔT)</h3>
+                <p>
+                  After 2050, ΔT is a prediction, not a measurement. An uncertainty of 100 s shifts the path of an eclipse by some tens of kilometers and its local time proportionally.
+                </p>
+              </article>
+
+              <article class="alcance-concepto">
+                <h3>Time zone</h3>
+                <p>
+                  With a real location, the device's time zone is used, with daylight saving time. With a manual location it is estimated from longitude (lon ÷ 15, rounded), without daylight saving time or political time zones.
+                </p>
+              </article>
+
+              <article class="alcance-concepto">
+                <h3>Sunrise and sunset</h3>
+                <p>
+                  The crossing at −0.833° at sea level is calculated. It does not include terrain, observer altitude or real refraction; the observed time can differ by minutes, especially at high latitudes, and in the polar region the state is reported (midnight Sun or polar night).
+                </p>
+              </article>
+
+              <article class="alcance-concepto">
+                <h3>Position of the Moon</h3>
+                <p>
+                  The altitude is geocentric: it does not correct for parallax or refraction.
+                </p>
+              </article>
+
+              <article class="alcance-concepto">
+                <h3>Best place to observe</h3>
+                <p>
+                  It considers the geometry and phase of the Moon, not cloud cover or light pollution.
+                </p>
+              </article>
+            </div>
+          </section>
+
+          <!-- 05. Validación -->
+          <section id="validacion" class="alcance-seccion">
+            <p class="seccion-etiqueta">05 — Verification</p>
+            <h2>Validation and known limitations</h2>
+
+            <p>
+              The tests were carried out in October 2026 by comparing the project's code with the <em>ephem</em> astronomy library (version 4.2.1) and with NASA's eclipse catalog (Espenak).
+            </p>
+
+            <div class="alcance-tabla">
+              <table>
+                <thead>
+                  <tr><th>Test</th><th>Sample</th><th>Result</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Sun and Moon, low and high precision</td><td>400 random instants per interval (2000–2050, 1900–2100, 1800–2200)</td><td>Figures from section 03</td></tr>
+                  <tr><td>Phase and new moons</td><td>143 new moons between 1975 and 2057</td><td>High precision: ≤ 1.6 min. Mean cycle: up to 17.6 h</td></tr>
+                  <tr><td>Sunrise and sunset</td><td>6 cities × 6 dates, between 55° S and 65° N</td><td>≤ 15 s with the same horizon criterion</td></tr>
+                  <tr><td>Eclipses 2026–2030</td><td>24 eclipses (12 solar and 12 lunar)</td><td>24 with the correct date and class; maximum ≤ 30 s from NASA</td></tr>
+                  <tr><td>Planets</td><td>60 instants per interval</td><td>Median ≤ 0.08° in 1800–2050</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p>
+              Part of the difference for the high-precision Sun may be due to different conventions (nutation and aberration), not only to model error. The references use their own ΔT scales, so agreement far from the present is not independent truth.
+            </p>
+
+            <div class="alcance-nota">
+              <h3>What has not been validated</h3>
+              <p>
+                Comets and meteor showers (approximate view), magnitude and path of eclipses, the full Chinese calendar, local times of the contacts of an eclipse, the lunar outlines and the accuracy of the land map.
+              </p>
+            </div>
+
+            <ul class="alcance-lista">
+              <li>The asteroid belt is decorative.</li>
+              <li>Comet passage dates were entered by hand and checked against external sources in October 2026 (e.g. <a href="https://science.nasa.gov/solar-system/comets/2p-encke/" target="_blank" rel="noopener">NASA Science, 2P/Encke</a>). The brightness and timing of a comet are uncertain.</li>
+              <li>The orientation and altitude of the Moon use the low-precision model, with the differences indicated above.</li>
+              <li>Geocoding depends on an external service (Nominatim) and may fail or be slow.</li>
+            </ul>
+          </section>
+
+          <!-- 06. Fuentes -->
+          <section id="referencias" class="alcance-seccion">
+            <p class="seccion-etiqueta">06 — Documentation</p>
+            <h2>Sources and references</h2>
+
+            <p>
+              These sources identify the models, methods and data used in AD ASTRA's calculations.
+            </p>
+
+            <ul class="alcance-referencias">
+              <li>
+                <span>01</span>
+                <div>
+                  <h3>Meeus, J. — <em>Astronomical Algorithms</em></h3>
+                  <p>Chapters 25 (Sun), 47 (Moon), 48 (phase) and 49 (lunar phases). Basis of the high-precision calculations.</p>
+                </div>
+              </li>
+              <li>
+                <span>02</span>
+                <div>
+                  <h3>JPL — Standish, <em>Keplerian Elements for Approximate Positions of the Major Planets</em></h3>
+                  <p>Table 1, valid 1800–2050. Heliocentric positions of the planets.</p>
+                </div>
+              </li>
+              <li>
+                <span>03</span>
+                <div>
+                  <h3>Espenak and Meeus — ΔT</h3>
+                  <p>Polynomials for the difference between terrestrial time and universal time.</p>
+                </div>
+              </li>
+              <li>
+                <span>04</span>
+                <div>
+                  <h3>NASA — Eclipse catalog (Espenak)</h3>
+                  <p>Comparison reference for solar and lunar eclipses 2026–2030.</p>
+                </div>
+              </li>
+              <li>
+                <span>05</span>
+                <div>
+                  <h3>PyEphem (<em>ephem</em> 4.2.1)</h3>
+                  <p>Independent reference for positions, phases, seasons, and sunrise and sunset.</p>
+                </div>
+              </li>
+              <li>
+                <span>06</span>
+                <div>
+                  <h3>Natural Earth, OpenStreetMap and Nominatim</h3>
+                  <p>110 m land outlines and reverse geocoding of the chosen place.</p>
+                </div>
+              </li>
+            </ul>
+          </section>
+
+          <!-- Cierre -->
+          <footer class="alcance-cierre">
+            <p class="seccion-etiqueta">AD ASTRA</p>
+            <h2>To understand also means to recognize the limits.</h2>
+            <p>
+              The responsible interpretation of a result begins with knowing the model that produces it, its conditions of validity and the associated uncertainty.
+            </p>
+          </footer>
+
+        </div>
+        </div>
+      </main>
+      <footer id="pie" class="pie pie-minimo">
+        <div class="pie-final">
+          <span>© 2026 Moisés Soriano · AD ASTRA · All rights reserved</span>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

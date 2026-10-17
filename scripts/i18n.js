@@ -6,7 +6,7 @@
 //   tx("texto"), tx`texto ${x}`   traducen textos escritos por scripts (diccionario en traducciones-js-en.js)
 //   rutaPagina("infografias.html#x")  ruta desde index.html a una página interna, en el idioma activo
 //   urlPaginaEquivalente(idioma)      en una página interna: URL de su versión en el otro idioma (null en index)
-// El idioma se guarda en localStorage ("idioma"). Sin preferencia guardada: el de la página (/paginas/en/ = inglés) o el del navegador.
+// El idioma se guarda en localStorage ("idioma"). Sin preferencia guardada: el de la página (/paginas/en/ = inglés) o el del navegador (en ese caso se guarda en la primera visita).
 
 const IDIOMAS = ["es", "en"];
 const LOCALES = { es: "es", en: "en-US" };
@@ -24,7 +24,9 @@ let idiomaActivo = (() => {
   if (IDIOMAS.includes(guardado)) return guardado;
   if (esPaginaIngles()) return "en";
   if (esPaginaInterna()) return "es";
-  return /^es/i.test(navigator.language || "es") ? "es" : "en";
+  const detectado = /^es/i.test(navigator.language || "es") ? "es" : "en";
+  try { localStorage.setItem("idioma", detectado); } catch (e) { /* sin almacenamiento: se detecta en cada carga */ }
+  return detectado;
 })();
 
 function idiomaActual() {
